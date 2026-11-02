@@ -1,0 +1,29 @@
+---
+/** Acordeão de perguntas frequentes (o JSON-LD FAQPage é montado na página com os mesmos textos). */
+interface Props {
+  anchor: string;
+  eyebrow: string;
+  title: string;
+  items: { q: string; a: string }[];
+}
+const { anchor, eyebrow, title, items } = Astro.props;
+---
+<section class="section section--light" id={anchor} aria-labelledby={`${anchor}-title`}>
+  <div class="container">
+    <div class="reveal">
+      <span class="eyebrow" set:html={eyebrow} />
+      <h2 id={`${anchor}-title`} style="margin-bottom:1.75rem" set:html={title} />
+      <div class="faq">
+        {items.map((item, i) => (
+          <div class="faq-item">
+            <button class="faq-item__q" aria-expanded="false">
+              <span><span class="faq-item__num">{i + 1}.</span><Fragment set:html={item.q} /></span>
+              <svg class="icon-chevron" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 7l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="faq-item__a"><div class="faq-item__a-inner" set:html={item.a} /></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

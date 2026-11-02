@@ -1,0 +1,24 @@
+---
+/** CTA final com foto de fundo (variável --cta-bg). */
+import CtaButton from './CtaButton.astro';
+
+interface Props {
+  anchor: string;
+  formAnchor: string;
+  /** Valor CSS da foto, ex.: imageSet('/assets/lp/eb2-niw/cta-final') */
+  background: string;
+  eyebrow: string;
+  title: string;
+  ledes: { strong: boolean; html: string }[];
+  cta: string;
+}
+const { anchor, formAnchor, background, eyebrow, title, ledes, cta } = Astro.props;
+---
+<section class="cta-band" id={anchor} aria-labelledby={`${anchor}-title`} style={`--cta-bg: ${background}`}>
+  <div class="container reveal">
+    <span class="eyebrow" set:html={eyebrow} />
+    <h2 id={`${anchor}-title`} set:html={title} />
+    {ledes.map((p) => <p class:list={['lede', { 'lede--strong': p.strong }]} set:html={p.html} />)}
+    <CtaButton href={`#${formAnchor}`} html={cta} />
+  </div>
+</section>

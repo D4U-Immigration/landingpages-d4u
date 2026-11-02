@@ -1,0 +1,13 @@
+---
+interface Props {
+  html: string;
+  /** Idioma do parágrafo quando difere da página (ex.: disclaimer em inglês) */
+  lang?: string;
+}
+const { html, lang } = Astro.props;
+---
+<footer class="site-footer">
+  <div class="container">
+    <p lang={lang || undefined} set:html={html} />
+  </div>
+</footer>

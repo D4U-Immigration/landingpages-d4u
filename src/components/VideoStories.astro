@@ -1,0 +1,27 @@
+---
+/**
+ * Grade de vídeos do YouTube (só a capa carrega; o iframe abre num popup — scripts/lp.js)
+ * e botão para a playlist. O popup fica no componente VideoModal.
+ */
+import ArrowIcon from './ArrowIcon.astro';
+
+interface Props {
+  videos: { id: string; label: string }[];
+  moreHref: string;
+  more: string;
+}
+const { videos, moreHref, more } = Astro.props;
+---
+<div class="reveal video-grid">
+  {videos.map((v) => (
+    <div class="video-embed" data-video={v.id}>
+      <img src={`https://img.youtube.com/vi/${v.id}/mqdefault.jpg`} alt="" width="320" height="180" loading="lazy" decoding="async">
+      <button type="button" class="video-embed__play" aria-label={v.label}>
+        <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M8 5.5v13l11-6.5-11-6.5z" fill="currentColor"/></svg>
+      </button>
+    </div>
+  ))}
+</div>
+<div class="reveal video-more">
+  <a href={moreHref} target="_blank" rel="noopener" class="btn btn--ghost"><span set:html={more} /><ArrowIcon /></a>
+</div>

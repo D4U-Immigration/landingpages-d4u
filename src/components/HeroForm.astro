@@ -1,0 +1,36 @@
+---
+/**
+ * Card do formulário HubSpot no hero (embed v2 — padrão do catálogo oficial de forms).
+ * O script v2.js é carregado no <head> pelo BaseLayout (prop hubspotForm).
+ * O Lead é registrado pelo loader de tracking; não chamar pmaTrack aqui.
+ */
+import { HUBSPOT_PORTAL_ID, HUBSPOT_REGION } from 'astro:env/server';
+
+interface Props {
+  anchor: string;
+  formId: string;
+  /** Texto do selo giratório (ex.: "ANÁLISE 100% GRATUITA •") */
+  seal: string;
+}
+const { anchor, formId, seal } = Astro.props;
+const portalId = HUBSPOT_PORTAL_ID;
+const region = HUBSPOT_REGION;
+---
+<div class="hero-form" id={anchor}>
+  <div class="seal" aria-hidden="true">
+    <svg class="seal__ring" viewBox="0 0 100 100">
+      <defs><path id="sealPath" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs>
+      <text><textPath href="#sealPath" textLength="232" lengthAdjust="spacing">{seal}</textPath></text>
+    </svg>
+    <span class="seal__center">
+      <svg viewBox="0 0 20 20" width="22" height="22"><path d="M5 10.5l3.2 3.2L15 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </span>
+  </div>
+  <div class="hs-form-v2" id="hsForm"></div>
+  <script is:inline define:vars={{ region, portalId, formId }}>
+    window.addEventListener('DOMContentLoaded', function () {
+      if (!window.hbspt) return;
+      hbspt.forms.create({ region: region, portalId: portalId, formId: formId, target: "#hsForm" });
+    });
+  </script>
+</div>

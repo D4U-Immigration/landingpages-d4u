@@ -1,0 +1,13 @@
+---
+/** Botão de CTA que rola até o formulário do hero (todos os CTAs têm data-cta). */
+import ArrowIcon from './ArrowIcon.astro';
+
+interface Props {
+  href: string;
+  html: string;
+  small?: boolean;
+  arrow?: boolean;
+}
+const { href, html, small = false, arrow = true } = Astro.props;
+---
+<a href={href} data-cta class:list={['btn btn-primary', { 'btn--sm': small }]}><span set:html={html} />{arrow && <ArrowIcon />}</a>

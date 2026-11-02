@@ -1,0 +1,32 @@
+---
+/**
+ * Faixa de prêmios e certificações (marquee infinito). As imagens só carregam quando a
+ * faixa se aproxima da tela (data-src, tratado em scripts/lp.js).
+ * `alts` segue a ordem de AWARDS.
+ */
+const AWARDS: [string, number][] = [
+  ['gptw-2022-2023', 170], ['gptw-2023-2024', 170], ['gptw-2024-2025', 170], ['gptw-2025-2026', 170], ['gptw-2026-2027', 170],
+  ['ibm-award-2025', 242],
+  ['ai-awards-2021', 235], ['ai-awards-2022', 235], ['ai-awards-2023', 235], ['ai-awards-2024', 235], ['ai-awards-2025', 235],
+  ['procon-sp', 251], ['rsm-91', 214],
+];
+const PIXEL = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+
+interface Props {
+  label: string;
+  alts: string[];
+}
+const { label, alts } = Astro.props;
+if (alts.length !== AWARDS.length) throw new Error(`Awards: esperado ${AWARDS.length} textos alternativos, recebido ${alts.length}`);
+---
+<section class="awards" aria-label={label}>
+  <div class="awards__marquee">
+    {[false, true].map((copy) => (
+      <ul class="awards__track" aria-hidden={copy ? 'true' : undefined}>
+        {AWARDS.map(([file, width], i) => (
+          <li><picture><source data-srcset={`/assets/shared/premios/${file}.webp`} type="image/webp"><img data-src={`/assets/shared/premios/${file}.png`} src={PIXEL} alt={copy ? '' : alts[i]} width={width} height="240" decoding="async"></picture></li>
+        ))}
+      </ul>
+    ))}
+  </div>
+</section>

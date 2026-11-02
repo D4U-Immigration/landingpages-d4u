@@ -1,0 +1,13 @@
+---
+/** Barra de CTA fixa no celular (aparece quando o hero sai da tela — scripts/base.js). */
+import CtaButton from './CtaButton.astro';
+
+interface Props {
+  formAnchor: string;
+  cta: string;
+}
+const { formAnchor, cta } = Astro.props;
+---
+<div class="sticky-cta" id="stickyCta">
+  <CtaButton href={`#${formAnchor}`} html={cta} arrow={false} />
+</div>

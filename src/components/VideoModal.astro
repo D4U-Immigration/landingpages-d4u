@@ -1,0 +1,15 @@
+---
+interface Props {
+  label: string;
+  closeLabel: string;
+}
+const { label, closeLabel } = Astro.props;
+---
+<div class="video-modal" id="videoModal" role="dialog" aria-modal="true" aria-label={label} aria-hidden="true">
+  <div class="video-modal__dialog">
+    <button type="button" class="video-modal__close" aria-label={closeLabel}>
+      <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+    </button>
+    <div class="video-modal__frame"></div>
+  </div>
+</div>

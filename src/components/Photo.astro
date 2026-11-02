@@ -1,0 +1,15 @@
+---
+/** Foto com WebP + fallback JPG. `src` sem extensão, ex.: "/assets/lp/eb2-niw/o-que-e". */
+interface Props {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  class?: string;
+}
+const { src, alt, width = 1200, height = 800, class: cls } = Astro.props;
+---
+<picture>
+  <source srcset={`${src}.webp`} type="image/webp">
+  <img class={cls} src={`${src}.jpg`} alt={alt} width={width} height={height} loading="lazy" decoding="async">
+</picture>

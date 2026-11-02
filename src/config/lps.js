@@ -1,0 +1,21 @@
+// Registro das LPs publicadas: idiomas disponíveis, formulário HubSpot por idioma
+// (catálogo oficial de forms — embed v2) e o resumo usado no /llms.txt.
+
+export const LPS = {
+  'eb2-niw': {
+    name: 'Visto EB-2 NIW',
+    locales: ['pt-br', 'en', 'es'],
+    forms: {
+      'pt-br': '91794fe9-8c62-438f-b134-bbc3bf4e65d0',
+      en: 'd5e3a02c-fe22-4406-b8a1-8a82243053e1',
+      es: '7df2971e-59fe-4e84-888b-d12d1d1e39d4',
+    },
+    // URLs antigas (estrutura /lp/{nome}/{idioma}/) que redirecionam para a nova
+    legacy: true,
+    llms: {
+      'pt-br': 'O que é o EB-2 NIW, quem pode considerar, requisitos (formação acadêmica avançada ou habilidade excepcional), vantagens, perfis compatíveis e perguntas frequentes sobre essa categoria de imigração baseada em emprego que pode levar ao Green Card.',
+      en: 'What the EB-2 NIW is, who may consider it, requirements (advanced degree or exceptional ability), benefits, eligible profiles and frequently asked questions about this employment-based immigration category that can lead to a Green Card.',
+      es: 'Qué es la EB-2 NIW, quién puede considerarla, requisitos (formación académica avanzada o habilidad excepcional), ventajas, perfiles compatibles y preguntas frecuentes sobre esta categoría de inmigración basada en el empleo que puede conducir a la Green Card.',
+    },
+  },
+};

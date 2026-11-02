@@ -1,0 +1,99 @@
+---
+/**
+ * Layout base de toda LP/ebook: <head> completo (tracking, SEO, Open Graph, hreflang,
+ * JSON-LD, fontes) e o <body> com barra de progresso de leitura.
+ */
+import { SITE_URL, TRACKING_LOADER_URL } from 'astro:env/server';
+import { LOCALES, DEFAULT_LOCALE } from '../config/locales.js';
+import '../styles/base.css';
+import '../styles/components.css';
+
+interface Props {
+  locale: keyof typeof LOCALES;
+  /** Caminho da página sem o idioma, ex.: "eb2-niw/" */
+  path: string;
+  /** Idiomas em que esta página existe (para hreflang) */
+  locales: (keyof typeof LOCALES)[];
+  title: string;
+  description: string;
+  ogTitle: string;
+  ogImage: string;
+  ogImageAlt: string;
+  /** Imagem do hero carregada com prioridade */
+  preloadImage?: string;
+  /** Carrega o embed v2 do HubSpot (js.hsforms.net/forms/embed/v2.js) */
+  hubspotForm?: boolean;
+  /** Domínios extras para preconnect (ex.: img.youtube.com) */
+  preconnect?: string[];
+  jsonLd?: object;
+}
+
+const { locale, path, locales, title, description, ogTitle, ogImage, ogImageAlt, preloadImage, hubspotForm = false, preconnect = [], jsonLd } = Astro.props;
+const site = SITE_URL.replace(/\/$/, '');
+const urlFor = (l: string) => `${site}/${l}/${path}`;
+const canonical = urlFor(locale);
+const ogImageUrl = ogImage.startsWith('http') ? ogImage : site + ogImage;
+const fonts = 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap';
+const favicon = 'https://d4uimmigration.com/wp-content/uploads/2025/04/favicon.png';
+---
+<!doctype html>
+<html lang={LOCALES[locale].htmlLang} class="no-js">
+<head>
+<meta charset="UTF-8">
+<script is:inline>document.documentElement.className = document.documentElement.className.replace("no-js", "js");</script>
+<!-- Tracking D4U: o loader já registra sozinho o Lead do form HubSpot (v2 e v4), com dedup por sessão — não chamar pmaTrack('Lead') manualmente. -->
+<script is:inline src={TRACKING_LOADER_URL} async></script>
+{hubspotForm && <script is:inline src="https://js.hsforms.net/forms/embed/v2.js" defer></script>}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{title}</title>
+<meta name="description" content={description}>
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#1F2A44">
+
+<link rel="icon" href={favicon} sizes="32x32">
+<link rel="icon" href={favicon} sizes="192x192">
+<link rel="apple-touch-icon" href={favicon}>
+
+<link rel="canonical" href={canonical}>
+{locales.map((l) => <link rel="alternate" hreflang={LOCALES[l].hreflang} href={urlFor(l)}>)}
+{locales.includes(DEFAULT_LOCALE) && <link rel="alternate" hreflang="x-default" href={urlFor(DEFAULT_LOCALE)}>}
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content={LOCALES[locale].og}>
+{locales.filter((l) => l !== locale).map((l) => <meta property="og:locale:alternate" content={LOCALES[l].og}>)}
+<meta property="og:site_name" content="D4U Immigration">
+<meta property="og:title" content={ogTitle}>
+<meta property="og:description" content={description}>
+<meta property="og:url" content={canonical}>
+<meta property="og:image" content={ogImageUrl}>
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content={ogImageAlt}>
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content={ogTitle}>
+<meta name="twitter:description" content={description}>
+<meta name="twitter:image" content={ogImageUrl}>
+
+{hubspotForm && <link rel="preconnect" href="https://js.hsforms.net">}
+{preconnect.map((href) => <link rel="preconnect" href={href}>)}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href={fonts}>
+<link rel="stylesheet" href={fonts} media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href={fonts}></noscript>
+{preloadImage && <link rel="preload" as="image" href={preloadImage} type="image/webp" fetchpriority="high">}
+
+{jsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd, null, 2)} />}
+</head>
+<body>
+
+<div class="read-progress" aria-hidden="true"></div>
+
+<slot />
+
+<script>
+  import '../scripts/base.js';
+  import '../scripts/lp.js';
+</script>
+</body>
+</html>

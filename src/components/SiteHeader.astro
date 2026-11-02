@@ -1,0 +1,17 @@
+---
+import CtaButton from './CtaButton.astro';
+
+interface Props {
+  formAnchor: string;
+  cta: string;
+}
+const { formAnchor, cta } = Astro.props;
+---
+<header class="site-header">
+  <div class="container">
+    <a href="https://d4uimmigration.com" class="site-header__logo" aria-label="D4U Immigration">
+      <img src="https://d4uimmigration.com/wp-content/themes/d4u/assets/images/2025/Logo_D4U_cb2.svg" alt="D4U Immigration" height="32">
+    </a>
+    <CtaButton href={`#${formAnchor}`} html={cta} small arrow={false} />
+  </div>
+</header>
