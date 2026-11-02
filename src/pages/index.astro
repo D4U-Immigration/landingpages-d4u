@@ -41,12 +41,15 @@ const posts = [
   { img: 'https://d4uimmigration.com/wp-content/uploads/2026/07/D4U_PT_USA_0007__o_que_e_o_advance_parole_e_quem_realmente_pode_via-1.png', alt: 'Advance Parole: quem pode viajar e como evitar o abandono do I-485', title: 'Advance Parole: quem pode viajar e quais são os riscos?', href: 'https://d4uimmigration.com/pt-br/imigracao/advance-parole-quem-pode-viajar-e-como-evitar-o-abandono-do-i-485' },
 ];
 
+// Agenda: "end" é o último dia do evento (AAAA-MM-DD). Eventos encerrados saem no build e também
+// somem no navegador no dia seguinte ao fim (script no fim da página), mesmo sem novo deploy.
+const today = new Date().toISOString().slice(0, 10);
 const events = [
-  { date: '05 e 06 de setembro', label: 'Porsche Cup Brasil — Sprint Interlagos' },
-  { date: '07 e 08 de novembro', label: 'Porsche Cup Brasil — Sprint Interlagos (F1)' },
-  { date: '14 de novembro', label: '4º Encontro de Mobilidade Global — São Paulo', href: lpUrl('4encontrodemobilidade') },
-  { date: '28 de novembro', label: 'Porsche Cup Brasil — Endurance Interlagos' },
-];
+  { date: '05 e 06 de setembro', end: '2026-09-06', label: 'Porsche Cup Brasil — Sprint Interlagos' },
+  { date: '07 e 08 de novembro', end: '2026-11-08', label: 'Porsche Cup Brasil — Sprint Interlagos (F1)' },
+  { date: '14 de novembro', end: '2026-11-14', label: '4º Encontro de Mobilidade Global — São Paulo', href: lpUrl('4encontrodemobilidade') },
+  { date: '28 de novembro', end: '2026-11-28', label: 'Porsche Cup Brasil — Endurance Interlagos' },
+].filter((e) => e.end >= today);
 
 const contactSales = [
   { icon: 'globe', href: 'https://d4uimmigration.com', label: 'Site: d4uimmigration.com', external: true },
@@ -236,8 +239,9 @@ const jsonLd = {
     </div>
   </div>
 
-  <!-- Eventos -->
-  <section class="bio-hero bio-rule reveal">
+  <!-- Eventos (a seção some quando não há evento futuro) -->
+  {events.length > 0 && (
+  <section class="bio-hero bio-rule reveal" data-events>
     <span class="bio-hero__tag">
       <svg class="bio-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={ICONS.pin} />
       São Paulo
@@ -245,13 +249,14 @@ const jsonLd = {
     <h2>Encontre a D4U presencialmente</h2>
     <ol class="bio-timeline">
       {events.map((e) => (
-        <li>
+        <li data-end={e.end}>
           <span class="bio-timeline__date">{e.date}</span>
           {e.href ? <a class="bio-timeline__label" href={e.href}>{e.label}</a> : <span class="bio-timeline__label">{e.label}</span>}
         </li>
       ))}
     </ol>
   </section>
+  )}
 
   <!-- Fale com a D4U / Já é cliente -->
   {[
@@ -321,6 +326,13 @@ const jsonLd = {
 </a>
 
 <script>
+  /* Agenda: esconde eventos encerrados depois do deploy (data local do visitante) e a seção, se esvaziar */
+  const d = new Date();
+  const today = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  document.querySelectorAll<HTMLElement>('[data-end]').forEach((li) => { if (li.dataset.end! < today) li.remove(); });
+  const agenda = document.querySelector('[data-events]');
+  if (agenda && !agenda.querySelector('[data-end]')) agenda.remove();
+
   /* Swipers laterais (Serviços / Blog): setas avançam um cartão, com volta ao início/fim */
   document.querySelectorAll<HTMLElement>('[data-swiper]').forEach((swiper) => {
     const track = swiper.querySelector<HTMLElement>('.bio-swiper__track')!;
