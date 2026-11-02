@@ -58,7 +58,7 @@ Copie `.env.example` para `.env` se precisar mudar algo. Todas têm valor padrã
 ## Regras das páginas
 
 - **Textos literais:** o conteúdo vem do PDF/briefing aprovado — não acrescentar nem remover informação.
-- **Tracking:** o `BaseLayout` já inclui o loader. Ele registra sozinho o Lead dos forms HubSpot, `tel:`, `mailto:` e WhatsApp — **não** chamar `pmaTrack('Lead')` manualmente nesses casos (duplica o lead).
+- **Tracking:** o `BaseLayout` já inclui o loader, carregado na primeira interação ou 5 s após o carregamento (decisão de desempenho de 2026-11-02; o Lead do form não é afetado). Ele registra sozinho o Lead dos forms HubSpot, `tel:`, `mailto:` e WhatsApp — **não** chamar `pmaTrack('Lead')` manualmente nesses casos (duplica o lead).
 - **Formulários:** IDs do catálogo oficial de forms HubSpot, em `src/config/lps.js`, sempre com embed v2 (`hbspt.forms.create`).
 - **Nomes que não quebram linha:** nomes de visto e siglas (`EB-2 NIW`, `EE. UU.`) vão em `<span class="nowrap">`. Dentro de botões, `h1` em coluna e checklist, o texto inteiro precisa estar num único `<span>` (os componentes já fazem isso).
 - **Imagens:** fotos do Pexels, em WebP + JPG, com `width`/`height` e `loading="lazy"` abaixo da dobra. Depois de adicionar fotos, rode `npm run images`.
@@ -68,6 +68,8 @@ Copie `.env.example` para `.env` se precisar mudar algo. Todas têm valor padrã
 - **Sem fonte nem CSS de terceiros:** a Montserrat é servida de `public/assets/fonts/` (licença SIL OFL), pré-carregada, com fallback de métricas ajustadas para o texto não pular. O CSS vai embutido no HTML.
 - **Formulário HubSpot sob demanda:** o script do HubSpot só carrega na primeira interação (rolar, tocar, mover o mouse, teclar) ou se a URL vier com a âncora do form. O espaço do form fica reservado (`#hsForm` em `components.css`) — se um form novo tiver altura diferente, ajuste esses valores para não haver deslocamento de layout.
 - **Hero:** foto leve (`hero-bg-800.webp`) no celular, pré-carregada por media query.
+- **Tracking adiado:** o loader (GA4 + pixel da Meta) entra na primeira interação ou 5 s após o load. Visitas de menos de 5 s sem nenhum toque/rolagem podem não aparecer no GA4/Meta.
+- **Resultado (Lighthouse, 2026-11-02, EB-2 NIW nos 3 idiomas):** 100/100/100/100 no celular e no desktop.
 - **No servidor de produção:** ativar gzip/brotli e cache longo (`Cache-Control: public, max-age=31536000, immutable`) para `/_astro/` e `/assets/`.
 
 ## Como adicionar uma LP

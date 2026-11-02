@@ -40,8 +40,26 @@ const favicon = 'https://d4uimmigration.com/wp-content/uploads/2025/04/favicon.p
 <head>
 <meta charset="UTF-8">
 <script is:inline>document.documentElement.className = document.documentElement.className.replace("no-js", "js");</script>
-<!-- Tracking D4U: o loader já registra sozinho o Lead do form HubSpot (v2 e v4), com dedup por sessão — não chamar pmaTrack('Lead') manualmente. -->
-<script is:inline src={TRACKING_LOADER_URL} async></script>
+<!-- Tracking D4U: o loader já registra sozinho o Lead do form HubSpot (v2 e v4), com dedup por sessão — não chamar pmaTrack('Lead') manualmente.
+     Desempenho (decisão de 2026-11-02): o loader (GA4 + pixel da Meta) carrega na primeira interação ou 5 s após o load.
+     O Lead não é afetado: enviar o form exige interação, e o loader captura o envio por evento. -->
+<script is:inline define:vars={{ loaderUrl: TRACKING_LOADER_URL }}>
+  (function () {
+    var EVENTS = ['scroll', 'pointerdown', 'pointermove', 'touchstart', 'keydown', 'focusin'];
+    var started = false;
+    function load() {
+      if (started) return;
+      started = true;
+      EVENTS.forEach(function (e) { window.removeEventListener(e, load, { passive: true }); });
+      var s = document.createElement('script');
+      s.src = loaderUrl;
+      s.async = true;
+      document.head.appendChild(s);
+    }
+    EVENTS.forEach(function (e) { window.addEventListener(e, load, { passive: true }); });
+    window.addEventListener('load', function () { setTimeout(load, 5000); });
+  })();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title}</title>
 <meta name="description" content={description}>
