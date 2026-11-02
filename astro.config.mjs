@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 import { LOCALES, DEFAULT_LOCALE } from './src/config/locales.js';
 
 const env = loadEnv(process.env.NODE_ENV ?? 'production', process.cwd(), '');
-const SITE_URL = env.SITE_URL || 'https://d4uimmigration.com';
+const SITE_URL = env.SITE_URL || 'https://usa.d4uimmigration.com';
 
 // https://astro.build/config
 export default defineConfig({
@@ -16,7 +16,7 @@ export default defineConfig({
   build: { format: 'directory', inlineStylesheets: 'always' },
   env: {
     schema: {
-      SITE_URL: envField.string({ context: 'server', access: 'public', default: 'https://d4uimmigration.com' }),
+      SITE_URL: envField.string({ context: 'server', access: 'public', default: 'https://usa.d4uimmigration.com' }),
       HUBSPOT_PORTAL_ID: envField.string({ context: 'server', access: 'public', default: '44736563' }),
       HUBSPOT_REGION: envField.string({ context: 'server', access: 'public', default: 'na1' }),
       TRACKING_LOADER_URL: envField.string({ context: 'server', access: 'public', default: 'https://track.d4uimmigration.com/scripts/loader.js?t=7' }),

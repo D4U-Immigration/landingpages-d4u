@@ -57,7 +57,7 @@ Copie `.env.example` para `.env` se precisar mudar algo. Todas têm valor padrã
 
 | Variável | Uso |
 | --- | --- |
-| `SITE_URL` | Domínio em canonical, hreflang, Open Graph, JSON-LD, sitemap e llms.txt |
+| `SITE_URL` | Domínio (padrão `https://usa.d4uimmigration.com`) em canonical, hreflang, Open Graph, JSON-LD, sitemap e llms.txt |
 | `HUBSPOT_PORTAL_ID`, `HUBSPOT_REGION` | Formulários HubSpot (embed v2) |
 | `TRACKING_LOADER_URL` | Loader de tracking D4U (GA4 + `pmaTrack`) |
 
@@ -88,6 +88,10 @@ Copie `.env.example` para `.env` se precisar mudar algo. Todas têm valor padrã
 
 ## Publicação
 
-O conteúdo de `dist/` é o site: basta enviar a pasta para a raiz do servidor (ela contém `index.html` da home, `pt-br/`, `en/`, `es/`, `lp/` com os redirects, `assets/`, `llms.txt` e o sitemap). Defina `SITE_URL` com o domínio onde o projeto vai ficar.
+Domínio: **https://usa.d4uimmigration.com** (padrão de `SITE_URL`).
 
-**Atenção:** o `index.html` da raiz substitui a home do domínio. Se o projeto for publicado no mesmo domínio do WordPress (`d4uimmigration.com`), ele toma o lugar da home do WP — por isso o ideal é um domínio/subdomínio próprio. Confirme também que `/pt-br/…`, `/en/…` e `/es/…` não colidem com páginas do WP.
+O repositório tem `Dockerfile` + `nginx.conf`: a imagem faz o build do Astro e serve o `dist/` com nginx, já com gzip, `Cache-Control` (1 ano em `/_astro/`, 30 dias em `/assets/`, `no-cache` no HTML), barra final nas URLs e 404. Para publicar numa plataforma com deploy pelo GitHub (ex.: Coolify), crie a aplicação a partir deste repositório, branch `main`, tipo **Dockerfile**, porta **80**, domínio `usa.d4uimmigration.com` — cada push no `main` gera um novo deploy.
+
+Sem Docker: `npm run build` e envie o conteúdo de `dist/` para a raiz do servidor (configure gzip e cache no servidor).
+
+As URLs antigas das LPs no domínio principal (`d4uimmigration.com/lp/...`) não passam por este projeto: quando cada LP for publicada aqui, o servidor do domínio principal precisa redirecionar `/lp/{lp}/…` para `https://usa.d4uimmigration.com/{idioma}/{lp}/` (mantendo a query string).
