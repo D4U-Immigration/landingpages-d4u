@@ -19,3 +19,8 @@ export const LPS = {
     },
   },
 };
+
+/** URL da LP neste projeto (ex.: "/pt-br/eb2-niw/"), ou null se ela ainda não foi migrada para cá. */
+export function lpUrl(slug, locale = 'pt-br') {
+  return LPS[slug]?.locales.includes(locale) ? `/${locale}/${slug}/` : null;
+}

@@ -5,7 +5,7 @@
  * Formulário HubSpot por idioma: src/config/lps.js.
  */
 import { SITE_URL } from 'astro:env/server';
-import BaseLayout from '../../../layouts/BaseLayout.astro';
+import LpLayout from '../../../layouts/LpLayout.astro';
 import SiteHeader from '../../../components/SiteHeader.astro';
 import HeroForm from '../../../components/HeroForm.astro';
 import CtaButton from '../../../components/CtaButton.astro';
@@ -94,7 +94,7 @@ const ADV_ICONS = [
   '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/>',
 ];
 ---
-<BaseLayout
+<LpLayout
   locale={lang}
   path={`${SLUG}/`}
   locales={LP.locales}
@@ -281,4 +281,4 @@ const ADV_ICONS = [
 <VideoModal label={t.stories.modalLabel} closeLabel={t.stories.closeLabel} />
 
 <StickyCta formAnchor={a.form} cta={t.cta.sticky} />
-</BaseLayout>
+</LpLayout>

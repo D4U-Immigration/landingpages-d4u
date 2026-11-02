@@ -1,38 +1,43 @@
 ---
 /**
- * Layout base de toda LP/ebook: <head> completo (tracking, SEO, Open Graph, hreflang,
- * JSON-LD, fonte local pré-carregada) e o <body> com barra de progresso de leitura.
+ * Layout base de toda página (home, LPs, ebooks): <head> completo (tracking, SEO, Open Graph,
+ * hreflang, JSON-LD, fonte local pré-carregada). As LPs usam o LpLayout, que acrescenta o CSS
+ * dos componentes, a barra de progresso de leitura e o lp.js.
+ * O CSS é importado por quem usa este layout (LpLayout, home), sempre base.css primeiro: o Astro ordena o
+ * CSS pela profundidade do import, e um base.css importado aqui sairia depois do CSS da página.
  * O CSS sai embutido no HTML (astro.config → inlineStylesheets) e não há fonte/CSS de terceiros
  * bloqueando a renderização.
  */
 import { SITE_URL, TRACKING_LOADER_URL } from 'astro:env/server';
 import { LOCALES, DEFAULT_LOCALE } from '../config/locales.js';
-import '../styles/base.css';
-import '../styles/components.css';
 
 interface Props {
   locale: keyof typeof LOCALES;
   /** Caminho da página sem o idioma, ex.: "eb2-niw/" */
   path: string;
+  /** Página fora da estrutura /{idioma}/ (ex.: a home "/"): canonical neste caminho, sem hreflang */
+  canonicalPath?: string;
   /** Idiomas em que esta página existe (para hreflang) */
   locales: (keyof typeof LOCALES)[];
   title: string;
   description: string;
   ogTitle: string;
-  ogImage: string;
-  ogImageAlt: string;
+  ogImage?: string;
+  ogImageAlt?: string;
   /** Imagens do hero carregadas com prioridade (WebP), opcionalmente por media query */
   preloadImages?: { href: string; media?: string }[];
   /** Domínios usados depois do carregamento (ex.: js.hsforms.net, img.youtube.com): só resolve o DNS */
   dnsPrefetch?: string[];
   jsonLd?: object;
+  bodyClass?: string;
 }
 
-const { locale, path, locales, title, description, ogTitle, ogImage, ogImageAlt, preloadImages = [], dnsPrefetch = [], jsonLd } = Astro.props;
+const { locale, path, canonicalPath, locales, title, description, ogTitle, ogImage, ogImageAlt, preloadImages = [], dnsPrefetch = [], jsonLd, bodyClass } = Astro.props;
 const site = SITE_URL.replace(/\/$/, '');
 const urlFor = (l: string) => `${site}/${l}/${path}`;
-const canonical = urlFor(locale);
-const ogImageUrl = ogImage.startsWith('http') ? ogImage : site + ogImage;
+const canonical = canonicalPath ? site + canonicalPath : urlFor(locale);
+const alternates = canonicalPath ? [] : locales;
+const ogImageUrl = ogImage && (ogImage.startsWith('http') ? ogImage : site + ogImage);
 const favicon = 'https://d4uimmigration.com/wp-content/uploads/2025/04/favicon.png';
 ---
 <!doctype html>
@@ -71,24 +76,26 @@ const favicon = 'https://d4uimmigration.com/wp-content/uploads/2025/04/favicon.p
 <link rel="apple-touch-icon" href={favicon}>
 
 <link rel="canonical" href={canonical}>
-{locales.map((l) => <link rel="alternate" hreflang={LOCALES[l].hreflang} href={urlFor(l)}>)}
-{locales.includes(DEFAULT_LOCALE) && <link rel="alternate" hreflang="x-default" href={urlFor(DEFAULT_LOCALE)}>}
+{alternates.map((l) => <link rel="alternate" hreflang={LOCALES[l].hreflang} href={urlFor(l)}>)}
+{alternates.includes(DEFAULT_LOCALE) && <link rel="alternate" hreflang="x-default" href={urlFor(DEFAULT_LOCALE)}>}
 
 <meta property="og:type" content="website">
 <meta property="og:locale" content={LOCALES[locale].og}>
-{locales.filter((l) => l !== locale).map((l) => <meta property="og:locale:alternate" content={LOCALES[l].og}>)}
+{alternates.filter((l) => l !== locale).map((l) => <meta property="og:locale:alternate" content={LOCALES[l].og}>)}
 <meta property="og:site_name" content="D4U Immigration">
 <meta property="og:title" content={ogTitle}>
 <meta property="og:description" content={description}>
 <meta property="og:url" content={canonical}>
+{ogImageUrl && <>
 <meta property="og:image" content={ogImageUrl}>
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content={ogImageAlt}>
-<meta name="twitter:card" content="summary_large_image">
+</>}
+<meta name="twitter:card" content={ogImageUrl ? 'summary_large_image' : 'summary'}>
 <meta name="twitter:title" content={ogTitle}>
 <meta name="twitter:description" content={description}>
-<meta name="twitter:image" content={ogImageUrl}>
+{ogImageUrl && <meta name="twitter:image" content={ogImageUrl}>}
 
 <link rel="preload" as="font" href="/assets/fonts/montserrat-latin.woff2" type="font/woff2" crossorigin>
 {preloadImages.map((img) => <link rel="preload" as="image" href={img.href} type="image/webp" media={img.media} fetchpriority="high">)}
@@ -96,15 +103,12 @@ const favicon = 'https://d4uimmigration.com/wp-content/uploads/2025/04/favicon.p
 
 {jsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd, null, 2)} />}
 </head>
-<body>
-
-<div class="read-progress" aria-hidden="true"></div>
+<body class={bodyClass}>
 
 <slot />
 
 <script>
   import '../scripts/base.js';
-  import '../scripts/lp.js';
 </script>
 </body>
 </html>

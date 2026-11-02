@@ -1,0 +1,18 @@
+---
+/**
+ * Layout das LPs: BaseLayout + CSS dos componentes de LP, barra de progresso de leitura e lp.js
+ * (contadores, checklist, vídeos…). Aceita as mesmas props do BaseLayout.
+ */
+import BaseLayout from './BaseLayout.astro';
+import '../styles/base.css';
+import '../styles/components.css';
+---
+<BaseLayout {...Astro.props}>
+<div class="read-progress" aria-hidden="true"></div>
+
+<slot />
+
+<script>
+  import '../scripts/lp.js';
+</script>
+</BaseLayout>

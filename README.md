@@ -18,6 +18,8 @@ Todas as páginas seguem `/{idioma}/{nome-da-lp}/`:
 
 - `/pt-br/eb2-niw/`, `/en/eb2-niw/`, `/es/eb2-niw/`
 
+A raiz (`/`) é a home: réplica da página "Link na Bio" da D4U (`WPShortcodes/link-bio`), com os mesmos textos. Os botões das LPs usam `lpUrl()` (`src/config/lps.js`): enquanto a LP não existe neste projeto, o botão mantém o link atual do site da D4U; quando a LP é registrada, a home passa a apontar para `/pt-br/{lp}/` sozinha (EB-2 NIW, EB-5, O-1, Indique um amigo e 4º Encontro de Mobilidade Global já estão ligados assim).
+
 As URLs antigas (`/lp/{nome}/` e `/lp/{nome}/{idioma}/`) continuam funcionando: o build gera páginas de redirecionamento que preservam UTMs, `gclid`, `fbclid` e a âncora (`src/pages/lp/[...legacy].astro`). Elas ficam fora do sitemap e com `noindex`.
 
 ## Onde fica cada coisa
@@ -25,19 +27,23 @@ As URLs antigas (`/lp/{nome}/` e `/lp/{nome}/{idioma}/`) continuam funcionando: 
 ```
 src/
   config/
-    lps.js          registro das LPs: idiomas, form HubSpot por idioma, texto do llms.txt, redirects
+    lps.js          registro das LPs: idiomas, form HubSpot por idioma, texto do llms.txt, redirects; lpUrl()
     locales.js      idiomas (lang, hreflang, og:locale)
     helpers.js      imageSet() e stripHtml()
   content/lps/{lp}/{idioma}.json   textos de cada LP (literais aos PDFs aprovados)
   layouts/BaseLayout.astro         <head> completo: tracking, SEO, Open Graph, hreflang, JSON-LD, fontes
+  layouts/LpLayout.astro           BaseLayout + CSS dos componentes, barra de leitura e lp.js (usar nas LPs)
   components/       header, hero com formulário, checklist, vídeos, números da D4U, prêmios, FAQ, CTA final, rodapé, CTA fixo
+  pages/index.astro                home (raiz): réplica da Link na Bio apontando para as LPs
   pages/[lang]/{lp}/index.astro    template de cada LP (gera os 3 idiomas)
   pages/lp/[...legacy].astro       redirects das URLs antigas
   pages/llms.txt.ts                gera /llms.txt a partir de config/lps.js
-  styles/base.css, components.css  estilos compartilhados
+  styles/base.css, components.css  estilos compartilhados (base.css é importado por quem usa o BaseLayout, sempre primeiro)
+  styles/home.css                  estilos da home
   scripts/base.js, lp.js           comportamentos (FAQ, CTA fixo, revelar ao rolar, contadores, vídeos…)
 public/assets/
   lp/{lp}/          fotos de cada LP (WebP + JPG, Pexels) e imagem de compartilhamento
+  home/             banners e selos da home
   shared/premios/   selos da faixa de prêmios
   fonts/            Montserrat (woff2)
 scripts/images.mjs  gera as versões responsivas das fotos (npm run images)
@@ -69,7 +75,7 @@ Copie `.env.example` para `.env` se precisar mudar algo. Todas têm valor padrã
 - **Formulário HubSpot sob demanda:** o script do HubSpot só carrega na primeira interação (rolar, tocar, mover o mouse, teclar) ou se a URL vier com a âncora do form. O espaço do form fica reservado (`#hsForm` em `components.css`) — se um form novo tiver altura diferente, ajuste esses valores para não haver deslocamento de layout.
 - **Hero:** foto leve (`hero-bg-800.webp`) no celular, pré-carregada por media query.
 - **Tracking adiado:** o loader (GA4 + pixel da Meta) entra na primeira interação ou 5 s após o load. Visitas de menos de 5 s sem nenhum toque/rolagem podem não aparecer no GA4/Meta.
-- **Resultado (Lighthouse, 2026-11-02, EB-2 NIW nos 3 idiomas):** 100/100/100/100 no celular e no desktop.
+- **Resultado (Lighthouse, 2026-11-02):** 100/100/100/100 no celular e no desktop — EB-2 NIW nos 3 idiomas e home.
 - **No servidor de produção:** ativar gzip/brotli e cache longo (`Cache-Control: public, max-age=31536000, immutable`) para `/_astro/` e `/assets/`.
 
 ## Como adicionar uma LP
@@ -77,9 +83,11 @@ Copie `.env.example` para `.env` se precisar mudar algo. Todas têm valor padrã
 1. Coloque as fotos em `public/assets/lp/{nome}/`.
 2. Crie `src/content/lps/{nome}/{idioma}.json` com os textos de cada idioma.
 3. Registre a LP em `src/config/lps.js` (idiomas, forms, resumo do llms.txt; `legacy: true` só se ela já existia em `/lp/{nome}/`).
-4. Crie `src/pages/[lang]/{nome}/index.astro` reaproveitando os componentes (use a EB-2 NIW como modelo).
+4. Crie `src/pages/[lang]/{nome}/index.astro` com o `LpLayout`, reaproveitando os componentes (use a EB-2 NIW como modelo).
 5. `npm run build` e confira `dist/{idioma}/{nome}/`.
 
 ## Publicação
 
-O conteúdo de `dist/` é o site: basta enviar a pasta para a raiz do servidor (ela contém `pt-br/`, `en/`, `es/`, `lp/` com os redirects, `assets/`, `_astro/`, `llms.txt` e o sitemap). Como as páginas ficam em `/pt-br/…`, `/en/…` e `/es/…` no mesmo domínio do WordPress, confirme que esses caminhos não colidem com páginas do WP antes de publicar.
+O conteúdo de `dist/` é o site: basta enviar a pasta para a raiz do servidor (ela contém `index.html` da home, `pt-br/`, `en/`, `es/`, `lp/` com os redirects, `assets/`, `llms.txt` e o sitemap). Defina `SITE_URL` com o domínio onde o projeto vai ficar.
+
+**Atenção:** o `index.html` da raiz substitui a home do domínio. Se o projeto for publicado no mesmo domínio do WordPress (`d4uimmigration.com`), ele toma o lugar da home do WP — por isso o ideal é um domínio/subdomínio próprio. Confirme também que `/pt-br/…`, `/en/…` e `/es/…` não colidem com páginas do WP.

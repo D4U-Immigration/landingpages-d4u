@@ -1,0 +1,346 @@
+---
+/**
+ * Home (raiz "/") — réplica da página "Link na Bio" da D4U (WPShortcodes/link-bio), com textos literais.
+ * Os botões das LPs usam lpUrl(): quando a LP já existe neste projeto, apontam para /pt-br/{lp}/;
+ * enquanto não foi migrada, mantêm o link atual (site da D4U) — ao registrar a LP em config/lps.js,
+ * a home passa a apontar para ela sozinha.
+ */
+import { SITE_URL } from 'astro:env/server';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { lpUrl } from '../config/lps.js';
+import '../styles/base.css';
+import '../styles/home.css';
+
+const IMG = '/assets/home';
+const site = SITE_URL.replace(/\/$/, '');
+const WA_SALES = 'https://wa.me/19549014871';
+
+const title = 'D4U Immigration | Link na Bio — Vistos e Green Card EUA';
+const description = 'Conheça os serviços da D4U Immigration: EB-1, EB-2 NIW, EB-5, O-1, conteúdos, eventos e canais de atendimento. Comece sua avaliação gratuita.';
+
+const checks = [
+  { icon: 'calendar', text: 'Mais de 11 anos de história' },
+  { icon: 'users', text: 'Mais de 18.000 clientes beneficiados' },
+  { icon: 'shield', text: 'Mais de 91% de aprovação auditada pela RSM' },
+  { icon: 'trophy', text: 'Empresa premiada internacionalmente' },
+];
+
+// quiz: link do teste gratuito (null = "em breve"); more: LP deste projeto ou página atual do visto
+const services = [
+  { title: 'Visto EB-1', text: 'Para profissionais de destaque.', quiz: 'https://lp.d4uimmigration.com/pt-br/quiz-eb-1', more: 'https://d4uimmigration.com/pt-br/visto/eb-1' },
+  { title: 'Visto EB-2 NIW', text: 'Para profissionais qualificados.', quiz: 'https://lp.d4uimmigration.com/pt-br/quiz-eb-2-niw', more: lpUrl('eb2-niw') ?? 'https://d4uimmigration.com/pt-br/visto/eb-2-niw' },
+  // Link do quiz EB-5 pendente — solicitar ao Erick antes de publicar.
+  { title: 'EB-5', text: 'Green Card para investidores.', quiz: null, more: lpUrl('eb5') ?? 'https://d4uimmigration.com/pt-br/visto/eb-5' },
+  // "Saiba mais" fica "em breve" até a LP do O-1 entrar neste projeto.
+  { title: 'O-1', text: 'Visto temporário para profissionais de destaque.', quiz: 'https://qmuyb.share.hsforms.com/23xsMwFAdSkCZe155xRRY8Q', more: lpUrl('o1') },
+];
+
+const posts = [
+  { img: 'https://d4uimmigration.com/wp-content/uploads/2026/07/D4U_PT_USA_0010__quais_sao_os_requisitos_para_brasileiros_comprarem.jpg', alt: 'Financiamento Imobiliário nos EUA para Brasileiros', title: 'Financiamento Imobiliário nos EUA para Brasileiros: como funciona?', href: 'https://d4uimmigration.com/pt-br/cotidiano/financiamento-imobiliario-nos-eua-para-brasileiros-como-funciona' },
+  { img: 'https://d4uimmigration.com/wp-content/uploads/2026/07/D4U_PT_USA_0009__comparativo_viver_em_massachusetts_ou_florida_impo.jpg', alt: 'Massachusetts ou Flórida: onde viver nos EUA', title: 'Massachusetts ou Flórida: onde viver nos EUA?', href: 'https://d4uimmigration.com/pt-br/cotidiano/massachusetts-ou-florida-onde-viver-nos-eua' },
+  { img: 'https://d4uimmigration.com/wp-content/uploads/2026/07/D4U_PT_USA_0007__o_que_e_o_advance_parole_e_quem_realmente_pode_via-1.png', alt: 'Advance Parole: quem pode viajar e como evitar o abandono do I-485', title: 'Advance Parole: quem pode viajar e quais são os riscos?', href: 'https://d4uimmigration.com/pt-br/imigracao/advance-parole-quem-pode-viajar-e-como-evitar-o-abandono-do-i-485' },
+];
+
+const events = [
+  { date: '05 e 06 de setembro', label: 'Porsche Cup Brasil — Sprint Interlagos' },
+  { date: '07 e 08 de novembro', label: 'Porsche Cup Brasil — Sprint Interlagos (F1)' },
+  { date: '14 de novembro', label: '4º Encontro de Mobilidade Global — São Paulo', href: lpUrl('4encontrodemobilidade') },
+  { date: '28 de novembro', label: 'Porsche Cup Brasil — Endurance Interlagos' },
+];
+
+const contactSales = [
+  { icon: 'globe', href: 'https://d4uimmigration.com', label: 'Site: d4uimmigration.com', external: true },
+  { icon: 'whatsapp', href: WA_SALES, label: 'WhatsApp: +1 (954) 901-4871', external: true },
+  { icon: 'mail', href: 'mailto:info@d4uimmigration.com', label: 'E-mail: info@d4uimmigration.com' },
+];
+const contactClients = [
+  { icon: 'whatsapp', href: 'https://wa.me/15615760806', label: 'WhatsApp: +1 (561) 576-0806', external: true },
+  { icon: 'phone', href: 'tel:+19544788593', label: 'Telefone: +1 (954) 478-8593' },
+  { icon: 'mail', href: 'mailto:cx@d4uimmigration.com', label: 'E-mail: cx@d4uimmigration.com' },
+];
+
+const socials = [
+  { icon: 'instagram', href: 'https://www.instagram.com/d4uimmigration.br/', label: 'Instagram D4U Brasil', cap: 'Brasil', flag: true },
+  { icon: 'instagram', href: 'https://www.instagram.com/club.d4u/', label: 'Instagram D4U Club', cap: 'Club' },
+  { icon: 'instagram', href: 'https://www.instagram.com/d4usports/', label: 'Instagram D4U Sports', cap: 'Sports' },
+  { icon: 'facebook', href: 'https://www.facebook.com/d4uimmigration.br', label: 'Facebook', cap: 'Facebook' },
+  { icon: 'linkedin', href: 'https://www.linkedin.com/company/d4uimmigration', label: 'LinkedIn', cap: 'LinkedIn' },
+  { icon: 'youtube', href: 'https://www.youtube.com/@d4uimmigration', label: 'YouTube', cap: 'YouTube' },
+  { icon: 'tiktok', href: 'https://www.tiktok.com/@d4uimmigration', label: 'TikTok', cap: 'TikTok' },
+  { icon: 'spotify', href: 'https://open.spotify.com/show/5Nyn4zTvQpQfkcrBcz2jNE?si=dcJ5PWqpQsWRcL-QzZYN8A&nd=1&dlsi=ca0516d243ac4ea4', label: 'Spotify', cap: 'Spotify' },
+];
+
+const seals = [
+  { src: `${IMG}/rsm-91.webp`, alt: 'Success Rate Certificate — RSM +91% Success Rate — D4U Immigration', w: 300, h: 300 },
+  { src: `${IMG}/procon-sp.webp`, alt: 'Selo Empresa Verificada — PROCON-SP', w: 280, h: 268, sm: true },
+  { src: `${IMG}/reclame-aqui.webp`, alt: 'Verificada por ReclameAQUI', w: 348, h: 130 },
+];
+
+// Ícones de traço (stroke) — miolo do <svg>
+const ICONS: Record<string, string> = {
+  calendar: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/>',
+  users: '<circle cx="9" cy="8" r="3"/><path d="M3 19c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="8.5" r="2.3"/><path d="M15.5 13.3c2.6.5 4.5 2.7 4.5 5.7"/>',
+  shield: '<path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/>',
+  trophy: '<path d="M7 4h10v4a5 5 0 0 1-10 0V4z"/><path d="M7 5H4.5A2.5 2.5 0 0 0 7 8.5M17 5h2.5A2.5 2.5 0 0 1 17 8.5"/><path d="M12 13v3M9 20h6M9.5 20l.5-4h4l.5 4"/>',
+  pin: '<path d="M12 21s-7-6.1-7-11.5A7 7 0 0 1 19 9.5C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/>',
+  globe: '<circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3a13 13 0 0 1 0 18a13 13 0 0 1 0-18"/>',
+  mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 6.5l8 6 8-6"/>',
+  phone: '<path d="M5 4h3l1.5 4-2 1.5a12 12 0 0 0 5.5 5.5l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A16 16 0 0 1 3 6.2 2 2 0 0 1 5 4z"/>',
+  instagram: '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="0.9" fill="currentColor" stroke="none"/>',
+  facebook: '<circle cx="12" cy="12" r="9"/><path d="M14 8.7h-1.3c-1 0-1.7.6-1.7 1.7v1.8h3l-.4 2.6h-2.6V21"/>',
+  linkedin: '<rect x="3" y="3" width="18" height="18" rx="4"/><line x1="7.3" y1="10" x2="7.3" y2="16.3"/><circle cx="7.3" cy="7" r="0.9" fill="currentColor" stroke="none"/><path d="M11 16.3v-4c0-1.3.9-2.1 2-2.1s2 .8 2 2.3v3.8"/><line x1="11" y1="10" x2="11" y2="16.3"/>',
+  youtube: '<rect x="2.5" y="6" width="19" height="12" rx="4"/><path d="M10.3 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/>',
+  tiktok: '<path d="M13 3v11.8a3.3 3.3 0 1 1-2.8-3.3"/><path d="M13 6.3a5 5 0 0 0 5 5"/>',
+  spotify: '<circle cx="12" cy="12" r="9" stroke-width="1.6"/><path d="M7.3 10.3c3-1 6.3-.6 9 .9"/><path d="M7.7 13.2c2.4-.7 5-.4 7.2.8"/><path d="M8.1 15.9c1.8-.5 3.7-.3 5.3.6"/>',
+};
+const WHATSAPP_PATH = 'M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.06-1.33A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm5.2 14.2c-.22.62-1.28 1.18-1.77 1.2-.46.03-.9.2-3-.62-2.55-1-4.2-3.6-4.33-3.77-.13-.17-1.03-1.37-1.03-2.6 0-1.24.65-1.85.88-2.1.23-.25.5-.3.67-.3.17 0 .33 0 .48.01.15 0 .36-.06.56.43.22.53.73 1.83.8 1.96.07.13.11.29.02.46-.09.17-.14.28-.27.43-.14.15-.29.34-.41.46-.14.13-.28.28-.12.55.16.27.7 1.16 1.51 1.88 1.04.93 1.92 1.22 2.19 1.36.27.13.43.11.59-.07.16-.18.68-.79.86-1.06.18-.27.36-.22.6-.13.25.09 1.58.75 1.85.89.27.13.45.2.51.31.07.11.07.63-.15 1.25z';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': 'https://d4uimmigration.com/#organization',
+      name: 'D4U Immigration',
+      url: 'https://d4uimmigration.com',
+      logo: 'https://d4uimmigration.com/wp-content/themes/d4u/assets/images/2025/Logo_D4U_cb2.svg',
+      email: 'info@d4uimmigration.com',
+      sameAs: socials.map((s) => s.href.split('?')[0]),
+    },
+    { '@type': 'WebPage', '@id': `${site}/#webpage`, url: `${site}/`, name: title, description, inLanguage: 'pt-BR', about: { '@id': 'https://d4uimmigration.com/#organization' } },
+  ],
+};
+---
+<BaseLayout
+  locale="pt-br"
+  path=""
+  canonicalPath="/"
+  locales={['pt-br']}
+  title={title}
+  description={description}
+  ogTitle={title}
+  bodyClass="bio-body"
+  dnsPrefetch={['https://d4uimmigration.com']}
+  jsonLd={jsonLd}
+>
+<div class="bio-page">
+
+  <!-- Header -->
+  <header class="bio-header">
+    <h1 class="bio-header__brand"><img class="bio-header__logo" src="https://d4uimmigration.com/wp-content/themes/d4u/assets/images/2025/Logo_D4U_cb2.svg" alt="D4U Immigration" width="107" height="70" fetchpriority="high"></h1>
+    <p class="bio-header__tagline">Planejamento internacional para quem deseja morar, trabalhar, empreender ou investir nos EUA.</p>
+    <div class="bio-checks-marquee" aria-label="Mais de 11 anos de história, mais de 18.000 clientes beneficiados, mais de 91% de aprovação auditada pela RSM, empresa premiada internacionalmente">
+      <div class="bio-checks-marquee__track">
+        {[false, true].map((dup) => (
+          <div class="bio-checks-marquee__group" aria-hidden={dup ? 'true' : undefined}>
+            {checks.map((c) => (
+              <div class="bio-check-box"><svg class="bio-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={ICONS[c.icon]} /><span>{c.text}</span></div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+    <p class="bio-header__motto">The Best or Nothing</p>
+    <a href="https://d4uimmigration.com/pt-br/fale-conosco" class="btn btn-primary bio-btn">Quero uma análise gratuita</a>
+  </header>
+
+  <!-- Qual visto -->
+  <section class="bio-flat bio-rule reveal" style={`background-image:url(${IMG}/img-bt-clara.webp)`}>
+    <span class="bio-eyebrow">Análise inicial rápida e 100% gratuita</span>
+    <h2>Descubra qual visto faz sentido para o seu perfil</h2>
+    <a href="https://lp.d4uimmigration.com/pt-br/qualification-form" class="btn btn-primary">Fazer minha análise gratuita</a>
+  </section>
+
+  <!-- Nossos serviços — swiper lateral -->
+  <div class="bio-swiper-section bio-rule reveal">
+    <div class="bio-swiper-head">
+      <h2 class="bio-section-title">Nossos serviços</h2>
+      <div class="bio-swiper-nav">
+        <button type="button" class="bio-swiper-btn" data-swiper-prev aria-label="Serviço anterior">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 5l-6.5 7 6.5 7"/></svg>
+        </button>
+        <button type="button" class="bio-swiper-btn" data-swiper-next aria-label="Próximo serviço">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 5l6.5 7-6.5 7"/></svg>
+        </button>
+      </div>
+    </div>
+    <div id="servicos" class="bio-swiper" data-swiper>
+      <div class="bio-swiper__track">
+        {services.map((s) => (
+          <article class="bio-swiper__card">
+            <h3 style="padding: 1rem 0px 00px; text-align: center;">{s.title}</h3>
+            <p style="text-align: center; padding: 0px 15px;">{s.text}</p>
+            <div class="bio-card__actions">
+              <div class="bio-quiz-wrap">
+                <span class="bio-quiz-badge">Gratuito</span>
+                {s.quiz
+                  ? <a href={s.quiz} class="btn btn-primary bio-btn">Teste seu potencial</a>
+                  : <span class="btn btn--disabled bio-btn" aria-disabled="true" title="Link do quiz ainda não recebido">Teste seu potencial — em breve</span>}
+              </div>
+              {s.more
+                ? <a href={s.more} class="btn btn--ghost-navy bio-btn">Saiba mais sobre o visto</a>
+                : <span class="btn btn--disabled bio-btn" aria-disabled="true" title={`LP do ${s.title} ainda não publicada`}>Saiba mais sobre o visto — em breve</span>}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Não encontrou -->
+  <section class="bio-prompt bio-prompt--banner bio-prompt--left bio-rule reveal" style={`background-image:url(${IMG}/img-bt-1.webp)`}>
+    <h3>Não encontrou <br>o visto que procura?</h3>
+    <a href="https://d4uimmigration.com/pt-br/pais/estados-unidos" class="btn btn--white">Ver todos os vistos</a>
+  </section>
+
+  <!-- Histórias -->
+  <section class="bio-prompt bio-prompt--banner bio-prompt--right reveal" style={`background-image:url(${IMG}/img-bt-1a.webp)`}>
+    <h3>Histórias que inspiram</h3>
+    <p>Conheça quem já conquistou <br>o Green Card</p>
+    <a href="https://d4uimmigration.com/pt-br/clientes-aprovados" class="btn btn--white">Ver clientes aprovados</a>
+  </section>
+
+  <!-- Indique e Ganhe -->
+  <section class="bio-banner bio-stat-prompt reveal">
+    <span class="bio-stat-prompt__num">US$ 400</span>
+    <span class="bio-stat-prompt__label">Indique e Ganhe</span>
+    <p>Indique a D4U e receba até US$ 400 por cada contrato fechado.</p>
+    <a href={lpUrl('indique-um-amigo') ?? 'https://d4uimmigration.com/pt-br/indique-um-amigo'} class="btn btn-primary bio-btn">Quero indicar alguém</a>
+  </section>
+
+  <!-- Blog — swiper lateral -->
+  <div class="bio-swiper-section bio-rule reveal">
+    <div class="bio-swiper-head">
+      <h2 class="bio-section-title">Últimos artigos do Blog D4U</h2>
+      <div class="bio-swiper-nav">
+        <button type="button" class="bio-swiper-btn" data-swiper-prev aria-label="Artigo anterior">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 5l-6.5 7 6.5 7"/></svg>
+        </button>
+        <button type="button" class="bio-swiper-btn" data-swiper-next aria-label="Próximo artigo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 5l6.5 7-6.5 7"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="bio-swiper" data-swiper>
+      <div class="bio-swiper__track">
+        {posts.map((p) => (
+          <article class="bio-swiper__card">
+            <img class="bio-swiper__card-img" src={p.img} alt={p.alt} width="1408" height="768" loading="lazy" decoding="async">
+            <h3>{p.title}</h3>
+            <div class="bio-card__actions">
+              <a href={p.href} class="btn btn--ghost-navy bio-btn">Ler agora</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Eventos -->
+  <section class="bio-hero bio-rule reveal">
+    <span class="bio-hero__tag">
+      <svg class="bio-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={ICONS.pin} />
+      São Paulo
+    </span>
+    <h2>Encontre a D4U presencialmente</h2>
+    <ol class="bio-timeline">
+      {events.map((e) => (
+        <li>
+          <span class="bio-timeline__date">{e.date}</span>
+          {e.href ? <a class="bio-timeline__label" href={e.href}>{e.label}</a> : <span class="bio-timeline__label">{e.label}</span>}
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <!-- Fale com a D4U / Já é cliente -->
+  {[
+    { title: 'Fale com a D4U', text: 'Nossa equipe está pronta para atender seu projeto.', items: contactSales },
+    { title: 'Já é cliente D4U?', text: 'Entre em contato pelos nossos canais exclusivos de atendimento.', items: contactClients },
+  ].map((block) => (
+    <section class="bio-contact-section bio-rule reveal">
+      <h3>{block.title}</h3>
+      <p>{block.text}</p>
+      <div class="bio-icon-row">
+        {block.items.map((c) => (
+          <a class="bio-icon-btn" href={c.href} target={c.external ? '_blank' : undefined} rel={c.external ? 'noopener' : undefined} aria-label={c.label} title={c.label}>
+            {c.icon === 'whatsapp'
+              ? <svg class="bio-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d={WHATSAPP_PATH}/></svg>
+              : <svg class="bio-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={ICONS[c.icon]} />}
+          </a>
+        ))}
+      </div>
+    </section>
+  ))}
+
+  <!-- Redes sociais -->
+  <section class="bio-social bio-rule reveal">
+    <h3>Acompanhe a D4U</h3>
+    <div class="bio-social-grid">
+      {socials.map((s) => (
+        <a class="bio-social-tile" href={s.href} target="_blank" rel="noopener" aria-label={s.label} title={s.label}>
+          <span class="bio-icon-btn">
+            <svg class="bio-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width={s.icon === 'spotify' ? '1.5' : '1.6'} stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={ICONS[s.icon]} />
+            {s.flag && (
+              <svg class="bio-social-tile__flag" viewBox="0 0 20 14" aria-hidden="true"><rect width="20" height="14" fill="#009C3B"/><path d="M10 1.6 18.2 7 10 12.4 1.8 7z" fill="#FFDF00"/><circle cx="10" cy="7" r="3.3" fill="#002776"/></svg>
+            )}
+          </span>
+          <span class="bio-social-tile__cap">{s.cap}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- Reconhecimentos — apenas os selos (sem texto), em marquee com loop automático -->
+  <div class="bio-swiper-section bio-rule reveal">
+    <h2 class="bio-section-title bio-section-title--center">Reconhecimentos</h2>
+    <div class="bio-seals-marquee">
+      <div class="bio-seals-marquee__track">
+        {[false, true].map((dup) => (
+          <div class="bio-seals-marquee__group" aria-hidden={dup ? 'true' : undefined}>
+            {seals.map((s) => (
+              <div class="bio-seal-card">
+                <img class={s.sm ? 'bio-seal-card__img--sm' : undefined} src={s.src} alt={dup ? '' : s.alt} width={s.w} height={s.h} loading="lazy" decoding="async">
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Rodapé / disclaimer legal -->
+  <footer class="bio-footer reveal">
+    <p>*A D4U Immigration não é um escritório de advocacia e não pratica advocacia no Estado da Flórida. Alguns serviços e proteções, como o privilégio advogado-cliente, podem ser diferentes dos oferecidos por um escritório de advocacia.</p>
+  </footer>
+
+</div>
+
+<a class="bio-whatsapp-float" href={WA_SALES} target="_blank" rel="noopener" aria-label="Fale conosco no WhatsApp: +1 (954) 901-4871" title="WhatsApp: +1 (954) 901-4871">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d={WHATSAPP_PATH}/></svg>
+</a>
+
+<script>
+  /* Swipers laterais (Serviços / Blog): setas avançam um cartão, com volta ao início/fim */
+  document.querySelectorAll<HTMLElement>('[data-swiper]').forEach((swiper) => {
+    const track = swiper.querySelector<HTMLElement>('.bio-swiper__track')!;
+    const section = swiper.closest('.bio-swiper-section');
+    const prev = section?.querySelector('[data-swiper-prev]');
+    const next = section?.querySelector('[data-swiper-next]');
+    const scrollByCard = (dir: number) => {
+      const card = track.querySelector('.bio-swiper__card');
+      if (!card) return;
+      const gap = parseFloat(getComputedStyle(track).gap) || 0;
+      const amount = (card.getBoundingClientRect().width + gap) * dir;
+      const maxScroll = swiper.scrollWidth - swiper.clientWidth;
+      const atEnd = swiper.scrollLeft >= maxScroll - 2;
+      const atStart = swiper.scrollLeft <= (parseFloat(getComputedStyle(swiper).paddingLeft) || 0) + 5;
+      if (dir > 0 && atEnd) swiper.scrollTo({ left: 0, behavior: 'instant' });
+      else if (dir < 0 && atStart) swiper.scrollTo({ left: maxScroll, behavior: 'instant' });
+      else swiper.scrollBy({ left: amount, behavior: 'smooth' });
+    };
+    prev?.addEventListener('click', () => scrollByCard(-1));
+    next?.addEventListener('click', () => scrollByCard(1));
+  });
+</script>
+</BaseLayout>
