@@ -1,7 +1,9 @@
 ---
 /**
  * Layout base de toda LP/ebook: <head> completo (tracking, SEO, Open Graph, hreflang,
- * JSON-LD, fontes) e o <body> com barra de progresso de leitura.
+ * JSON-LD, fonte local pré-carregada) e o <body> com barra de progresso de leitura.
+ * O CSS sai embutido no HTML (astro.config → inlineStylesheets) e não há fonte/CSS de terceiros
+ * bloqueando a renderização.
  */
 import { SITE_URL, TRACKING_LOADER_URL } from 'astro:env/server';
 import { LOCALES, DEFAULT_LOCALE } from '../config/locales.js';
@@ -19,21 +21,18 @@ interface Props {
   ogTitle: string;
   ogImage: string;
   ogImageAlt: string;
-  /** Imagem do hero carregada com prioridade */
-  preloadImage?: string;
-  /** Carrega o embed v2 do HubSpot (js.hsforms.net/forms/embed/v2.js) */
-  hubspotForm?: boolean;
-  /** Domínios extras para preconnect (ex.: img.youtube.com) */
-  preconnect?: string[];
+  /** Imagens do hero carregadas com prioridade (WebP), opcionalmente por media query */
+  preloadImages?: { href: string; media?: string }[];
+  /** Domínios usados depois do carregamento (ex.: js.hsforms.net, img.youtube.com): só resolve o DNS */
+  dnsPrefetch?: string[];
   jsonLd?: object;
 }
 
-const { locale, path, locales, title, description, ogTitle, ogImage, ogImageAlt, preloadImage, hubspotForm = false, preconnect = [], jsonLd } = Astro.props;
+const { locale, path, locales, title, description, ogTitle, ogImage, ogImageAlt, preloadImages = [], dnsPrefetch = [], jsonLd } = Astro.props;
 const site = SITE_URL.replace(/\/$/, '');
 const urlFor = (l: string) => `${site}/${l}/${path}`;
 const canonical = urlFor(locale);
 const ogImageUrl = ogImage.startsWith('http') ? ogImage : site + ogImage;
-const fonts = 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap';
 const favicon = 'https://d4uimmigration.com/wp-content/uploads/2025/04/favicon.png';
 ---
 <!doctype html>
@@ -43,7 +42,6 @@ const favicon = 'https://d4uimmigration.com/wp-content/uploads/2025/04/favicon.p
 <script is:inline>document.documentElement.className = document.documentElement.className.replace("no-js", "js");</script>
 <!-- Tracking D4U: o loader já registra sozinho o Lead do form HubSpot (v2 e v4), com dedup por sessão — não chamar pmaTrack('Lead') manualmente. -->
 <script is:inline src={TRACKING_LOADER_URL} async></script>
-{hubspotForm && <script is:inline src="https://js.hsforms.net/forms/embed/v2.js" defer></script>}
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title}</title>
 <meta name="description" content={description}>
@@ -74,14 +72,9 @@ const favicon = 'https://d4uimmigration.com/wp-content/uploads/2025/04/favicon.p
 <meta name="twitter:description" content={description}>
 <meta name="twitter:image" content={ogImageUrl}>
 
-{hubspotForm && <link rel="preconnect" href="https://js.hsforms.net">}
-{preconnect.map((href) => <link rel="preconnect" href={href}>)}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href={fonts}>
-<link rel="stylesheet" href={fonts} media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href={fonts}></noscript>
-{preloadImage && <link rel="preload" as="image" href={preloadImage} type="image/webp" fetchpriority="high">}
+<link rel="preload" as="font" href="/assets/fonts/montserrat-latin.woff2" type="font/woff2" crossorigin>
+{preloadImages.map((img) => <link rel="preload" as="image" href={img.href} type="image/webp" media={img.media} fetchpriority="high">)}
+{dnsPrefetch.map((href) => <link rel="dns-prefetch" href={href}>)}
 
 {jsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd, null, 2)} />}
 </head>

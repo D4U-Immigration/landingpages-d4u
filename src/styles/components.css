@@ -50,7 +50,7 @@ section[id] { scroll-margin-top: 72px; }
   background-color: var(--navy-900);
   background-image:
     linear-gradient(180deg, rgba(22, 35, 56, 0.86) 0%, rgba(22, 35, 56, 0.94) 100%),
-    var(--hero-bg, none);
+    var(--hero-bg-sm, var(--hero-bg, none));
   background-position: center, 62% center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -599,4 +599,24 @@ section[id] { scroll-margin-top: 72px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .seal svg.seal__ring, .free-badge__dot { animation: none; }
+}
+
+/* ---------- Formulário com carregamento sob demanda (HeroForm.astro) ----------
+   O HubSpot só carrega na primeira interação. Até lá, #hsForm reserva a altura final do form
+   (que depende da largura do card: campos em 1 ou 2 colunas) e mostra um esqueleto. */
+.hero-form { container-type: inline-size; }
+#hsForm { min-height: 991px; }
+@container (min-width: 380px) { #hsForm { min-height: 953px; } }
+@container (min-width: 460px) { #hsForm { min-height: 716px; } }
+#hsForm:empty {
+  background:
+    linear-gradient(var(--line), var(--line)) 0 18px / 38% 12px no-repeat,
+    linear-gradient(var(--bg-light), var(--bg-light)) 0 40px / 100% 44px no-repeat,
+    linear-gradient(var(--line), var(--line)) 0 112px / 30% 12px no-repeat,
+    linear-gradient(var(--bg-light), var(--bg-light)) 0 134px / 100% 44px no-repeat,
+    linear-gradient(var(--line), var(--line)) 0 206px / 45% 12px no-repeat,
+    linear-gradient(var(--bg-light), var(--bg-light)) 0 228px / 100% 44px no-repeat,
+    linear-gradient(var(--line), var(--line)) 0 300px / 55% 12px no-repeat,
+    linear-gradient(var(--bg-light), var(--bg-light)) 0 322px / 100% 96px no-repeat,
+    linear-gradient(rgba(207, 177, 37, 0.35), rgba(207, 177, 37, 0.35)) 0 446px / 120px 44px no-repeat;
 }

@@ -6,6 +6,36 @@
    isso vai no page.css de cada landing page.
    ========================================================================== */
 
+/* Montserrat hospedada no próprio site (variável 400–800, subconjunto latin: cobre PT/EN/ES).
+   Fonte: Google Fonts, licença SIL Open Font License. Pré-carregada no BaseLayout. */
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("/assets/fonts/montserrat-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Fallback (Arial) com as medidas da Montserrat enquanto ela carrega: o texto não muda de tamanho na troca */
+@font-face {
+  font-family: "Montserrat Fallback";
+  font-weight: 400 600;
+  src: local("Arial"), local("ArialMT");
+  size-adjust: 108%;
+  ascent-override: 89.6%;
+  descent-override: 23.2%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Montserrat Fallback";
+  font-weight: 700 800;
+  src: local("Arial Bold"), local("Arial-BoldMT"), local("Arial");
+  size-adjust: 96.5%;
+  ascent-override: 100.3%;
+  descent-override: 26%;
+  line-gap-override: 0%;
+}
+
 :root {
   --navy-950: #0F1218;
   --navy-900: #162338;
@@ -25,7 +55,7 @@
   --radius: 4px;
   --radius-lg: 8px;
   --shadow-card: 0 12px 30px rgba(15, 18, 24, 0.08);
-  --font: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font: "Montserrat", "Montserrat Fallback", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --container: 1120px;
 }
 

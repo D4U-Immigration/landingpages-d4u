@@ -1,15 +1,21 @@
 ---
-/** Foto com WebP + fallback JPG. `src` sem extensão, ex.: "/assets/lp/eb2-niw/o-que-e". */
+/**
+ * Foto com WebP responsivo (640/960/1200 px) + fallback JPG. `src` sem extensão,
+ * ex.: "/assets/lp/eb2-niw/o-que-e". As versões -640/-960 são geradas por `npm run images`.
+ */
 interface Props {
   src: string;
   alt: string;
   width?: number;
   height?: number;
   class?: string;
+  /** Largura exibida, para o navegador escolher a versão certa */
+  sizes?: string;
 }
-const { src, alt, width = 1200, height = 800, class: cls } = Astro.props;
+const { src, alt, width = 1200, height = 800, class: cls, sizes = '(min-width: 900px) 540px, calc(100vw - 48px)' } = Astro.props;
+const srcset = `${src}-640.webp 640w, ${src}-960.webp 960w, ${src}.webp 1200w`;
 ---
 <picture>
-  <source srcset={`${src}.webp`} type="image/webp">
+  <source srcset={srcset} sizes={sizes} type="image/webp">
   <img class={cls} src={`${src}.jpg`} alt={alt} width={width} height={height} loading="lazy" decoding="async">
 </picture>

@@ -103,16 +103,18 @@ const ADV_ICONS = [
   ogTitle={t.meta.ogTitle}
   ogImage={`${IMG}/og-eb2-niw.jpg`}
   ogImageAlt={t.meta.ogImageAlt}
-  preloadImage={`${IMG}/hero-bg.webp`}
-  hubspotForm
-  preconnect={['https://img.youtube.com']}
+  preloadImages={[
+    { href: `${IMG}/hero-bg-800.webp`, media: '(max-width: 799px)' },
+    { href: `${IMG}/hero-bg.webp`, media: '(min-width: 800px)' },
+  ]}
+  dnsPrefetch={['https://js.hsforms.net', 'https://img.youtube.com']}
   jsonLd={jsonLd}
 >
 <SiteHeader formAnchor={a.form} cta={t.cta.header} />
 
 <main>
 
-<section class="hero" aria-labelledby="hero-title" style={`--hero-bg: ${imageSet(`${IMG}/hero-bg`)}`}>
+<section class="hero" aria-labelledby="hero-title" style={`--hero-bg: ${imageSet(`${IMG}/hero-bg`)}; --hero-bg-sm: url("${IMG}/hero-bg-800.webp")`}>
   <div class="container hero__grid">
     <div class="hero__content">
       <span class="free-badge"><span class="free-badge__dot" aria-hidden="true"></span><Fragment set:html={t.hero.badge} /></span>
@@ -199,7 +201,7 @@ const ADV_ICONS = [
     </div>
     <div class="reveal adv-layout">
       <div class="adv-photo">
-        <Photo src={`${IMG}/vantagens`} alt={t.advantages.imageAlt} />
+        <Photo src={`${IMG}/vantagens`} alt={t.advantages.imageAlt} sizes="(min-width: 960px) 480px, calc(100vw - 48px)" />
       </div>
       <div class="adv-grid">
         {t.advantages.cards.map((card: { title: string; text: string }, i: number) => (

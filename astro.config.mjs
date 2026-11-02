@@ -12,7 +12,8 @@ export default defineConfig({
   site: SITE_URL,
   // URLs no formato /idioma/nome-da-lp/ (cada página vira uma pasta com index.html)
   trailingSlash: 'always',
-  build: { format: 'directory' },
+  // CSS embutido no HTML: elimina a requisição que bloqueia a primeira pintura
+  build: { format: 'directory', inlineStylesheets: 'always' },
   env: {
     schema: {
       SITE_URL: envField.string({ context: 'server', access: 'public', default: 'https://d4uimmigration.com' }),
