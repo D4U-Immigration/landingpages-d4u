@@ -1,0 +1,13 @@
+---
+/**
+ * /pt-br/, /en/ e /es/ não têm página própria (as LPs ficam em /{idioma}/{lp}/): levam para a home,
+ * em vez de o servidor responder 403 por ser uma pasta sem index.
+ */
+import RedirectLayout from '../../layouts/RedirectLayout.astro';
+import { LOCALES } from '../../config/locales.js';
+
+export function getStaticPaths() {
+  return Object.keys(LOCALES).map((lang) => ({ params: { lang } }));
+}
+---
+<RedirectLayout target="/" name="D4U Immigration" />

@@ -1,0 +1,26 @@
+---
+/** Página 404 (servida pelo nginx via error_page; build gera /404.html) — no visual da home. */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/base.css';
+import '../styles/home.css';
+---
+<BaseLayout
+  locale="pt-br"
+  path=""
+  canonicalPath="/"
+  locales={['pt-br']}
+  title="Página não encontrada | D4U Immigration"
+  description="A página que você procura não foi encontrada."
+  ogTitle="Página não encontrada | D4U Immigration"
+  bodyClass="bio-body"
+  robots="noindex, follow"
+>
+<div class="bio-page">
+  <header class="bio-header">
+    <a href="/"><img class="bio-header__logo" src="https://d4uimmigration.com/wp-content/themes/d4u/assets/images/2025/Logo_D4U_cb2.svg" alt="D4U Immigration" width="107" height="70"></a>
+    <h1>Página não encontrada</h1>
+    <p class="bio-header__tagline">O endereço pode ter mudado ou não existe mais.</p>
+    <a href="/" class="btn btn-primary bio-btn">Ir para a página inicial</a>
+  </header>
+</div>
+</BaseLayout>

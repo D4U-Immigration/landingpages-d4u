@@ -30,9 +30,11 @@ interface Props {
   dnsPrefetch?: string[];
   jsonLd?: object;
   bodyClass?: string;
+  /** Padrão: indexar. A 404 usa "noindex, follow". */
+  robots?: string;
 }
 
-const { locale, path, canonicalPath, locales, title, description, ogTitle, ogImage, ogImageAlt, preloadImages = [], dnsPrefetch = [], jsonLd, bodyClass } = Astro.props;
+const { locale, path, canonicalPath, locales, title, description, ogTitle, ogImage, ogImageAlt, preloadImages = [], dnsPrefetch = [], jsonLd, bodyClass, robots = 'index, follow, max-image-preview:large' } = Astro.props;
 const site = SITE_URL.replace(/\/$/, '');
 const urlFor = (l: string) => `${site}/${l}/${path}`;
 const canonical = canonicalPath ? site + canonicalPath : urlFor(locale);
@@ -68,7 +70,7 @@ const favicon = 'https://d4uimmigration.com/wp-content/uploads/2025/04/favicon.p
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title}</title>
 <meta name="description" content={description}>
-<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="robots" content={robots}>
 <meta name="theme-color" content="#1F2A44">
 
 <link rel="icon" href={favicon} sizes="32x32">

@@ -4,7 +4,7 @@
  * nova (/{idioma}/{nome}/). Gera um index.html em cada URL antiga, sem depender de .htaccess,
  * preservando UTMs e demais parâmetros. Só para LPs com `legacy: true` em config/lps.js.
  */
-import { SITE_URL } from 'astro:env/server';
+import RedirectLayout from '../../layouts/RedirectLayout.astro';
 import { LPS } from '../../config/lps.js';
 import { DEFAULT_LOCALE } from '../../config/locales.js';
 
@@ -16,24 +16,5 @@ export function getStaticPaths() {
       ...lp.locales.map((l) => ({ params: { legacy: `${slug}/${l}` }, props: { target: `/${l}/${slug}/`, name: lp.name } })),
     ]);
 }
-
-const { target, name } = Astro.props;
-const canonical = SITE_URL.replace(/\/$/, '') + target;
 ---
-<!doctype html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{name} | D4U Immigration</title>
-<script is:inline define:vars={{ target }}>
-  location.replace(target + location.search + location.hash);
-</script>
-<meta http-equiv="refresh" content={`0; url=${target}`}>
-<link rel="canonical" href={canonical}>
-<meta name="robots" content="noindex, follow">
-</head>
-<body>
-<p><a href={target}>{name}</a></p>
-</body>
-</html>
+<RedirectLayout {...Astro.props} />

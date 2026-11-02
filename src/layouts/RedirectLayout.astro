@@ -1,0 +1,31 @@
+---
+/**
+ * Página de redirecionamento estática (sem depender de configuração do servidor): leva para `target`
+ * preservando UTMs, demais parâmetros e a âncora. Fica fora do índice (noindex) e do sitemap.
+ */
+import { SITE_URL } from 'astro:env/server';
+
+interface Props {
+  target: string;
+  name: string;
+}
+const { target, name } = Astro.props;
+const canonical = SITE_URL.replace(/\/$/, '') + target;
+---
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{name} | D4U Immigration</title>
+<script is:inline define:vars={{ target }}>
+  location.replace(target + location.search + location.hash);
+</script>
+<meta http-equiv="refresh" content={`0; url=${target}`}>
+<link rel="canonical" href={canonical}>
+<meta name="robots" content="noindex, follow">
+</head>
+<body>
+<p><a href={target}>{name}</a></p>
+</body>
+</html>
