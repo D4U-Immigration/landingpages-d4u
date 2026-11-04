@@ -1,0 +1,73 @@
+---
+/**
+ * LP Benefício Doctor24 — gera /pt-br/doctor24/, /en/doctor24/ e /es/doctor24/.
+ * HTML literal da LP original (src/content/lps/doctor24/{idioma}.json), com duas trocas:
+ * os botões (antes href="#") levam ao form, e o form ocupa no hero o lugar do celular com o app.
+ * Form "Fale conosco" do catálogo; depois do envio, vai para /{idioma}/doctor24-thank-you/.
+ */
+import { SITE_URL } from 'astro:env/server';
+import LpLayout from '../../../layouts/LpLayout.astro';
+import HeroForm from '../../../components/HeroForm.astro';
+import { LPS } from '../../../config/lps.js';
+// Ordem explícita: o CSS desta LP sobrescreve regras do base.css (o Astro põe primeiro o que a página importa)
+import '../../../styles/base.css';
+import '../../../styles/components.css';
+import '../../../styles/doctor24.css';
+
+const SLUG = 'doctor24';
+const LP = LPS[SLUG];
+const content = import.meta.glob('../../../content/lps/doctor24/*.json', { eager: true, import: 'default' });
+
+export function getStaticPaths() {
+  return LPS['doctor24'].locales.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: 'pt-br' | 'en' | 'es' };
+const t: any = content[`../../../content/lps/doctor24/${lang}.json`];
+
+// Altura do form "Fale conosco" já carregado (card <380 / 380–400 / >400 px), medida em 2026-11-04
+const FORM_HEIGHTS: Record<string, [number, number, number]> = {
+  'pt-br': [827, 789, 552],
+  en: [789, 756, 552],
+  es: [807, 789, 552],
+};
+
+const site = SITE_URL.replace(/\/$/, '');
+const pageUrl = `${site}/${lang}/${SLUG}/`;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': 'https://d4uimmigration.com/#organization',
+      name: 'D4U Immigration',
+      url: 'https://d4uimmigration.com',
+      logo: 'https://d4uimmigration.com/wp-content/themes/d4u/assets/images/2025/Logo_D4U_cb2.svg',
+      foundingDate: '2015',
+    },
+    {
+      '@type': 'WebPage',
+      '@id': `${pageUrl}#webpage`,
+      url: pageUrl,
+      name: t.meta.title,
+      description: t.meta.description,
+      inLanguage: { 'pt-br': 'pt-BR', en: 'en', es: 'es' }[lang],
+      publisher: { '@id': 'https://d4uimmigration.com/#organization' },
+    },
+  ],
+};
+---
+<LpLayout
+  locale={lang}
+  path={`${SLUG}/`}
+  locales={LP.locales}
+  title={t.meta.title}
+  description={t.meta.description}
+  ogTitle={t.meta.ogTitle}
+  dnsPrefetch={['https://js.hsforms.net']}
+  jsonLd={jsonLd}
+>
+<Fragment set:html={t.before} />
+    <HeroForm anchor={t.formAnchor} formId={LP.forms[lang]} heights={FORM_HEIGHTS[lang]} redirectUrl={`${site}/${lang}/doctor24-thank-you/`} />
+<Fragment set:html={t.after} />
+</LpLayout>

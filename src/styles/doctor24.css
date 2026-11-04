@@ -1,0 +1,38 @@
+/* ==========================================================================
+   Benefício Doctor24 — ajustes desta LP (antigo lp/doctor24/page.css).
+   Importado pela página depois de base.css e components.css.
+   O celular do hero saiu: o lugar dele é do form (HeroForm), como no O-1 —
+   por isso as regras de .hero__phone / .hero .container / .hero__content não vieram.
+   ========================================================================== */
+
+@media (min-width: 800px) {
+  .image-stack {
+    padding: 0px;
+    border: 20px solid #ffffff;
+    border-radius: 20px;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, .1);
+  }
+
+  .image-stack__front {
+    position: absolute;
+    z-index: 1;
+    width: 55%;
+    top: -36%;
+    right: -30%;
+    filter: drop-shadow(0 16px 28px rgba(15, 18, 24, 0.28));
+  }
+
+  .pill-list--horizontal { margin: 30px 0px; }
+}
+
+@media (max-width: 790px) {
+  .image-stack__front {
+    width: 35%;
+    top: -16%;
+    right: -0%;
+  }
+}
+
+/* CTA final com o espaçamento do base.css, como na LP original (o components.css usa 5.5rem).
+   Seletor mais específico porque este arquivo entra antes do components.css no HTML final. */
+main > section.cta-band { padding: 4rem 0; }

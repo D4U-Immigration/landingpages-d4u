@@ -20,8 +20,10 @@ interface Props {
   heights?: [number, number, number];
   /** Card sobre fundo claro (sombra suave), para páginas sem hero escuro */
   light?: boolean;
+  /** Página para onde o visitante vai depois de enviar (ex.: obrigado); sem ela, vale a mensagem do próprio form */
+  redirectUrl?: string;
 }
-const { anchor, formId, seal, heights, light = false } = Astro.props;
+const { anchor, formId, seal, heights, light = false, redirectUrl } = Astro.props;
 const style = heights && `--form-h: ${heights[0]}px; --form-h-380: ${heights[1]}px; --form-h-2col: ${heights[2]}px`;
 const portalId = HUBSPOT_PORTAL_ID;
 const region = HUBSPOT_REGION;
@@ -37,7 +39,7 @@ const region = HUBSPOT_REGION;
     </span>
   </div>}
   <div class="hs-form-v2" id="hsForm"></div>
-  <script is:inline define:vars={{ region, portalId, formId, anchor }}>
+  <script is:inline define:vars={{ region, portalId, formId, anchor, redirectUrl }}>
     (function () {
       var EVENTS = ['scroll', 'pointerdown', 'pointermove', 'touchstart', 'keydown', 'focusin'];
       var started = false;
@@ -49,7 +51,9 @@ const region = HUBSPOT_REGION;
         s.src = 'https://js.hsforms.net/forms/embed/v2.js';
         s.async = true;
         s.onload = function () {
-          window.hbspt.forms.create({ region: region, portalId: portalId, formId: formId, target: '#hsForm' });
+          var opts = { region: region, portalId: portalId, formId: formId, target: '#hsForm' };
+          if (redirectUrl) opts.redirectUrl = redirectUrl;
+          window.hbspt.forms.create(opts);
         };
         document.head.appendChild(s);
       }

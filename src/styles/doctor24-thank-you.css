@@ -1,0 +1,19 @@
+/* Página de agradecimento da Doctor24 — sem imagem lateral no hero, conteúdo centralizado
+   (antigo lp/doctor24-thank-you/page.css). Importado pela página depois do base.css. */
+.hero { padding: 5rem 0 6rem; }
+.hero .container { display: flex; justify-content: center; }
+.hero__content {
+  max-width: 620px;
+  align-items: center;
+  text-align: center;
+}
+.hero__actions { justify-content: center; }
+
+.thank-you-icon {
+  width: 64px;
+  height: 64px;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+
+.steps { max-width: 780px; margin: 0 auto; }

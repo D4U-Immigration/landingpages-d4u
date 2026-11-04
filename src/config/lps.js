@@ -28,6 +28,31 @@ export const LPS = {
       'pt-br': 'Evento presencial da D4U Immigration em São Paulo (TRIO SP Hall, 14 de novembro de 2026) para brasileiros que querem morar, trabalhar e investir nos EUA: participantes, programação de palestras e painéis, público-alvo, parceiros e inscrição pela Sympla.',
     },
   },
+  doctor24: {
+    name: 'Benefício Doctor24',
+    locales: ['pt-br', 'en', 'es'],
+    // Sem família própria no catálogo: form "Fale conosco" (decisão do usuário, 2026-11-04);
+    // depois do envio, vai para doctor24-thank-you no mesmo idioma
+    forms: {
+      'pt-br': '479eb867-ae60-4c27-a5fa-a2103a4dcaaf',
+      en: 'a6c15d79-c7ee-4b28-8d98-e74453e54e9e',
+      es: '1b376f3c-018f-4ed5-bc05-22d7879c15a5',
+    },
+    legacy: true,
+    llms: {
+      'pt-br': 'Benefício exclusivo para clientes D4U: 6 meses de acesso gratuito à plataforma de telemedicina Doctor24 (triagem com IA, teleconsultas, receitas e atestados digitais) para o aplicante e seus dependentes nos EUA.',
+      en: 'Exclusive benefit for D4U clients: 6 months of free access to the Doctor24 telemedicine platform (AI triage, teleconsultations, digital prescriptions and medical notes) for the applicant and their dependents in the U.S.',
+      es: 'Beneficio exclusivo para clientes de D4U: 6 meses de acceso gratuito a la plataforma de telemedicina Doctor24 (triaje con IA, teleconsultas, recetas y certificados digitales) para el solicitante y sus dependientes en EE. UU.',
+    },
+  },
+  // Página de obrigado do form da Doctor24: fora do índice, do sitemap e do llms.txt
+  'doctor24-thank-you': {
+    name: 'Doctor24 — obrigado',
+    locales: ['pt-br', 'en', 'es'],
+    forms: {},
+    legacy: true,
+    noindex: true,
+  },
   eb5: {
     name: 'Visto EB-5',
     locales: ['pt-br', 'en', 'es'],

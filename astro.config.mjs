@@ -25,10 +25,10 @@ export default defineConfig({
   integrations: [
     sitemap({
       // Páginas de redirecionamento das URLs antigas (/lp/...) ficam fora do sitemap
-      // Fora do sitemap: redirects (/lp/…, /pt-br/, /en/, /es/) e a página 404
+      // Fora do sitemap: redirects (/lp/…, /pt-br/, /en/, /es/), a 404 e as páginas de obrigado
       filter: (page) => {
         const path = new URL(page).pathname;
-        return !path.startsWith('/lp/') && !/^\/[a-z-]+\/$/.test(path) && path !== '/404/';
+        return !path.startsWith('/lp/') && !/^\/[a-z-]+\/$/.test(path) && path !== '/404/' && !path.includes('-thank-you/');
       },
       i18n: {
         defaultLocale: DEFAULT_LOCALE,

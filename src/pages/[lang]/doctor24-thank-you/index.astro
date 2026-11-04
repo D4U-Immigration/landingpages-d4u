@@ -1,0 +1,34 @@
+---
+/**
+ * Obrigado da LP Doctor24 — /pt-br/doctor24-thank-you/, /en/… e /es/… (destino do form depois do envio).
+ * HTML literal da página original; fora do índice (noindex), do sitemap e do llms.txt.
+ * Tem o tracking (via BaseLayout), sem Lead: o Lead é registrado no envio do form, na LP.
+ */
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { LPS } from '../../../config/lps.js';
+import '../../../styles/base.css';
+import '../../../styles/doctor24-thank-you.css';
+
+const SLUG = 'doctor24-thank-you';
+const LP = LPS[SLUG];
+const content = import.meta.glob('../../../content/lps/doctor24-thank-you/*.json', { eager: true, import: 'default' });
+
+export function getStaticPaths() {
+  return LPS['doctor24-thank-you'].locales.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: 'pt-br' | 'en' | 'es' };
+const t: any = content[`../../../content/lps/doctor24-thank-you/${lang}.json`];
+---
+<BaseLayout
+  locale={lang}
+  path={`${SLUG}/`}
+  canonicalPath={`/${lang}/${SLUG}/`}
+  locales={LP.locales}
+  title={t.meta.title}
+  description={t.meta.description}
+  ogTitle={t.meta.ogTitle}
+  robots="noindex, follow"
+>
+<Fragment set:html={t.body} />
+</BaseLayout>

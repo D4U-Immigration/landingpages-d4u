@@ -7,7 +7,7 @@ const LABELS: Record<string, string> = { 'pt-br': 'Portuguese (pt-BR)', en: 'Eng
 
 export const GET: APIRoute = () => {
   const site = SITE_URL.replace(/\/$/, '');
-  const sections = Object.entries(LPS).map(([slug, lp]) => {
+  const sections = Object.entries(LPS).filter(([, lp]) => !lp.noindex).map(([slug, lp]) => {
     const links = lp.locales.map((l) => `- [${LABELS[l]}](${site}/${l}/${slug}/): ${lp.llms[l]}`);
     return `## ${lp.name}\n\n${links.join('\n')}`;
   });
