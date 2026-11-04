@@ -1,0 +1,53 @@
+---
+/**
+ * LP do 4º Encontro de Mobilidade Global — gera /pt-br/4encontrodemobilidade/ (só português).
+ * Visual próprio de evento (styles/4encontrodemobilidade.css, antigo page.css) sobre o base.css;
+ * comportamentos em scripts/event.js (menu, vídeo em modal, participantes com pin horizontal).
+ * O HTML do corpo é literal ao original (src/content/lps/4encontrodemobilidade/pt-br.json).
+ * Lead: clique em link da Sympla → d4uLead({ method: 'ticket_redirect' }) (ver BaseLayout).
+ * Desempenho: logo e PNGs decorativos trocados por WebP, mosaico do hero com fotos de 320 px e capa do
+ * vídeo com versão de 640 px (mesmas imagens, mais leves); o logo é pré-carregado.
+ */
+import { SITE_URL } from 'astro:env/server';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { LPS } from '../../../config/lps.js';
+import '../../../styles/base.css';
+import '../../../styles/4encontrodemobilidade.css';
+
+const SLUG = '4encontrodemobilidade';
+const LP = LPS[SLUG];
+const content = import.meta.glob('../../../content/lps/4encontrodemobilidade/*.json', { eager: true, import: 'default' });
+
+export function getStaticPaths() {
+  return LPS['4encontrodemobilidade'].locales.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: 'pt-br' };
+const t: any = content[`../../../content/lps/4encontrodemobilidade/${lang}.json`];
+const site = SITE_URL.replace(/\/$/, '');
+const jsonLd = { ...t.jsonLd, url: `${site}/${lang}/${SLUG}/` };
+---
+<BaseLayout
+  locale={lang}
+  path={`${SLUG}/`}
+  locales={LP.locales}
+  title={t.meta.title}
+  description={t.meta.description}
+  ogTitle={t.meta.ogTitle}
+  ogDescription={t.meta.ogDescription}
+  preloadImages={[{ href: '/assets/lp/4encontrodemobilidade/logo-4encontro.webp' }]}
+  dnsPrefetch={['https://img.youtube.com']}
+  jsonLd={jsonLd}
+>
+<Fragment set:html={t.body} />
+
+<script>
+  import '../../../scripts/event.js';
+
+  /* Lead ao clicar para garantir o ingresso na Sympla */
+  document.addEventListener('click', (e) => {
+    const a = (e.target as Element).closest?.('a[href*="sympla.com.br"]');
+    if (a) (window as any).d4uLead({ method: 'ticket_redirect', page: '4encontrodemobilidade' });
+  }, true);
+</script>
+</BaseLayout>

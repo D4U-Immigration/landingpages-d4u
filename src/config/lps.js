@@ -18,6 +18,16 @@ export const LPS = {
       es: 'Qué es la EB-2 NIW, quién puede considerarla, requisitos (formación académica avanzada o habilidad excepcional), ventajas, perfiles compatibles y preguntas frecuentes sobre esta categoría de inmigración basada en el empleo que puede conducir a la Green Card.',
     },
   },
+  '4encontrodemobilidade': {
+    name: '4º Encontro de Mobilidade Global',
+    locales: ['pt-br'],
+    // Sem form: o CTA leva à compra do ingresso na Sympla (Lead ticket_redirect no clique)
+    forms: {},
+    legacy: true,
+    llms: {
+      'pt-br': 'Evento presencial da D4U Immigration em São Paulo (TRIO SP Hall, 14 de novembro de 2026) para brasileiros que querem morar, trabalhar e investir nos EUA: participantes, programação de palestras e painéis, público-alvo, parceiros e inscrição pela Sympla.',
+    },
+  },
   eb5: {
     name: 'Visto EB-5',
     locales: ['pt-br', 'en', 'es'],

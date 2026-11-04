@@ -22,6 +22,8 @@ interface Props {
   title: string;
   description: string;
   ogTitle: string;
+  /** og:description/twitter:description, quando diferente da meta description */
+  ogDescription?: string;
   ogImage?: string;
   ogImageAlt?: string;
   /** Imagens do hero carregadas com prioridade (WebP), opcionalmente por media query */
@@ -34,7 +36,7 @@ interface Props {
   robots?: string;
 }
 
-const { locale, path, canonicalPath, locales, title, description, ogTitle, ogImage, ogImageAlt, preloadImages = [], dnsPrefetch = [], jsonLd, bodyClass, robots = 'index, follow, max-image-preview:large' } = Astro.props;
+const { locale, path, canonicalPath, locales, title, description, ogTitle, ogDescription = description, ogImage, ogImageAlt, preloadImages = [], dnsPrefetch = [], jsonLd, bodyClass, robots = 'index, follow, max-image-preview:large' } = Astro.props;
 const site = SITE_URL.replace(/\/$/, '');
 const urlFor = (l: string) => `${site}/${l}/${path}`;
 const canonical = canonicalPath ? site + canonicalPath : urlFor(locale);
@@ -49,7 +51,9 @@ const favicon = 'https://d4uimmigration.com/wp-content/uploads/2025/04/favicon.p
 <script is:inline>document.documentElement.className = document.documentElement.className.replace("no-js", "js");</script>
 <!-- Tracking D4U: o loader já registra sozinho o Lead do form HubSpot (v2 e v4), com dedup por sessão — não chamar pmaTrack('Lead') manualmente.
      Desempenho (decisão de 2026-11-02): o loader (GA4 + pixel da Meta) carrega na primeira interação ou 5 s após o load.
-     O Lead não é afetado: enviar o form exige interação, e o loader captura o envio por evento. -->
+     O Lead não é afetado: enviar o form exige interação, e o loader captura o envio por evento.
+     Lead manual (clique para Sympla, share.hsforms…): usar window.d4uLead({ method, page }) — ele carrega o
+     loader se preciso e dispara o pmaTrack('Lead') assim que estiver disponível. -->
 <script is:inline define:vars={{ loaderUrl: TRACKING_LOADER_URL }}>
   (function () {
     var EVENTS = ['scroll', 'pointerdown', 'pointermove', 'touchstart', 'keydown', 'focusin'];
@@ -65,6 +69,14 @@ const favicon = 'https://d4uimmigration.com/wp-content/uploads/2025/04/favicon.p
     }
     EVENTS.forEach(function (e) { window.addEventListener(e, load, { passive: true }); });
     window.addEventListener('load', function () { setTimeout(load, 5000); });
+    window.d4uLead = function (params) {
+      load();
+      var tries = 0;
+      (function send() {
+        if (typeof window.pmaTrack === 'function') return window.pmaTrack('Lead', params);
+        if (++tries < 75) setTimeout(send, 200);
+      })();
+    };
   })();
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -86,7 +98,7 @@ const favicon = 'https://d4uimmigration.com/wp-content/uploads/2025/04/favicon.p
 {alternates.filter((l) => l !== locale).map((l) => <meta property="og:locale:alternate" content={LOCALES[l].og}>)}
 <meta property="og:site_name" content="D4U Immigration">
 <meta property="og:title" content={ogTitle}>
-<meta property="og:description" content={description}>
+<meta property="og:description" content={ogDescription}>
 <meta property="og:url" content={canonical}>
 {ogImageUrl && <>
 <meta property="og:image" content={ogImageUrl}>
@@ -96,7 +108,7 @@ const favicon = 'https://d4uimmigration.com/wp-content/uploads/2025/04/favicon.p
 </>}
 <meta name="twitter:card" content={ogImageUrl ? 'summary_large_image' : 'summary'}>
 <meta name="twitter:title" content={ogTitle}>
-<meta name="twitter:description" content={description}>
+<meta name="twitter:description" content={ogDescription}>
 {ogImageUrl && <meta name="twitter:image" content={ogImageUrl}>}
 
 <link rel="preload" as="font" href="/assets/fonts/montserrat-latin.woff2" type="font/woff2" crossorigin>
