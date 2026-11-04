@@ -1,0 +1,319 @@
+{
+  "meta": {
+    "title": "EB-5 Visa: Investment and Green Card in the USA | D4U",
+    "description": "The EB-5 is an immigrant visa category for investors who want to invest capital in a commercial enterprise in the U.S. and pursue permanent residence for themselves and their eligible family members.",
+    "ogTitle": "EB-5 Visa: your investment can be a path to a Green Card in the USA",
+    "ogImageAlt": "New York skyscrapers with the United States flag",
+    "pageName": "EB-5 Visa: your investment can be a path to a Green Card in the USA",
+    "pageDescription": "The EB-5 is an immigrant visa category for investors who want to invest capital in a commercial enterprise in the United States and pursue permanent residence for themselves and their eligible family members.",
+    "about": "EB-5 Immigrant Investor Program",
+    "breadcrumbName": "EB-5 Visa"
+  },
+  "anchors": {
+    "whatIs": "what-is",
+    "investment": "investment",
+    "process": "process",
+    "profile": "profile",
+    "family": "family",
+    "d4u": "d4u",
+    "faq": "faq",
+    "ctaFinal": "cta-final",
+    "form": "form"
+  },
+  "formId": "ae5b3877-d7b2-4a69-a9b4-07ac370d38da",
+  "cta": {
+    "header": "Learn more about the <span class=\"nowrap\">EB-5</span>",
+    "sticky": "Learn more about the <span class=\"nowrap\">EB-5</span>"
+  },
+  "hero": {
+    "title": "<span class=\"free-badge\"><span aria-hidden=\"true\" class=\"free-badge__dot\"></span><span class=\"nowrap\">EB-5</span> Visa</span> Your investment can be a path to a Green Card in the USA.",
+    "lede": "The <span class=\"nowrap\">EB-5</span> is an immigrant visa category for investors who want to invest capital in a commercial enterprise in the United States and pursue permanent residence for themselves and their eligible family members.",
+    "strong": "Invest in the USA. Plan your future.",
+    "cta": "Learn more about the <span class=\"nowrap\">EB-5</span>",
+    "seal": "EB-5 VISA • GREEN CARD •"
+  },
+  "whatIs": {
+    "eyebrow": "Visa",
+    "title": "What is the <span class=\"nowrap\">EB-5</span> visa?",
+    "before": [
+      "The <span class=\"nowrap\">EB-5</span> is an investment-based immigrant visa designed to stimulate economic growth and job creation in the United States.",
+      "Through the program, investors invest capital in a qualifying commercial enterprise and must demonstrate that the investment meets the applicable requirements, including the <strong>creation of at least 10 jobs</strong>."
+    ],
+    "after": "When the requirements are met and the application is approved, the <span class=\"nowrap\">EB-5</span> can lead to a Green Card in the United States.",
+    "note": "The program may involve direct investments or investments made through Regional Centers authorized by U.S. immigration authorities.",
+    "imageAlt": "Buildings under construction with cranes in a modern city"
+  },
+  "investment": {
+    "eyebrow": "Investment",
+    "title": "How much do you need to invest?",
+    "lede": "Currently, the minimum investment amounts for new petitions are:",
+    "cards": [
+      {
+        "feature": true,
+        "value": "<span class=\"nowrap\">US$800,000</span>",
+        "attrs": {
+          "data-count": "800",
+          "data-prefix": "US$",
+          "data-suffix": ",000"
+        },
+        "text": "For investments in a Targeted Employment Area (TEA) or certain infrastructure projects associated with the program."
+      },
+      {
+        "feature": false,
+        "value": "<span class=\"nowrap\">US$1.05</span> million",
+        "attrs": {
+          "data-count": "1.05",
+          "data-decimals": "2",
+          "data-decimal-sep": ".",
+          "data-prefix": "US$",
+          "data-suffix": " million"
+        },
+        "text": "For investments that do not fall into these categories."
+      }
+    ],
+    "footnote": "*The amounts are established by law and are subject to adjustment in 2027.",
+    "important": "<strong>Important:</strong> The investment amount is not the only requirement. The investment structure, job creation, lawful source of funds, and other criteria must also be demonstrated.",
+    "cta": "Learn more about the <span class=\"nowrap\">EB-5</span>"
+  },
+  "process": {
+    "eyebrow": "Process",
+    "title": "How does the <span class=\"nowrap\">EB-5</span> work?",
+    "imageAlt": "Investor in a suit signing a contract in an office",
+    "steps": [
+      {
+        "title": "1. Profile and project assessment",
+        "text": "The first step is to understand your goals, investment capacity, source of funds, and family profile, as well as evaluate the characteristics of the investment project."
+      },
+      {
+        "title": "2. Choosing the investment structure",
+        "text": "The <span class=\"nowrap\">EB-5</span> may involve different structures, including investments through Regional Centers or direct investments. Each option has its own characteristics and requirements."
+      },
+      {
+        "title": "3. Capital investment",
+        "text": "The investor makes the investment according to the structure established for the project and the process. The invested capital must meet the program requirements, and its lawful source must be documented."
+      },
+      {
+        "title": "4. Immigration process",
+        "text": "Once the appropriate documentation and investment structure are in place, the case is submitted to the relevant authorities for review."
+      },
+      {
+        "title": "5. Permanent residence",
+        "text": "After approval and fulfillment of the program requirements, the investor may move forward in the process toward permanent residence in the United States."
+      }
+    ]
+  },
+  "profile": {
+    "eyebrow": "Profile",
+    "title": "Who may consider the <span class=\"nowrap\">EB-5</span>?",
+    "lede": "The <span class=\"nowrap\">EB-5</span> may be worth considering for investors who:",
+    "imageAlt": "Two businessmen reviewing financial data on a tablet",
+    "items": [
+      "<span>Have capital available for a qualifying investment;</span>",
+      "<span>Want to build a path toward permanent residence in the USA;</span>",
+      "<span>Are looking for an investment-based option rather than one based on a job offer;</span>",
+      "<span>Want to plan an international move involving their family;</span>",
+      "<span>Are interested in diversifying part of their assets internationally;</span>",
+      "<span>Can properly document the source and history of their funds.</span>"
+    ],
+    "cta": "Learn more about the <span class=\"nowrap\">EB-5</span>"
+  },
+  "family": {
+    "eyebrow": "Family",
+    "title": "<span class=\"nowrap\">EB-5</span> and your family",
+    "ledes": [
+      {
+        "style": "margin-top:1.1rem",
+        "html": "One of the reasons families consider the <span class=\"nowrap\">EB-5</span> is the possibility of including certain eligible family members in the process."
+      },
+      {
+        "style": "",
+        "html": "The planning can involve not only the investor, but also their family plans in the United States."
+      }
+    ],
+    "imageAlt": "Family walking hand in hand through a sunny park",
+    "cards": [
+      {
+        "title": "Career",
+        "text": "New professional and business opportunities."
+      },
+      {
+        "title": "Education",
+        "text": "Planning for your children's academic future."
+      },
+      {
+        "title": "Assets",
+        "text": "A strategy for an international move involving investments and financial resources."
+      },
+      {
+        "title": "Future",
+        "text": "A structured life plan for the United States."
+      }
+    ]
+  },
+  "d4u": {
+    "eyebrow": "D4U Immigration",
+    "title": "Get to know D4U",
+    "lede": "Since 2015, D4U Immigration has helped people plan their international pathways.",
+    "creds": [
+      {
+        "icon": "users",
+        "parts": [
+          {
+            "class": "cred__num",
+            "attrs": {
+              "data-count": "18",
+              "data-suffix": ",000+"
+            },
+            "html": "18,000+"
+          },
+          {
+            "class": "cred__label",
+            "attrs": {},
+            "html": "customers served"
+          }
+        ]
+      },
+      {
+        "icon": "shield",
+        "parts": [
+          {
+            "class": "cred__num",
+            "attrs": {
+              "data-count": "91",
+              "data-suffix": "%+"
+            },
+            "html": "91%+"
+          },
+          {
+            "class": "cred__label",
+            "attrs": {},
+            "html": "approval rate audited by RSM"
+          }
+        ]
+      },
+      {
+        "icon": "trophy",
+        "parts": [
+          {
+            "class": "cred__label cred__label--lead",
+            "attrs": {},
+            "html": "Named the best in the market"
+          },
+          {
+            "class": "cred__num",
+            "attrs": {
+              "data-count": "5",
+              "data-suffix": " times"
+            },
+            "html": "5 times"
+          }
+        ]
+      },
+      {
+        "icon": "building",
+        "parts": [
+          {
+            "class": "cred__num cred__num--text",
+            "attrs": {},
+            "html": "Former U.S."
+          },
+          {
+            "class": "cred__label",
+            "attrs": {},
+            "html": "immigration director on our team"
+          }
+        ]
+      },
+      {
+        "icon": "globe",
+        "parts": [
+          {
+            "class": "cred__num cred__num--text",
+            "attrs": {},
+            "html": "Presence"
+          },
+          {
+            "class": "cred__label",
+            "attrs": {},
+            "html": "in Brazil, the United States, and Colombia"
+          }
+        ]
+      }
+    ]
+  },
+  "awards": {
+    "label": "D4U Immigration awards and certifications",
+    "alts": [
+      "Great Place to Work Certified seal Jan 2022 – Jan 2023",
+      "Great Place to Work Certified seal Jan 2023 – Jan 2024",
+      "Great Place to Work Certified seal Jan 2024 – Jan 2025",
+      "Great Place to Work Certified seal Jan 2025 – Jan 2026",
+      "Great Place to Work Certified seal Jan 2026 – Jan 2027",
+      "International Business Magazine Award Winner 2025 seal",
+      "AI Awards seal 2021",
+      "AI Awards seal 2022",
+      "AI Awards seal 2023",
+      "AI Awards seal 2024",
+      "AI Awards seal 2025",
+      "Procon-SP Verified Company seal",
+      "RSM certificate of 91%+ success rate"
+    ]
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "title": "Frequently asked questions",
+    "items": [
+      {
+        "q": "Does the <span class=\"nowrap\">EB-5</span> provide a Green Card?",
+        "a": "The <span class=\"nowrap\">EB-5</span> is an immigrant category that can lead to permanent residence in the United States when all applicable requirements are met and the application is approved."
+      },
+      {
+        "q": "How much do I need to invest in the <span class=\"nowrap\">EB-5</span>?",
+        "a": "Currently, the minimum investment is <span class=\"nowrap\">US$800,000</span> for investments that qualify for the reduced investment amount, such as certain TEAs, and <span class=\"nowrap\">US$1.05 million</span> for standard investments. An adjustment to these amounts is scheduled for 2027."
+      },
+      {
+        "q": "Do I need to create a company in the United States?",
+        "a": "Not necessarily. The structure may vary depending on the investment model selected. Direct investments and investments through Regional Centers have different characteristics."
+      },
+      {
+        "q": "Do I need to personally manage the business?",
+        "a": "It depends on the investment structure. The Regional Center model may be used by investors who do not intend to directly manage the business, but the specific structure must be assessed."
+      },
+      {
+        "q": "Do I need to prove the source of my funds?",
+        "a": "Yes. The lawful source of the funds used for the investment must be documented according to the applicable requirements."
+      },
+      {
+        "q": "Can the <span class=\"nowrap\">EB-5</span> include my family?",
+        "a": "Certain family members may be included, depending on the criteria and rules applicable to the program."
+      },
+      {
+        "q": "Is there a guarantee that I will receive a return on my investment?",
+        "a": "The <span class=\"nowrap\">EB-5</span> involves an investment and therefore carries financial risks. Immigration approval also depends on meeting the applicable requirements and review by the relevant authorities."
+      },
+      {
+        "q": "Is D4U a law firm?",
+        "a": "No. D4U is an international planning company. Legal work related to the immigration process is handled by licensed partner law firms in the United States."
+      }
+    ]
+  },
+  "ctaFinal": {
+    "eyebrow": "Next step",
+    "title": "Ready to learn more about the <span class=\"nowrap\">EB-5</span>?",
+    "ledes": [
+      {
+        "strong": true,
+        "html": "Your next investment could become part of your life plan in the USA."
+      },
+      {
+        "strong": false,
+        "html": "Understand the possibilities, assess your profile, and take the first step."
+      }
+    ],
+    "cta": "Learn more about the <span class=\"nowrap\">EB-5</span>"
+  },
+  "footer": {
+    "html": "*The information on this page is provided for informational purposes only and does not constitute legal or financial advice or an investment recommendation. The <span class=\"nowrap\">EB-5</span> has specific requirements and financial risks and is subject to review and approval by the relevant authorities. Program rules and requirements may change.",
+    "lang": ""
+  }
+}

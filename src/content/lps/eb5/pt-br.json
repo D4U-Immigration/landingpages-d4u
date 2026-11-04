@@ -1,0 +1,316 @@
+{
+  "meta": {
+    "title": "Visto EB-5: investimento e Green Card nos EUA | D4U",
+    "description": "O EB-5 é uma categoria imigratória voltada a investidores que desejam aplicar capital em uma empresa comercial nos EUA e buscar a residência permanente para si e seus familiares elegíveis.",
+    "ogTitle": "Visto EB-5: seu investimento é um caminho para o Green Card nos EUA",
+    "ogImageAlt": "Arranha-céus de Nova York com a bandeira dos Estados Unidos",
+    "pageName": "Visto EB-5: seu investimento é um caminho para o Green Card nos EUA",
+    "pageDescription": "O EB-5 é uma categoria imigratória voltada a investidores que desejam aplicar capital em uma empresa comercial nos Estados Unidos e buscar a residência permanente para si e seus familiares elegíveis.",
+    "about": "EB-5 Immigrant Investor Program",
+    "breadcrumbName": "Visto EB-5"
+  },
+  "anchors": {
+    "whatIs": "o-que-e",
+    "investment": "investimento",
+    "process": "processo",
+    "profile": "perfil",
+    "family": "familia",
+    "d4u": "d4u",
+    "faq": "faq",
+    "ctaFinal": "cta-final",
+    "form": "formulario"
+  },
+  "formId": "255b735d-7acb-4daa-9e8c-3170e7f2a045",
+  "cta": {
+    "header": "Quero conhecer o <span class=\"nowrap\">EB-5</span>",
+    "sticky": "Quero conhecer o <span class=\"nowrap\">EB-5</span>"
+  },
+  "hero": {
+    "title": "<span class=\"free-badge\"><span aria-hidden=\"true\" class=\"free-badge__dot\"></span>Visto <span class=\"nowrap\">EB-5</span></span> <span>Seu investimento é um caminho para o Green Card nos EUA.</span>",
+    "lede": "O <span class=\"nowrap\">EB-5</span> é uma categoria imigratória voltada a investidores que desejam aplicar capital em uma empresa comercial nos Estados Unidos e buscar a residência permanente para si e seus familiares elegíveis.",
+    "strong": "Invista nos EUA. Planeje seu futuro.",
+    "cta": "Quero conhecer o <span class=\"nowrap\">EB-5</span>",
+    "seal": "VISTO EB-5 • GREEN CARD •"
+  },
+  "whatIs": {
+    "eyebrow": "Visto",
+    "title": "O que é o visto <span class=\"nowrap\">EB-5</span>?",
+    "before": [
+      "O <span class=\"nowrap\">EB-5</span> é um visto imigratório baseado em investimento para estimular o crescimento econômico e a geração de empregos nos Estados Unidos.",
+      "Por meio do programa, o investidor aplica capital em uma empresa comercial qualificada e precisa demonstrar que o investimento atende aos requisitos, incluindo a <strong>criação de pelo menos 10 empregos</strong>."
+    ],
+    "after": "Quando os critérios são atendidos e a solicitação é aprovada, o <span class=\"nowrap\">EB-5</span> pode levar ao Green Card nos Estados Unidos.",
+    "note": "O programa pode envolver investimentos diretos ou investimentos realizados por meio de Regional Centers autorizados pela Imigração Americana.",
+    "imageAlt": "Prédios em construção com guindastes em uma cidade moderna"
+  },
+  "investment": {
+    "eyebrow": "Investimento",
+    "title": "Quanto é necessário investir?",
+    "lede": "Atualmente, os valores mínimos previstos para novas petições são:",
+    "cards": [
+      {
+        "feature": true,
+        "value": "<span class=\"nowrap\">US$ 800</span> mil",
+        "attrs": {
+          "data-count": "800",
+          "data-prefix": "US$ ",
+          "data-suffix": " mil"
+        },
+        "text": "Para investimentos em uma Targeted Employment Area (TEA) ou em determinados projetos de infraestrutura associados ao programa."
+      },
+      {
+        "feature": false,
+        "value": "<span class=\"nowrap\">US$ 1,05</span> milhão",
+        "attrs": {
+          "data-count": "1.05",
+          "data-decimals": "2",
+          "data-prefix": "US$ ",
+          "data-suffix": " milhão"
+        },
+        "text": "Para investimentos que não se enquadram nessas categorias."
+      }
+    ],
+    "footnote": "*Os valores são definidos pela legislação e estão sujeitos a reajuste em 2027.",
+    "important": "<strong>Importante:</strong> o valor do investimento não é o único requisito. A estrutura do investimento, a criação de empregos, a origem lícita dos recursos e outros critérios também precisam ser demonstrados.",
+    "cta": "Quero conhecer o <span class=\"nowrap\">EB-5</span>"
+  },
+  "process": {
+    "eyebrow": "Processo",
+    "title": "Como funciona o <span class=\"nowrap\">EB-5</span>?",
+    "imageAlt": "Investidor de terno assinando um contrato em um escritório",
+    "steps": [
+      {
+        "title": "1. Análise do perfil e do projeto",
+        "text": "O primeiro passo é entender seu objetivo, capacidade de investimento, origem dos recursos e perfil familiar, além de avaliar as características do projeto de investimento."
+      },
+      {
+        "title": "2. Escolha da estrutura de investimento",
+        "text": "O <span class=\"nowrap\">EB-5</span> pode envolver diferentes estruturas, incluindo investimentos por meio de Regional Centers ou investimentos diretos. Cada modalidade possui características e requisitos próprios."
+      },
+      {
+        "title": "3. Investimento do capital",
+        "text": "O investidor realiza o aporte conforme a estrutura definida para o projeto e para o processo. O capital investido precisa atender aos requisitos do programa e sua origem lícita deve ser comprovada."
+      },
+      {
+        "title": "4. Processo imigratório",
+        "text": "Com a documentação e a estrutura adequadas, o processo é apresentado às autoridades competentes para análise."
+      },
+      {
+        "title": "5. Residência permanente",
+        "text": "Com a aprovação e o cumprimento dos requisitos do programa, o investidor pode avançar no processo para obter a residência permanente nos Estados Unidos."
+      }
+    ]
+  },
+  "profile": {
+    "eyebrow": "Perfil",
+    "title": "Quem pode considerar o <span class=\"nowrap\">EB-5</span>?",
+    "lede": "O <span class=\"nowrap\">EB-5</span> pode fazer sentido para investidores que:",
+    "imageAlt": "Dois empresários analisando dados financeiros em um tablet",
+    "items": [
+      "<span>Possuem capital disponível para realizar um investimento qualificado;</span>",
+      "<span>Desejam construir um caminho para a residência permanente nos EUA;</span>",
+      "<span>Buscam uma alternativa baseada em investimento, e não em uma oferta de emprego;</span>",
+      "<span>Desejam planejar uma mudança internacional envolvendo a família;</span>",
+      "<span>Têm interesse em diversificar parte de seu patrimônio internacionalmente;</span>",
+      "<span>Conseguem documentar adequadamente a origem e o histórico dos recursos.</span>"
+    ],
+    "cta": "Quero conhecer o <span class=\"nowrap\">EB-5</span>"
+  },
+  "family": {
+    "eyebrow": "Família",
+    "title": "<span class=\"nowrap\">EB-5</span> e a sua família",
+    "ledes": [
+      {
+        "style": "margin-top:1.1rem",
+        "html": "Um dos pontos que fazem o <span class=\"nowrap\">EB-5</span> ser considerado por famílias é a possibilidade de incluir determinados familiares elegíveis no processo. O planejamento pode envolver não apenas o investidor, mas também seu projeto familiar nos Estados Unidos."
+      }
+    ],
+    "imageAlt": "Família caminhando de mãos dadas em um parque ensolarado",
+    "cards": [
+      {
+        "title": "Carreira",
+        "text": "Novas possibilidades profissionais e empresariais."
+      },
+      {
+        "title": "Educação",
+        "text": "Planejamento da vida acadêmica dos filhos."
+      },
+      {
+        "title": "Patrimônio",
+        "text": "Estratégia para uma mudança internacional envolvendo investimentos e recursos."
+      },
+      {
+        "title": "Futuro",
+        "text": "Um projeto de vida estruturado para os Estados Unidos."
+      }
+    ]
+  },
+  "d4u": {
+    "eyebrow": "D4U Immigration",
+    "title": "Conheça a D4U",
+    "lede": "Desde 2015, a D4U Immigration ajuda pessoas a planejar seus caminhos internacionais.",
+    "creds": [
+      {
+        "icon": "users",
+        "parts": [
+          {
+            "class": "cred__num",
+            "attrs": {
+              "data-count": "18",
+              "data-prefix": "+",
+              "data-suffix": " mil"
+            },
+            "html": "+18 mil"
+          },
+          {
+            "class": "cred__label",
+            "attrs": {},
+            "html": "clientes beneficiados"
+          }
+        ]
+      },
+      {
+        "icon": "shield",
+        "parts": [
+          {
+            "class": "cred__num",
+            "attrs": {
+              "data-count": "91",
+              "data-prefix": "+",
+              "data-suffix": "%"
+            },
+            "html": "+91%"
+          },
+          {
+            "class": "cred__label",
+            "attrs": {},
+            "html": "de aprovação auditada pela RSM"
+          }
+        ]
+      },
+      {
+        "icon": "trophy",
+        "parts": [
+          {
+            "class": "cred__num",
+            "attrs": {
+              "data-count": "5",
+              "data-suffix": "x"
+            },
+            "html": "5x"
+          },
+          {
+            "class": "cred__label",
+            "attrs": {},
+            "html": "eleita a melhor do mercado"
+          }
+        ]
+      },
+      {
+        "icon": "building",
+        "parts": [
+          {
+            "class": "cred__num cred__num--text",
+            "attrs": {},
+            "html": "Ex-diretor"
+          },
+          {
+            "class": "cred__label",
+            "attrs": {},
+            "html": "da Imigração Americana na equipe"
+          }
+        ]
+      },
+      {
+        "icon": "globe",
+        "parts": [
+          {
+            "class": "cred__num cred__num--text",
+            "attrs": {},
+            "html": "Presença"
+          },
+          {
+            "class": "cred__label",
+            "attrs": {},
+            "html": "no Brasil, Estados Unidos e Colômbia"
+          }
+        ]
+      }
+    ]
+  },
+  "awards": {
+    "label": "Prêmios e certificações da D4U Immigration",
+    "alts": [
+      "Selo Great Place to Work Certified jan 2022 – jan 2023",
+      "Selo Great Place to Work Certified jan 2023 – jan 2024",
+      "Selo Great Place to Work Certified jan 2024 – jan 2025",
+      "Selo Great Place to Work Certified jan 2025 – jan 2026",
+      "Selo Great Place to Work Certified jan 2026 – jan 2027",
+      "Selo International Business Magazine Award Winner 2025",
+      "Selo AI Awards 2021",
+      "Selo AI Awards 2022",
+      "Selo AI Awards 2023",
+      "Selo AI Awards 2024",
+      "Selo AI Awards 2025",
+      "Selo Procon-SP Empresa Verificada",
+      "Certificado RSM de taxa de sucesso +91%"
+    ]
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "title": "Perguntas frequentes",
+    "items": [
+      {
+        "q": "O <span class=\"nowrap\">EB-5</span> dá direito ao Green Card?",
+        "a": "O <span class=\"nowrap\">EB-5</span> é uma categoria de imigração que pode levar à residência permanente nos Estados Unidos quando todos os requisitos aplicáveis são atendidos e a solicitação é aprovada."
+      },
+      {
+        "q": "Quanto preciso investir no <span class=\"nowrap\">EB-5</span>?",
+        "a": "Atualmente, o investimento mínimo é de <span class=\"nowrap\">US$ 800 mil</span> para investimentos que se enquadrem nas categorias previstas para o valor reduzido, como determinadas TEAs, e <span class=\"nowrap\">US$ 1,05 milhão</span> para investimentos padrão. Há um reajuste de valores previsto para 2027."
+      },
+      {
+        "q": "Preciso criar uma empresa nos Estados Unidos?",
+        "a": "Não necessariamente. A estrutura pode variar de acordo com o modelo de investimento escolhido. Investimentos diretos e investimentos por meio de Regional Centers possuem características diferentes."
+      },
+      {
+        "q": "Preciso administrar pessoalmente o negócio?",
+        "a": "Isso depende da estrutura do investimento. O modelo de Regional Center pode ser utilizado por investidores que não pretendem administrar diretamente o negócio, mas a estrutura específica precisa ser analisada."
+      },
+      {
+        "q": "Preciso comprovar a origem do dinheiro?",
+        "a": "Sim. A origem lícita dos recursos utilizados no investimento precisa ser demonstrada de acordo com os requisitos aplicáveis."
+      },
+      {
+        "q": "O <span class=\"nowrap\">EB-5</span> pode incluir minha família?",
+        "a": "Determinados familiares podem ser incluídos, conforme os critérios e regras aplicáveis ao programa."
+      },
+      {
+        "q": "Existe garantia de retorno do investimento?",
+        "a": "O <span class=\"nowrap\">EB-5</span> envolve investimento e, portanto, possui riscos financeiros. A aprovação imigratória também depende do cumprimento dos requisitos e da análise das autoridades competentes."
+      },
+      {
+        "q": "A D4U é uma law firm?",
+        "a": "Não. A D4U é uma empresa de planejamento internacional. O trabalho jurídico relacionado ao processo imigratório é realizado por escritórios parceiros licenciados nos Estados Unidos."
+      }
+    ]
+  },
+  "ctaFinal": {
+    "eyebrow": "Próximo passo",
+    "title": "Pronto para conhecer o <span class=\"nowrap\">EB-5</span>?",
+    "ledes": [
+      {
+        "strong": true,
+        "html": "Seu próximo investimento pode fazer parte do seu projeto de vida nos EUA."
+      },
+      {
+        "strong": false,
+        "html": "Entenda as possibilidades, avalie seu perfil e dê o primeiro passo."
+      }
+    ],
+    "cta": "Quero conhecer o <span class=\"nowrap\">EB-5</span>"
+  },
+  "footer": {
+    "html": "*As informações desta página são de caráter informativo e não constituem aconselhamento jurídico, financeiro ou recomendação de investimento. O <span class=\"nowrap\">EB-5</span> possui requisitos específicos, riscos financeiros e depende da análise e aprovação das autoridades competentes. As condições e regras do programa podem ser alteradas.",
+    "lang": ""
+  }
+}

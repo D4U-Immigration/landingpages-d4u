@@ -1,17 +1,33 @@
-/* Comportamentos das LPs com hero + formulário: progresso de leitura, destaque do form,
-   checklist, prêmios sob demanda, contadores e vídeos em popup (antigo page.js da EB-2 NIW). */
+/* Comportamentos das LPs com hero + formulário: progresso de leitura, linha do tempo (EB-5),
+   destaque do form, checklist, 10 empregos (EB-5), prêmios sob demanda, contadores e vídeos em popup
+   (antigos page.js da EB-2 NIW e da EB-5). Cada bloco só age se o elemento existir na página. */
 document.addEventListener('DOMContentLoaded', function () {
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- Barra de progresso de leitura ---------- */
+  /* ---------- Barra de progresso de leitura + linha do tempo do processo (.eb5-steps) ---------- */
   var progress = document.querySelector('.read-progress');
-  if (progress) {
-    var updateProgress = function () {
-      var max = document.documentElement.scrollHeight - window.innerHeight;
-      progress.style.transform = 'scaleX(' + (max > 0 ? window.scrollY / max : 0) + ')';
+  var timeline = document.querySelector('.eb5-steps');
+  var steps = timeline ? timeline.querySelectorAll('.eb5-steps__step') : [];
+  if (progress || timeline) {
+    var onScroll = function () {
+      if (progress) {
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        progress.style.transform = 'scaleX(' + (max > 0 ? window.scrollY / max : 0) + ')';
+      }
+      if (timeline) {
+        /* A linha dourada enche conforme o centro da tela passa pelos passos */
+        var mid = window.innerHeight * 0.55;
+        var r = timeline.getBoundingClientRect();
+        var fill = Math.min(Math.max((mid - r.top) / r.height, 0), 1);
+        timeline.style.setProperty('--fill', fill.toFixed(3));
+        steps.forEach(function (step) {
+          step.classList.toggle('is-active', step.getBoundingClientRect().top < mid);
+        });
+      }
     };
-    window.addEventListener('scroll', updateProgress, { passive: true });
-    updateProgress();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    if (timeline) window.addEventListener('resize', onScroll);
+    onScroll();
   }
 
   /* ---------- Link ativo no menu conforme a seção visível ---------- */
@@ -58,6 +74,26 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  /* ---------- 10 empregos (EB-5): ícones acendem em sequência ---------- */
+  var jobs = document.querySelector('.jobs-row');
+  if (jobs) {
+    var icons = jobs.querySelectorAll('span');
+    var lightUp = function () {
+      icons.forEach(function (el, i) {
+        if (prefersReducedMotion) el.classList.add('is-on');
+        else setTimeout(function () { el.classList.add('is-on'); }, i * 110);
+      });
+    };
+    if ('IntersectionObserver' in window) {
+      var jobsObserver = new IntersectionObserver(function (entries, obs) {
+        if (entries[0].isIntersecting) { lightUp(); obs.disconnect(); }
+      }, { threshold: 0.8 });
+      jobsObserver.observe(jobs);
+    } else {
+      lightUp();
+    }
+  }
+
   /* ---------- Selos de prêmios: carregam só quando a faixa se aproxima da tela ---------- */
   var awards = document.querySelector('.awards');
   if (awards) {
@@ -75,24 +111,27 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  /* ---------- Contador animado nos números de credenciais ---------- */
+  /* ---------- Contador animado (credenciais e valores de investimento) ----------
+     data-count = alvo; data-decimals = casas decimais; data-decimal-sep = separador (padrão vírgula; "." no EN). */
   var counters = document.querySelectorAll('[data-count]');
   if (!prefersReducedMotion && 'IntersectionObserver' in window) {
     var animate = function (el) {
-      var target = parseInt(el.getAttribute('data-count'), 10);
-      var from = parseInt(el.getAttribute('data-from') || '0', 10);
+      var target = parseFloat(el.getAttribute('data-count'));
+      var from = parseFloat(el.getAttribute('data-from') || '0');
+      var decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
+      var sep = el.getAttribute('data-decimal-sep') || ',';
       var prefix = el.getAttribute('data-prefix') || '';
       var suffix = el.getAttribute('data-suffix') || '';
-      var final = el.textContent;
+      var final = el.innerHTML;
       var start = null;
       var duration = 1400;
       var step = function (ts) {
         if (!start) start = ts;
         var t = Math.min((ts - start) / duration, 1);
         var eased = 1 - Math.pow(1 - t, 3);
-        el.textContent = prefix + Math.round(from + (target - from) * eased) + suffix;
+        el.textContent = prefix + (from + (target - from) * eased).toFixed(decimals).replace('.', sep) + suffix;
         if (t < 1) requestAnimationFrame(step);
-        else el.textContent = final;
+        else el.innerHTML = final;
       };
       requestAnimationFrame(step);
     };

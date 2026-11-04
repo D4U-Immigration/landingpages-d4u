@@ -1,0 +1,223 @@
+/* ==========================================================================
+   LP EB-5 — componentes exclusivos (importado só por pages/[lang]/eb5).
+   Este CSS entra ANTES de base.css/components.css no HTML final (o Astro ordena pela
+   profundidade do import), então só usa classes próprias ou seletores mais específicos.
+   O antigo "form com rolagem dentro do card" saiu: o form do catálogo é curto (altura
+   reservada pelo HeroForm, como na EB-2 NIW).
+   ========================================================================== */
+
+/* Título "Visto EB-5" como selo dentro do h1 */
+.hero h1 { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; }
+.hero h1 .free-badge { font-size: 0.82rem; }
+
+/* Linha de 10 empregos (O que é) */
+.jobs-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 1.1rem 0 0.2rem;
+}
+.jobs-row span {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--bg-light);
+  border: 1.5px solid var(--line);
+  color: var(--ink-faint);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+.jobs-row span.is-on { background: var(--gold); border-color: var(--gold); color: var(--navy-900); transform: translateY(-2px); }
+.no-js .jobs-row span { background: var(--gold); border-color: var(--gold); color: var(--navy-900); }
+
+.structure-note {
+  margin-top: 1.25rem;
+  padding: 1rem 1.2rem;
+  border-left: 4px solid var(--gold);
+  background: var(--bg-light);
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* ---------- Investimento ---------- */
+.invest-head { text-align: center; max-width: 760px; margin: 0 auto; }
+.invest-head .lede { margin: 1rem auto 0; }
+.invest-grid {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+}
+@media (min-width: 820px) { .invest-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; } }
+.invest-card {
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 2.25rem 2rem 2rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.invest-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 5px;
+  background: var(--navy-800);
+  transition: background-color 0.2s ease;
+}
+.invest-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(15, 18, 24, 0.12); border-color: rgba(207, 177, 37, 0.6); }
+.invest-card:hover::before { background: var(--gold); }
+.invest-card--feature { background: linear-gradient(160deg, var(--navy-900) 0%, var(--navy-800) 100%); border-color: transparent; color: #fff; }
+.invest-card--feature::before { background: var(--gold); }
+.invest-card__value {
+  display: block;
+  font-size: clamp(1.9rem, 7vw, 3.1rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--navy-900);
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 1rem;
+}
+.invest-card--feature .invest-card__value { color: var(--gold); }
+.invest-card p { color: var(--ink-soft); font-size: 1rem; }
+.invest-card--feature p { color: rgba(255, 255, 255, 0.85); }
+.invest-card__icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(207, 177, 37, 0.16);
+  color: var(--gold-ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.1rem;
+}
+.invest-card--feature .invest-card__icon { background: rgba(207, 177, 37, 0.2); color: var(--gold); }
+.invest-footnote { text-align: center; color: var(--ink-faint); font-size: 0.88rem; margin-top: 1.25rem; }
+.important-box {
+  margin: 2.25rem auto 0;
+  max-width: 900px;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  background: #fff;
+  border: 1px solid rgba(207, 177, 37, 0.6);
+  border-radius: var(--radius-lg);
+  padding: 1.35rem 1.5rem;
+}
+.important-box__icon {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--navy-900);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.important-box p { color: var(--ink); }
+.important-box strong { color: var(--navy-900); }
+
+/* ---------- Processo: linha do tempo (.eb5-steps — evita conflito com .timeline do base.css) ---------- */
+.eb5-steps {
+  --fill: 0;
+  position: relative;
+  list-style: none;
+  margin: 2.75rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.eb5-steps::before,
+.eb5-steps::after {
+  content: "";
+  position: absolute;
+  left: 27px;
+  top: 28px;
+  bottom: 28px;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--line);
+}
+.eb5-steps::after {
+  background: var(--gold);
+  transform-origin: 0 0;
+  transform: scaleY(var(--fill));
+}
+.no-js .eb5-steps::after { transform: none; }
+.eb5-steps__step {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+.eb5-steps__num {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid var(--line);
+  color: var(--navy-800);
+  font-weight: 800;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+.eb5-steps__body {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.4rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.eb5-steps__body h3 { font-size: 1.08rem; margin-bottom: 0.45rem; }
+.eb5-steps__body p { color: var(--ink-soft); font-size: 0.97rem; }
+.eb5-steps__step.is-active .eb5-steps__num,
+.no-js .eb5-steps__num { background: var(--gold); border-color: var(--gold); color: var(--navy-900); transform: scale(1.05); }
+.eb5-steps__step.is-active .eb5-steps__body { border-color: rgba(207, 177, 37, 0.6); box-shadow: var(--shadow-card); }
+.eb5-steps__step--last .eb5-steps__num { background: var(--navy-800); border-color: var(--navy-800); color: var(--gold); }
+@media (min-width: 960px) {
+  .process-layout { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 3rem; align-items: start; }
+  .process-layout .eb5-steps { margin-top: 0; }
+  .process-aside { position: sticky; top: 96px; }
+}
+.process-aside .section-photo { margin-top: 1.5rem; }
+
+/* ---------- Perfil ---------- */
+.check-card.check-card--profile { margin-top: 2.75rem; }
+
+/* ---------- Família ---------- */
+.family-grid { display: grid; gap: 1rem; margin-top: 2.5rem; }
+@media (min-width: 600px) { .family-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1000px) { .family-grid { grid-template-columns: repeat(4, 1fr); } }
+.family-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 1.6rem 1.4rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.family-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card); border-color: rgba(207, 177, 37, 0.6); }
+.family-card h3 {
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold-ink);
+  margin-bottom: 0.5rem;
+}
+.family-card p { color: var(--ink); font-weight: 500; }
+
+/* ---------- Conheça a D4U ---------- */
+.cred__num--small { font-size: clamp(1.1rem, 1.8vw, 1.3rem); }

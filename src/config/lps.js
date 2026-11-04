@@ -18,6 +18,22 @@ export const LPS = {
       es: 'Qué es la EB-2 NIW, quién puede considerarla, requisitos (formación académica avanzada o habilidad excepcional), ventajas, perfiles compatibles y preguntas frecuentes sobre esta categoría de inmigración basada en el empleo que puede conducir a la Green Card.',
     },
   },
+  eb5: {
+    name: 'Visto EB-5',
+    locales: ['pt-br', 'en', 'es'],
+    // Catálogo: caixa "US$ 800 mil" obrigatória — sem marcar, o form não envia
+    forms: {
+      'pt-br': '255b735d-7acb-4daa-9e8c-3170e7f2a045',
+      en: 'ae5b3877-d7b2-4a69-a9b4-07ac370d38da',
+      es: '19d4bec2-7fe3-47ae-93f4-44b36ecaf466',
+    },
+    legacy: true,
+    llms: {
+      'pt-br': 'O que é o EB-5, quanto é necessário investir (US$ 800 mil em TEA ou determinados projetos de infraestrutura; US$ 1,05 milhão nos demais casos, com reajuste previsto para 2027), como funciona o processo em 5 etapas, quem pode considerar, inclusão de familiares elegíveis e perguntas frequentes sobre essa categoria imigratória baseada em investimento que pode levar ao Green Card.',
+      en: 'What the EB-5 is, how much you need to invest (US$800,000 in a TEA or certain infrastructure projects; US$1.05 million otherwise, with an adjustment scheduled for 2027), how the 5-step process works, who may consider it, inclusion of eligible family members and frequently asked questions about this investment-based immigrant category that can lead to a Green Card.',
+      es: 'Qué es la EB-5, cuánto es necesario invertir (US$800.000 en una TEA o en determinados proyectos de infraestructura; US$1,05 millones en los demás casos, con un ajuste previsto para 2027), cómo funciona el proceso en 5 etapas, quiénes pueden considerarla, inclusión de familiares elegibles y preguntas frecuentes sobre esta categoría de inmigración basada en inversión que puede conducir a la Green Card.',
+    },
+  },
   o1: {
     name: 'Visto O-1',
     locales: ['pt-br', 'en', 'es'],

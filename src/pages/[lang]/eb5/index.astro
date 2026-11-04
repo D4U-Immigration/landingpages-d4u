@@ -1,0 +1,292 @@
+---
+/**
+ * LP Visto EB-5 — gera /pt-br/eb5/, /en/eb5/ e /es/eb5/.
+ * Textos: src/content/lps/eb5/{idioma}.json (extraídos literalmente da LP estática lp/eb5/).
+ * Formulário HubSpot do catálogo por idioma: src/config/lps.js. CSS exclusivo: styles/eb5.css.
+ */
+import { SITE_URL } from 'astro:env/server';
+import LpLayout from '../../../layouts/LpLayout.astro';
+import SiteHeader from '../../../components/SiteHeader.astro';
+import HeroForm from '../../../components/HeroForm.astro';
+import CtaButton from '../../../components/CtaButton.astro';
+import CheckToggle from '../../../components/CheckToggle.astro';
+import Photo from '../../../components/Photo.astro';
+import CredGrid from '../../../components/CredGrid.astro';
+import Awards from '../../../components/Awards.astro';
+import Faq from '../../../components/Faq.astro';
+import CtaBand from '../../../components/CtaBand.astro';
+import SiteFooter from '../../../components/SiteFooter.astro';
+import StickyCta from '../../../components/StickyCta.astro';
+import { LPS } from '../../../config/lps.js';
+import { imageSet, stripHtml } from '../../../config/helpers.js';
+import '../../../styles/eb5.css';
+
+const SLUG = 'eb5';
+const LP = LPS[SLUG];
+const IMG = `/assets/lp/${SLUG}`;
+const content = import.meta.glob('../../../content/lps/eb5/*.json', { eager: true, import: 'default' });
+
+export function getStaticPaths() {
+  return LPS['eb5'].locales.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: 'pt-br' | 'en' | 'es' };
+const t: any = content[`../../../content/lps/eb5/${lang}.json`];
+const a = t.anchors;
+const formHref = `#${a.form}`;
+
+const site = SITE_URL.replace(/\/$/, '');
+const pageUrl = `${site}/${lang}/${SLUG}/`;
+const inLanguage = { 'pt-br': 'pt-BR', en: 'en', es: 'es' }[lang];
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': 'https://d4uimmigration.com/#organization',
+      name: 'D4U Immigration',
+      url: 'https://d4uimmigration.com',
+      logo: 'https://d4uimmigration.com/wp-content/themes/d4u/assets/images/2025/Logo_D4U_cb2.svg',
+      foundingDate: '2015',
+    },
+    {
+      '@type': 'WebPage',
+      '@id': `${pageUrl}#webpage`,
+      url: pageUrl,
+      name: t.meta.pageName,
+      description: t.meta.pageDescription,
+      inLanguage,
+      primaryImageOfPage: `${site}${IMG}/og-eb5.jpg`,
+      publisher: { '@id': 'https://d4uimmigration.com/#organization' },
+      breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
+      about: { '@type': 'Thing', name: t.meta.about },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${pageUrl}#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'D4U Immigration', item: 'https://d4uimmigration.com/' },
+        { '@type': 'ListItem', position: 2, name: t.meta.breadcrumbName, item: pageUrl },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': `${pageUrl}#faq`,
+      inLanguage,
+      mainEntity: t.faq.items.map((it: { q: string; a: string }) => ({
+        '@type': 'Question',
+        name: stripHtml(it.q),
+        acceptedAnswer: { '@type': 'Answer', text: stripHtml(it.a) },
+      })),
+    },
+  ],
+};
+
+// Altura do form do catálogo já carregado (card <380 / 380–459 / ≥460 px), medida em 2026-11-04
+const FORM_HEIGHTS: Record<string, [number, number, number]> = {
+  'pt-br': [871, 833, 596],
+  en: [833, 800, 596],
+  es: [851, 833, 596],
+};
+
+const JOB_ICON = '<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="7.5" r="4"/><path d="M4 21c.6-4.4 3.8-7 8-7s7.4 2.6 8 7z"/></svg>';
+// Cards de investimento: o de destaque (TEA) e o padrão
+const INVEST_ICONS = [
+  '<path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.6"/>',
+  '<path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-6h6v6"/><path d="M8 10.5h.01M12 10.5h.01M16 10.5h.01"/>',
+];
+// Família: carreira, educação, patrimônio, futuro
+const FAMILY_ICONS = [
+  '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/>',
+  '<path d="M2 9l10-5 10 5-10 5L2 9z"/><path d="M6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/><path d="M22 9v6"/>',
+  '<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>',
+  '<path d="M3 10.5L12 4l9 6.5"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-5h4v5"/>',
+];
+---
+<LpLayout
+  locale={lang}
+  path={`${SLUG}/`}
+  locales={LP.locales}
+  title={t.meta.title}
+  description={t.meta.description}
+  ogTitle={t.meta.ogTitle}
+  ogImage={`${IMG}/og-eb5.jpg`}
+  ogImageAlt={t.meta.ogImageAlt}
+  preloadImages={[
+    { href: `${IMG}/hero-bg-800.webp`, media: '(max-width: 799px)' },
+    { href: `${IMG}/hero-bg.webp`, media: '(min-width: 800px)' },
+  ]}
+  dnsPrefetch={['https://js.hsforms.net']}
+  jsonLd={jsonLd}
+>
+<SiteHeader formAnchor={a.form} cta={t.cta.header} />
+
+<main>
+
+<section class="hero" aria-labelledby="hero-title" style={`--hero-bg: ${imageSet(`${IMG}/hero-bg`)}; --hero-bg-sm: url("${IMG}/hero-bg-800.webp")`}>
+  <div class="container hero__grid">
+    <div class="hero__content">
+      <h1 id="hero-title" set:html={t.hero.title} />
+      <p class="lede" set:html={t.hero.lede} />
+      <p class="lede lede--strong" set:html={t.hero.strong} />
+      <div class="hero__actions">
+        <CtaButton href={formHref} html={t.hero.cta} />
+      </div>
+    </div>
+    <HeroForm anchor={a.form} formId={LP.forms[lang]} seal={t.hero.seal} heights={FORM_HEIGHTS[lang]} />
+  </div>
+</section>
+
+<section class="section section--white" id={a.whatIs} aria-labelledby={`${a.whatIs}-title`}>
+  <div class="container">
+    <div class="reveal section-grid">
+      <div class="section-grid__text">
+        <span class="eyebrow" set:html={t.whatIs.eyebrow} />
+        <h2 id={`${a.whatIs}-title`} set:html={t.whatIs.title} />
+        <div style="margin-top:1.1rem">
+          {t.whatIs.before.map((p: string) => <p class="lede" set:html={p} />)}
+          <div class="jobs-row" aria-hidden="true">
+            {Array.from({ length: 10 }, () => <span set:html={JOB_ICON} />)}
+          </div>
+          <p class="lede" set:html={t.whatIs.after} />
+          <p class="structure-note" set:html={t.whatIs.note} />
+        </div>
+      </div>
+      <div class="section-grid__media">
+        <Photo class="section-photo" src={`${IMG}/o-que-e`} alt={t.whatIs.imageAlt} />
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--light" id={a.investment} aria-labelledby={`${a.investment}-title`}>
+  <div class="container">
+    <div class="reveal invest-head">
+      <span class="eyebrow" set:html={t.investment.eyebrow} />
+      <h2 id={`${a.investment}-title`} set:html={t.investment.title} />
+      <p class="lede" set:html={t.investment.lede} />
+    </div>
+    <div class="reveal invest-grid">
+      {t.investment.cards.map((card: { feature: boolean; value: string; attrs: Record<string, string>; text: string }, i: number) => (
+        <article class:list={['invest-card', { 'invest-card--feature': card.feature }]}>
+          <div class="invest-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" set:html={INVEST_ICONS[i]} />
+          </div>
+          <span class="invest-card__value" {...card.attrs} set:html={card.value} />
+          <p set:html={card.text} />
+        </article>
+      ))}
+    </div>
+    <p class="reveal invest-footnote" set:html={t.investment.footnote} />
+    <div class="reveal important-box">
+      <span class="important-box__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 7v6"/><path d="M12 17h.01"/></svg>
+      </span>
+      <p set:html={t.investment.important} />
+    </div>
+    <div class="reveal section-cta">
+      <CtaButton href={formHref} html={t.investment.cta} />
+    </div>
+  </div>
+</section>
+
+<section class="section section--white" id={a.process} aria-labelledby={`${a.process}-title`}>
+  <div class="container process-layout">
+    <div class="reveal process-aside">
+      <span class="eyebrow" set:html={t.process.eyebrow} />
+      <h2 id={`${a.process}-title`} set:html={t.process.title} />
+      <Photo class="section-photo" src={`${IMG}/processo`} alt={t.process.imageAlt} sizes="(min-width: 960px) 420px, calc(100vw - 48px)" />
+    </div>
+    <ol class="eb5-steps">
+      {t.process.steps.map((step: { title: string; text: string }, i: number) => (
+        <li class:list={['eb5-steps__step', { 'eb5-steps__step--last': i === t.process.steps.length - 1 }]}>
+          <span class="eb5-steps__num" aria-hidden="true">{i + 1}</span>
+          <div class="eb5-steps__body">
+            <h3 set:html={step.title} />
+            <p set:html={step.text} />
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<section class="section section--light" id={a.profile} aria-labelledby={`${a.profile}-title`}>
+  <div class="container">
+    <div class="reveal">
+      <span class="eyebrow" set:html={t.profile.eyebrow} />
+      <h2 id={`${a.profile}-title`} set:html={t.profile.title} />
+      <p class="lede" style="margin-top:1.1rem" set:html={t.profile.lede} />
+    </div>
+    <div class="reveal check-card check-card--profile">
+      <div>
+        <Photo class="section-photo" src={`${IMG}/perfil`} alt={t.profile.imageAlt} sizes="(min-width: 900px) 480px, calc(100vw - 80px)" />
+        <div class="check-meter" aria-hidden="true">{t.profile.items.map(() => <span></span>)}</div>
+      </div>
+      <ul class="check-toggle-list">
+        {t.profile.items.map((item: string) => <CheckToggle html={item} />)}
+      </ul>
+    </div>
+    <div class="reveal section-cta">
+      <CtaButton href={formHref} html={t.profile.cta} />
+    </div>
+  </div>
+</section>
+
+<section class="section section--white" id={a.family} aria-labelledby={`${a.family}-title`}>
+  <div class="container">
+    <div class="reveal section-grid">
+      <div class="section-grid__text">
+        <span class="eyebrow" set:html={t.family.eyebrow} />
+        <h2 id={`${a.family}-title`} set:html={t.family.title} />
+        {t.family.ledes.map((p: { style: string; html: string }) => <p class="lede" style={p.style || undefined} set:html={p.html} />)}
+      </div>
+      <div class="section-grid__media">
+        <Photo class="section-photo" src={`${IMG}/familia`} alt={t.family.imageAlt} />
+      </div>
+    </div>
+    <div class="reveal family-grid">
+      {t.family.cards.map((card: { title: string; text: string }, i: number) => (
+        <article class="family-card">
+          <div class="adv-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" set:html={FAMILY_ICONS[i]} />
+          </div>
+          <h3 set:html={card.title} />
+          <p set:html={card.text} />
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="section section--navy" id={a.d4u} aria-labelledby={`${a.d4u}-title`}>
+  <div class="container">
+    <div class="reveal stories-head">
+      <span class="eyebrow" set:html={t.d4u.eyebrow} />
+      <h2 id={`${a.d4u}-title`} set:html={t.d4u.title} />
+      <p class="lede" set:html={t.d4u.lede} />
+    </div>
+    <CredGrid items={t.d4u.creds} />
+  </div>
+</section>
+
+<Awards label={t.awards.label} alts={t.awards.alts} />
+
+<Faq anchor={a.faq} eyebrow={t.faq.eyebrow} title={t.faq.title} items={t.faq.items} />
+
+<CtaBand
+  anchor={a.ctaFinal}
+  formAnchor={a.form}
+  background={imageSet(`${IMG}/cta-final`)}
+  eyebrow={t.ctaFinal.eyebrow}
+  title={t.ctaFinal.title}
+  ledes={t.ctaFinal.ledes}
+  cta={t.ctaFinal.cta}
+/>
+
+</main>
+
+<SiteFooter html={t.footer.html} lang={t.footer.lang} />
+
+<StickyCta formAnchor={a.form} cta={t.cta.sticky} />
+</LpLayout>
