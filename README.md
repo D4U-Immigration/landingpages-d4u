@@ -19,7 +19,7 @@ Todas as páginas seguem `/{idioma}/{nome-da-lp}/`:
 - `/pt-br/eb2-niw/`, `/en/eb2-niw/`, `/es/eb2-niw/`
 - `/pt-br/o1/`, `/en/o1/`, `/es/o1/`
 - `/pt-br/eb5/`, `/en/eb5/`, `/es/eb5/`
-- `/pt-br/doctor24/`, `/en/doctor24/`, `/es/doctor24/` e a página de obrigado `/{idioma}/doctor24-thank-you/` (noindex, fora do sitemap e do llms.txt)
+- `/pt-br/doctor24/`, `/en/doctor24/`, `/es/doctor24/` (igual à original; os botões abrem o form numa janela — `FormModal`) e a página de obrigado `/{idioma}/doctor24-thank-you/` (noindex, fora do sitemap e do llms.txt)
 - `/pt-br/indique-um-amigo/` (só português)
 - `/pt-br/4encontrodemobilidade/` (só português)
 

@@ -1,0 +1,89 @@
+---
+/**
+ * Form HubSpot (embed v2) numa janela por cima da página — para LPs cujo visual não pode mudar
+ * (ex.: Doctor24). Abre ao clicar em qualquer elemento com [data-form-open]; o script do HubSpot só é
+ * baixado na primeira abertura. O Lead é registrado pelo loader de tracking no envio.
+ */
+import { HUBSPOT_PORTAL_ID, HUBSPOT_REGION } from 'astro:env/server';
+
+interface Props {
+  formId: string;
+  /** Página para onde o visitante vai depois de enviar (ex.: obrigado) */
+  redirectUrl?: string;
+  closeLabel: string;
+  /** Rótulo acessível da janela */
+  label: string;
+}
+const { formId, redirectUrl, closeLabel, label } = Astro.props;
+const portalId = HUBSPOT_PORTAL_ID;
+const region = HUBSPOT_REGION;
+---
+<dialog class="form-modal" id="formulario" aria-label={label}>
+  <button type="button" class="form-modal__close" aria-label={closeLabel} data-form-close>
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+  <div class="form-modal__body" id="hsFormModal"></div>
+</dialog>
+
+<script is:inline define:vars={{ region, portalId, formId, redirectUrl }}>
+  (function () {
+    var dialog = document.getElementById('formulario');
+    var loaded = false;
+    function load() {
+      if (loaded) return;
+      loaded = true;
+      var s = document.createElement('script');
+      s.src = 'https://js.hsforms.net/forms/embed/v2.js';
+      s.async = true;
+      s.onload = function () {
+        var opts = { region: region, portalId: portalId, formId: formId, target: '#hsFormModal' };
+        if (redirectUrl) opts.redirectUrl = redirectUrl;
+        window.hbspt.forms.create(opts);
+      };
+      document.head.appendChild(s);
+    }
+    function open(e) {
+      if (e) e.preventDefault();
+      load();
+      if (!dialog.open) dialog.showModal();
+    }
+    document.addEventListener('click', function (e) {
+      if (e.target.closest('[data-form-open]')) open(e);
+      else if (e.target.closest('[data-form-close]') || e.target === dialog) dialog.close();
+    });
+    if (location.hash === '#formulario') open();
+  })();
+</script>
+
+<style>
+  .form-modal {
+    width: min(560px, calc(100vw - 2rem));
+    max-height: calc(100dvh - 2rem);
+    padding: 2.25rem 1.5rem 1.5rem;
+    border: none;
+    border-top: 4px solid var(--gold);
+    border-radius: var(--radius-lg);
+    background: #fff;
+    color: var(--ink);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+    overflow-y: auto;
+  }
+  .form-modal::backdrop { background: rgba(15, 18, 24, 0.7); }
+  .form-modal__close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .form-modal__close:hover { background: var(--bg-light); }
+  .form-modal__body { min-height: 300px; }
+</style>
