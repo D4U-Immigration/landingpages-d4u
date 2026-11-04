@@ -17,6 +17,7 @@ Projeto [Astro](https://astro.build) que gera as landing pages (e, em seguida, o
 Todas as páginas seguem `/{idioma}/{nome-da-lp}/`:
 
 - `/pt-br/eb2-niw/`, `/en/eb2-niw/`, `/es/eb2-niw/`
+- `/pt-br/o1/`, `/en/o1/`, `/es/o1/`
 
 A raiz (`/`) é a home: réplica da página "Link na Bio" da D4U (`WPShortcodes/link-bio`), com os mesmos textos. Os botões das LPs usam `lpUrl()` (`src/config/lps.js`): enquanto a LP não existe neste projeto, o botão mantém o link atual do site da D4U; quando a LP é registrada, a home passa a apontar para `/pt-br/{lp}/` sozinha (EB-2 NIW, EB-5, O-1, Indique um amigo e 4º Encontro de Mobilidade Global já estão ligados assim).
 
@@ -72,10 +73,10 @@ Copie `.env.example` para `.env` se precisar mudar algo. Todas têm valor padrã
 ## Desempenho (meta: 100 no PageSpeed)
 
 - **Sem fonte nem CSS de terceiros:** a Montserrat é servida de `public/assets/fonts/` (licença SIL OFL), pré-carregada, com fallback de métricas ajustadas para o texto não pular. O CSS vai embutido no HTML.
-- **Formulário HubSpot sob demanda:** o script do HubSpot só carrega na primeira interação (rolar, tocar, mover o mouse, teclar) ou se a URL vier com a âncora do form. O espaço do form fica reservado (`#hsForm` em `components.css`) — se um form novo tiver altura diferente, ajuste esses valores para não haver deslocamento de layout.
+- **Formulário HubSpot sob demanda:** o script do HubSpot só carrega na primeira interação (rolar, tocar, mover o mouse, teclar) ou se a URL vier com a âncora do form. O espaço do form fica reservado (`#hsForm` em `components.css`) — se um form novo tiver altura diferente, meça-o já carregado e passe `heights` ao `HeroForm` para não haver deslocamento de layout.
 - **Hero:** foto leve (`hero-bg-800.webp`) no celular, pré-carregada por media query.
 - **Tracking adiado:** o loader (GA4 + pixel da Meta) entra na primeira interação ou 5 s após o load. Visitas de menos de 5 s sem nenhum toque/rolagem podem não aparecer no GA4/Meta.
-- **Resultado (Lighthouse, 2026-11-02):** 100/100/100/100 no celular e no desktop — EB-2 NIW nos 3 idiomas e home.
+- **Resultado (Lighthouse):** 100/100/100/100 no celular e no desktop — EB-2 NIW e O-1 nos 3 idiomas e home.
 - **No servidor de produção:** ativar gzip/brotli e cache longo (`Cache-Control: public, max-age=31536000, immutable`) para `/_astro/` e `/assets/`.
 
 ## Como adicionar uma LP

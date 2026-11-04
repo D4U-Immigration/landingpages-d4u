@@ -1,0 +1,286 @@
+---
+/**
+ * LP Visto O-1 — gera /pt-br/o1/, /en/o1/ e /es/o1/.
+ * Textos: src/content/lps/o1/{idioma}.json (extraídos literalmente da LP estática lp/o1/).
+ * Formulário HubSpot do catálogo (embed v2) no hero, no lugar da foto do retrato — decisão de 2026-11-04;
+ * os CTAs rolam até ele e o Lead é registrado pelo loader de tracking no envio.
+ */
+import { SITE_URL } from 'astro:env/server';
+import LpLayout from '../../../layouts/LpLayout.astro';
+import SiteHeader from '../../../components/SiteHeader.astro';
+import HeroForm from '../../../components/HeroForm.astro';
+import CtaButton from '../../../components/CtaButton.astro';
+import Photo from '../../../components/Photo.astro';
+import Faq from '../../../components/Faq.astro';
+import SiteFooter from '../../../components/SiteFooter.astro';
+import StickyCta from '../../../components/StickyCta.astro';
+import { LPS } from '../../../config/lps.js';
+import { imageSet, stripHtml } from '../../../config/helpers.js';
+
+const SLUG = 'o1';
+const LP = LPS[SLUG];
+const IMG = `/assets/lp/${SLUG}`;
+const content = import.meta.glob('../../../content/lps/o1/*.json', { eager: true, import: 'default' });
+
+export function getStaticPaths() {
+  return LPS['o1'].locales.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: 'pt-br' | 'en' | 'es' };
+const t: any = content[`../../../content/lps/o1/${lang}.json`];
+const formHref = `#${t.anchors.form}`;
+
+// Tamanho real das fotos (780 px; a do Green Card tem 768 px)
+const photoSize = (name: string) => (name === 'green-card-agro' ? 768 : 780);
+
+const site = SITE_URL.replace(/\/$/, '');
+const pageUrl = `${site}/${lang}/${SLUG}/`;
+const inLanguage = { 'pt-br': 'pt-BR', en: 'en', es: 'es' }[lang];
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': 'https://d4uimmigration.com/#organization',
+      name: 'D4U Immigration',
+      url: 'https://d4uimmigration.com',
+      logo: 'https://d4uimmigration.com/wp-content/themes/d4u/assets/images/2025/Logo_D4U_cb2.svg',
+      foundingDate: '2015',
+    },
+    {
+      '@type': 'WebPage',
+      '@id': `${pageUrl}#webpage`,
+      url: pageUrl,
+      name: t.meta.pageName,
+      description: t.meta.description,
+      inLanguage,
+      primaryImageOfPage: `${site}${IMG}/og-o1.jpg`,
+      publisher: { '@id': 'https://d4uimmigration.com/#organization' },
+      breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
+      about: { '@type': 'Thing', name: t.meta.about },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${pageUrl}#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'D4U Immigration', item: 'https://d4uimmigration.com/' },
+        { '@type': 'ListItem', position: 2, name: t.meta.breadcrumbName, item: pageUrl },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': `${pageUrl}#faq`,
+      inLanguage,
+      mainEntity: t.faq.items.map((it: { q: string; a: string }) => ({
+        '@type': 'Question',
+        name: stripHtml(it.q),
+        acceptedAnswer: { '@type': 'Answer', text: stripHtml(it.a) },
+      })),
+    },
+  ],
+};
+
+const CHECK = '<svg class="icon-check" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="currentColor"/><path d="M6 10.5l2.5 2.5L14 7.5" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+// Itens da check-list: o <li> é flex, então o texto vai num único <span> (nowrap não vira item separado)
+const checkItem = (html: string) => `${CHECK}<span>${html}</span>`;
+---
+<LpLayout
+  locale={lang}
+  path={`${SLUG}/`}
+  locales={LP.locales}
+  title={t.meta.title}
+  description={t.meta.description}
+  ogTitle={t.meta.ogTitle}
+  ogImage={`${IMG}/og-o1.jpg`}
+  ogImageAlt={t.meta.ogImageAlt}
+  preloadImages={[
+    { href: `${IMG}/hero-bg-800.webp`, media: '(max-width: 799px)' },
+    { href: `${IMG}/hero-bg.webp`, media: '(min-width: 800px)' },
+  ]}
+  dnsPrefetch={['https://js.hsforms.net']}
+  jsonLd={jsonLd}
+>
+<SiteHeader formAnchor={t.anchors.form} cta={t.cta.header} />
+
+<main>
+
+<section class="hero" aria-labelledby="hero-title" style={`--hero-bg: ${imageSet(`${IMG}/hero-bg`)}; --hero-bg-sm: url("${IMG}/hero-bg-800.webp")`}>
+  <div class="container hero__grid">
+    <div class="hero__content">
+      <h1 id="hero-title" set:html={t.hero.title} />
+      {t.hero.ledes.map((html: string) => <p class="lede" set:html={html} />)}
+      <div class="hero__actions">
+        <CtaButton href={formHref} html={t.hero.cta} arrow={false} />
+      </div>
+    </div>
+    {/* Altura do form medida (2026-11-04): 991/953/716 px — igual ao padrão, sem `heights` */}
+    <HeroForm anchor={t.anchors.form} formId={LP.forms[lang]} />
+  </div>
+</section>
+
+<div class="stats reveal">
+  <div class="container">
+    {t.stats.map((s: { num: string; label: string }) => (
+      <div class="stats__item">
+        <span class="stats__num">{s.num}</span>
+        <span class="stats__label">{s.label}</span>
+      </div>
+    ))}
+  </div>
+</div>
+
+<section class="section section--white" id="o-que-e">
+  <div class="container">
+    <div class="reveal section-grid">
+      <div class="section-grid__text">
+        <span class="eyebrow" set:html={t.whatIs.eyebrow} />
+        <h2 set:html={t.whatIs.title} />
+        <div class="block__intro" style="margin-top:0.9rem">
+          {t.whatIs.intro.map((html: string) => <p set:html={html} />)}
+        </div>
+        <ul class="check-list">
+          {t.whatIs.items.map((html: string) => <li set:html={checkItem(html)} />)}
+        </ul>
+        <p class="lede" style="margin-top:1.4rem" set:html={t.whatIs.closing} />
+      </div>
+      <div class="section-grid__media">
+        <Photo class="section-photo" src={`${IMG}/${t.whatIs.image}`} alt={t.whatIs.imageAlt} width={photoSize(t.whatIs.image)} height={photoSize(t.whatIs.image)} />
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--light" id="quem-pode">
+  <div class="container">
+    <div class="reveal section-grid section-grid--reverse">
+      <div class="section-grid__text">
+        <span class="eyebrow" set:html={t.whoCan.eyebrow} />
+        <h2 set:html={t.whoCan.title} />
+        <p class="lede" style="margin:0.9rem 0 1.5rem" set:html={t.whoCan.lede} />
+        <div class="chip-grid">
+          {t.whoCan.chips.map((html: string) => <span class="chip" set:html={html} />)}
+        </div>
+        <p class="foot-note" set:html={t.whoCan.note} />
+      </div>
+      <div class="section-grid__media">
+        <Photo class="section-photo" src={`${IMG}/${t.whoCan.image}`} alt={t.whoCan.imageAlt} width={photoSize(t.whoCan.image)} height={photoSize(t.whoCan.image)} />
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--white" id="requisitos">
+  <div class="container">
+    <div class="reveal section-grid">
+      <div class="section-grid__text">
+        <span class="eyebrow" set:html={t.requirements.eyebrow} />
+        <h2 set:html={t.requirements.title} />
+        <p class="lede" style="margin:0.9rem 0 1.5rem" set:html={t.requirements.lede} />
+        <ul class="check-list">
+          {t.requirements.items.map((html: string) => <li set:html={checkItem(html)} />)}
+        </ul>
+        <p class="foot-note" set:html={t.requirements.note} />
+      </div>
+      <div class="section-grid__media">
+        <Photo class="section-photo" src={`${IMG}/${t.requirements.image}`} alt={t.requirements.imageAlt} width={photoSize(t.requirements.image)} height={photoSize(t.requirements.image)} />
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--light" id="beneficios">
+  <div class="container">
+    <div class="reveal section-grid section-grid--reverse">
+      <div class="section-grid__text">
+        <span class="eyebrow" set:html={t.benefits.eyebrow} />
+        <h2 set:html={t.benefits.title} />
+        <ul class="check-list single-col" style="margin-top:1.4rem; max-width:62ch">
+          {t.benefits.items.map((html: string) => <li set:html={checkItem(html)} />)}
+        </ul>
+      </div>
+      <div class="section-grid__media">
+        <Photo class="section-photo" src={`${IMG}/${t.benefits.image}`} alt={t.benefits.imageAlt} width={photoSize(t.benefits.image)} height={photoSize(t.benefits.image)} />
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--white" id="green-card">
+  <div class="container">
+    <div class="reveal section-grid">
+      <div class="section-grid__text">
+        <span class="eyebrow" set:html={t.greenCard.eyebrow} />
+        <h2 style="margin-bottom:1.4rem" set:html={t.greenCard.title} />
+        <div class="callout">
+          {t.greenCard.paragraphs.map((html: string) => <p set:html={html} />)}
+        </div>
+      </div>
+      <div class="section-grid__media">
+        <Photo class="section-photo" src={`${IMG}/${t.greenCard.image}`} alt={t.greenCard.imageAlt} width={photoSize(t.greenCard.image)} height={photoSize(t.greenCard.image)} />
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--light" id="porque-d4u">
+  <div class="container">
+    <div class="reveal section-grid">
+      <div class="section-grid__text">
+        <span class="eyebrow" set:html={t.why.eyebrow} />
+        <h2 set:html={t.why.title} />
+        <p class="lede" style="margin:0.9rem 0 1.5rem" set:html={t.why.lede} />
+        <ul class="pill-list">
+          {t.why.items.map((html: string) => <li set:html={html} />)}
+        </ul>
+      </div>
+      <div class="section-grid__media">
+        <div class="reason-stats reason-stats--stacked">
+          {t.why.cards.map((c: { num: string; label: string }) => (
+            <div class="reason-card">
+              <span class="stats__num">{c.num}</span>
+              <span class="stats__label">{c.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--white" id="como-ajuda">
+  <div class="container">
+    <div class="reveal section-grid">
+      <div class="section-grid__text">
+        <span class="eyebrow" set:html={t.how.eyebrow} />
+        <h2 set:html={t.how.title} />
+        <p class="lede" style="margin:0.9rem 0 2rem" set:html={t.how.lede} />
+        <ul class="steps">
+          {t.how.steps.map((s: { num: string; text: string }) => (
+            <li><span class="steps__num">{s.num}</span><span class="steps__text" set:html={s.text} /></li>
+          ))}
+        </ul>
+        <p class="foot-note" set:html={t.how.note} />
+      </div>
+      <div class="section-grid__media">
+        <Photo class="section-photo" src={`${IMG}/${t.how.image}`} alt={t.how.imageAlt} width={photoSize(t.how.image)} height={photoSize(t.how.image)} />
+      </div>
+    </div>
+  </div>
+</section>
+
+<Faq anchor="faq" eyebrow={t.faq.eyebrow} title={t.faq.title} items={t.faq.items} numbered={false} />
+
+<section class="cta-band" id="cta-final" aria-labelledby="cta-final-title">
+  <div class="container reveal">
+    <h2 id="cta-final-title" set:html={t.ctaFinal.title} />
+    <p class="lede" set:html={t.ctaFinal.lede} />
+    <CtaButton href={formHref} html={t.ctaFinal.cta} arrow={false} />
+  </div>
+</section>
+
+</main>
+
+<SiteFooter html={t.footer.html} />
+
+<StickyCta formAnchor={t.anchors.form} cta={t.cta.sticky} />
+</LpLayout>

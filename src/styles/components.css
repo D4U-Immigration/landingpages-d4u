@@ -605,9 +605,10 @@ section[id] { scroll-margin-top: 72px; }
    O HubSpot só carrega na primeira interação. Até lá, #hsForm reserva a altura final do form
    (que depende da largura do card: campos em 1 ou 2 colunas) e mostra um esqueleto. */
 .hero-form { container-type: inline-size; }
-#hsForm { min-height: 991px; }
-@container (min-width: 380px) { #hsForm { min-height: 953px; } }
-@container (min-width: 460px) { #hsForm { min-height: 716px; } }
+/* Alturas medidas do form de cada LP (HeroForm → prop heights → --form-h*); padrão = form da EB-2 NIW */
+#hsForm { min-height: var(--form-h, 991px); }
+@container (min-width: 380px) { #hsForm { min-height: var(--form-h-380, 953px); } }
+@container (min-width: 460px) { #hsForm { min-height: var(--form-h-460, 716px); } }
 #hsForm:empty {
   background:
     linear-gradient(var(--line), var(--line)) 0 18px / 38% 12px no-repeat,

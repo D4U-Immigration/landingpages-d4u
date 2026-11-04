@@ -1,6 +1,6 @@
 // Gera versões menores das fotos das LPs (srcset) a partir dos JPG originais em public/assets/lp/{lp}/.
 // Uso: npm run images   (só cria o que estiver faltando ou desatualizado)
-//  - fotos de seção: {nome}-640.webp e {nome}-960.webp
+//  - fotos de seção: {nome}-640.webp e {nome}-960.webp (só larguras menores que a original)
 //  - fundo do hero:  hero-bg-800.webp (versão leve para o celular)
 import { readdirSync, statSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
@@ -25,6 +25,9 @@ for (const lp of readdirSync(ROOT)) {
 let made = 0;
 for (const j of jobs) {
   if (existsSync(j.out) && statSync(j.out).mtimeMs >= statSync(j.src).mtimeMs) continue;
+  const { width } = await sharp(j.src).metadata();
+  if (width <= j.w) continue; // a original já é desse tamanho ou menor: o srcset usa a própria
+
   await sharp(j.src).resize({ width: j.w, withoutEnlargement: true }).webp({ quality: j.quality }).toFile(j.out);
   made++;
   console.log('criado', j.out);

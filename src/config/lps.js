@@ -18,6 +18,21 @@ export const LPS = {
       es: 'Qué es la EB-2 NIW, quién puede considerarla, requisitos (formación académica avanzada o habilidad excepcional), ventajas, perfiles compatibles y preguntas frecuentes sobre esta categoría de inmigración basada en el empleo que puede conducir a la Green Card.',
     },
   },
+  o1: {
+    name: 'Visto O-1',
+    locales: ['pt-br', 'en', 'es'],
+    forms: {
+      'pt-br': '2dd7345f-3e4b-46d5-a452-5dd9ccb42534',
+      en: 'b55004cd-5da3-45a3-bb99-7e29cf36755c',
+      es: 'a59db510-e4e5-43c5-a3bd-256a9308eb73',
+    },
+    legacy: true,
+    llms: {
+      'pt-br': 'O que é o visto O-1 (visto de trabalho temporário para profissionais com habilidades extraordinárias), quem pode solicitar, requisitos e evidências, benefícios, uso enquanto se aguarda o Green Card e perguntas frequentes.',
+      en: 'What the O-1 visa is (temporary work visa for professionals with extraordinary ability), who can apply, requirements and evidence, benefits, using it while waiting for a Green Card and frequently asked questions.',
+      es: 'Qué es la visa O-1 (visa de trabajo temporal para profesionales con habilidades extraordinarias), quién puede solicitarla, requisitos y evidencias, beneficios, su uso mientras se espera la Green Card y preguntas frecuentes.',
+    },
+  },
 };
 
 /** URL da LP neste projeto (ex.: "/pt-br/eb2-niw/"), ou null se ela ainda não foi migrada para cá. */
