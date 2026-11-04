@@ -1,0 +1,65 @@
+---
+/**
+ * LP Indique um Amigo — gera /pt-br/indique-um-amigo/ (só existe em português).
+ * A página original (lp/indique-um-amigo) foi feita para colar no WordPress: todo o visual vem em
+ * style="" nos próprios elementos. O HTML é mantido literal (src/content/lps/indique-um-amigo/pt-br.json,
+ * antes/depois do form) e o espaço reservado do form recebe o form do catálogo (família "Indique um amigo").
+ * Sem header nem hero, como na original.
+ */
+import { SITE_URL } from 'astro:env/server';
+import LpLayout from '../../../layouts/LpLayout.astro';
+import HeroForm from '../../../components/HeroForm.astro';
+import { LPS } from '../../../config/lps.js';
+
+const SLUG = 'indique-um-amigo';
+const LP = LPS[SLUG];
+const content = import.meta.glob('../../../content/lps/indique-um-amigo/*.json', { eager: true, import: 'default' });
+
+export function getStaticPaths() {
+  return LPS['indique-um-amigo'].locales.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: 'pt-br' };
+const t: any = content[`../../../content/lps/indique-um-amigo/${lang}.json`];
+
+const site = SITE_URL.replace(/\/$/, '');
+const pageUrl = `${site}/${lang}/${SLUG}/`;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': 'https://d4uimmigration.com/#organization',
+      name: 'D4U Immigration',
+      url: 'https://d4uimmigration.com',
+      logo: 'https://d4uimmigration.com/wp-content/themes/d4u/assets/images/2025/Logo_D4U_cb2.svg',
+      foundingDate: '2015',
+    },
+    {
+      '@type': 'WebPage',
+      '@id': `${pageUrl}#webpage`,
+      url: pageUrl,
+      name: t.meta.title,
+      description: t.meta.description,
+      inLanguage: 'pt-BR',
+      publisher: { '@id': 'https://d4uimmigration.com/#organization' },
+    },
+  ],
+};
+---
+<LpLayout
+  locale={lang}
+  path={`${SLUG}/`}
+  locales={LP.locales}
+  title={t.meta.title}
+  description={t.meta.description}
+  ogTitle={t.meta.ogTitle}
+  dnsPrefetch={['https://js.hsforms.net']}
+  jsonLd={jsonLd}
+>
+<div style={t.bodyStyle}>
+  <Fragment set:html={t.before} />
+  <HeroForm anchor="form-indicacao" formId={LP.forms[lang]} light heights={[1117, 1099, 813]} />
+  <Fragment set:html={t.after} />
+</div>
+</LpLayout>

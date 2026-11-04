@@ -34,6 +34,16 @@ export const LPS = {
       es: 'Qué es la EB-5, cuánto es necesario invertir (US$800.000 en una TEA o en determinados proyectos de infraestructura; US$1,05 millones en los demás casos, con un ajuste previsto para 2027), cómo funciona el proceso en 5 etapas, quiénes pueden considerarla, inclusión de familiares elegibles y preguntas frecuentes sobre esta categoría de inmigración basada en inversión que puede conducir a la Green Card.',
     },
   },
+  'indique-um-amigo': {
+    name: 'Indique um Amigo',
+    locales: ['pt-br'],
+    // Catálogo: família "Indique um amigo" (página /pt-br/indique-um-amigo do site)
+    forms: { 'pt-br': '7b47bd4e-e8be-44fe-a1c9-c278a0392410' },
+    legacy: true,
+    llms: {
+      'pt-br': 'Modelos de indicação e parceria da D4U Immigration: indicação com Gift Card (até US$ 400 por contrato fechado), Programa de Parceiros (comissões de 3% a 5%) e Programa de Embaixadores (5% a 7%, conforme o número de contratos).',
+    },
+  },
   o1: {
     name: 'Visto O-1',
     locales: ['pt-br', 'en', 'es'],

@@ -16,15 +16,17 @@ interface Props {
   formId: string;
   /** Texto do selo giratório (ex.: "ANÁLISE 100% GRATUITA •"); sem texto, sem selo */
   seal?: string;
-  /** Altura do form já carregado com o card em <380, 380–459 e ≥460 px de largura (medir ao trocar de form) */
+  /** Altura do form já carregado com o card em <380, 380–400 (1 coluna) e >400 px (2 colunas) de largura — medir ao trocar de form */
   heights?: [number, number, number];
+  /** Card sobre fundo claro (sombra suave), para páginas sem hero escuro */
+  light?: boolean;
 }
-const { anchor, formId, seal, heights } = Astro.props;
-const style = heights && `--form-h: ${heights[0]}px; --form-h-380: ${heights[1]}px; --form-h-460: ${heights[2]}px`;
+const { anchor, formId, seal, heights, light = false } = Astro.props;
+const style = heights && `--form-h: ${heights[0]}px; --form-h-380: ${heights[1]}px; --form-h-2col: ${heights[2]}px`;
 const portalId = HUBSPOT_PORTAL_ID;
 const region = HUBSPOT_REGION;
 ---
-<div class="hero-form" id={anchor} style={style}>
+<div class:list={['hero-form', { 'hero-form--light': light }]} id={anchor} style={style}>
   {seal && <div class="seal" aria-hidden="true">
     <svg class="seal__ring" viewBox="0 0 100 100">
       <defs><path id="sealPath" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs>
