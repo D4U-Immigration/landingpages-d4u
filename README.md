@@ -21,7 +21,7 @@ Todas as páginas seguem `/{idioma}/{nome-da-lp}/`:
 - `/pt-br/eb5/`, `/en/eb5/`, `/es/eb5/`
 - `/pt-br/doctor24/`, `/en/doctor24/`, `/es/doctor24/` (igual à original; os botões abrem o form numa janela — `FormModal`) e a página de obrigado `/{idioma}/doctor24-thank-you/` (noindex, fora do sitemap e do llms.txt)
 - `/pt-br/indique-um-amigo/` (só português)
-- `/pt-br/4encontrodemobilidade/` (só português)
+- `/pt-br/4encontrodemobilidade/` (só português) — quando a LP original (`lp/4encontrodemobilidade`) mudar: `python scripts/extract-4encontro.py ..` e conferir o CSS
 
 A raiz (`/`) é a home: réplica da página "Link na Bio" da D4U (`WPShortcodes/link-bio`), com os mesmos textos. Os botões das LPs usam `lpUrl()` (`src/config/lps.js`): enquanto a LP não existe neste projeto, o botão mantém o link atual do site da D4U; quando a LP é registrada, a home passa a apontar para `/pt-br/{lp}/` sozinha (EB-2 NIW, EB-5, O-1, Indique um amigo e 4º Encontro de Mobilidade Global já estão ligados assim).
 
