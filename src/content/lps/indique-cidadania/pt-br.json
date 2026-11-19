@@ -1,0 +1,66 @@
+{
+  "meta": {
+    "title": "Indique e ganhe sua cidadania americana | D4U Immigration",
+    "description": "Indique amigos e familiares para a D4U Immigration e ganhe um processo de cidadania americana a cada indicação que fechar contrato com a nossa equipe.",
+    "ogTitle": "É hora de conquistar sua cidadania americana!",
+    "ogImageAlt": "Casa nos Estados Unidos com a bandeira americana na varanda",
+    "pageName": "É hora de conquistar sua cidadania americana!",
+    "pageDescription": "Indique amigos e familiares para a D4U Immigration e ganhe um processo de cidadania americana a cada indicação que fechar contrato com a nossa equipe.",
+    "about": "Campanha de indicação D4U Immigration: processo de cidadania americana",
+    "breadcrumbName": "Indique e ganhe sua cidadania americana"
+  },
+  "anchors": {
+    "form": "formulario",
+    "conquest": "sua-conquista",
+    "prize": "premio",
+    "steps": "como-indicar",
+    "ctaFinal": "cta-final"
+  },
+  "cta": {
+    "header": "Quero indicar alguém",
+    "sticky": "Quero indicar alguém"
+  },
+  "hero": {
+    "title": "É hora de conquistar sua cidadania americana!",
+    "lede": "Indique amigos e familiares para a D4U Immigration e ganhe um processo de cidadania americana a cada indicação que fechar contrato com a nossa equipe.",
+    "strong": "Você já realizou o sonho de conquistar seu Green Card com a D4U. Agora, pode dar mais um passo rumo à cidadania americana e ainda ajudar outras pessoas a construírem seu futuro nos EUA.",
+    "cta": "Quero indicar alguém"
+  },
+  "conquest": {
+    "title": "Sua conquista abre portas para outras pessoas!",
+    "paragraphs": [
+      "Você realizou o sonho de morar nos Estados Unidos, e talvez conheça alguém que também esteja esperando por essa oportunidade. Pensando nisso, a D4U criou uma campanha de indicação exclusiva para clientes.",
+      "Você indica amigos, familiares ou conhecidos que desejam iniciar seu planejamento internacional. Se a pessoa indicada fechar contrato com a D4U, você ganha um processo de cidadania americana!",
+      "É a sua oportunidade de retribuir a confiança, ajudar outras pessoas e avançar na sua própria jornada nos Estados Unidos."
+    ],
+    "imageAlt": "Grupo de quatro amigos sorrindo juntos ao ar livre"
+  },
+  "prize": {
+    "value": "US$ 2.000",
+    "label": "em um processo de cidadania americana",
+    "equation": ["1 indicação convertida", "1 processo de cidadania"],
+    "text": "A cada amigo ou familiar indicado que fechar contrato com a D4U, você ganha um processo de cidadania americana, no valor de US$ 2 mil."
+  },
+  "steps": {
+    "title": "Sua indicação pode valer muito!",
+    "lede": "São apenas 3 passos para aproveitar essa oportunidade:",
+    "items": [
+      { "title": "Escolha quem indicar", "text": "Pense em amigos, familiares ou conhecidos que sonham em morar, trabalhar, investir ou construir uma vida nos Estados Unidos." },
+      { "title": "Faça sua indicação", "text": "Preencha o formulário com seus dados e as informações da pessoa que deseja indicar." },
+      { "title": "Ganhe seu processo de cidadania", "text": "Se a pessoa indicada fechar contrato com a D4U, você ganha um processo de cidadania americana no valor de US$ 2 mil!" }
+    ],
+    "callout": "<strong>Não há limite de indicações!</strong> Quanto mais pessoas indicadas fecharem contrato, mais processos de cidadania você poderá conquistar.",
+    "termsText": "Clique aqui para consultar os termos e condições da campanha.",
+    "termsHref": "https://d4uimmigration.com/pt-br/termos-e-condicoes-programa-cidadania-d4u",
+    "imageAlt": "Amigos se abraçando e comemorando em uma sala decorada"
+  },
+  "ctaFinal": {
+    "title": "Não perca essa oportunidade",
+    "lede": "Preencha o formulário e comece a indicar hoje mesmo!",
+    "cta": "Quero indicar alguém"
+  },
+  "footer": {
+    "html": "*D4U Immigration provides immigration planning and administrative support services. The legal aspects of each case are handled by our partner U.S.-licensed immigration attorneys. D4U Immigration does not provide legal advice or represent clients before U.S. immigration authorities.",
+    "lang": "en"
+  }
+}

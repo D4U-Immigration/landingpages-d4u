@@ -1,0 +1,165 @@
+/* ==========================================================================
+   LP Indique e ganhe sua cidadania americana — componentes exclusivos
+   (importado só por pages/[lang]/indique-cidadania). Entra ANTES de base.css/
+   components.css no HTML final, então só usa classes próprias (prefixo cid-).
+   ========================================================================== */
+
+/* ---------- Faixa do prêmio (US$ 2.000) ---------- */
+.cid-prize {
+  background: linear-gradient(160deg, var(--navy-900) 0%, var(--navy-800) 100%);
+  color: #fff;
+  padding: 4.5rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cid-prize::before {
+  content: "";
+  position: absolute;
+  /* Posição do ponto de luz: segue o mouse (--glow-x/--glow-y, definidos pelo script da página);
+     sem mouse (celular) ou com movimento reduzido, fica no canto superior direito */
+  left: var(--glow-x, 82%);
+  top: var(--glow-y, 8%);
+  width: 560px;
+  height: 560px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  /* Ponto de luz: tom mais claro do próprio azul do fundo (nunca outra cor), para parecer luz */
+  background: radial-gradient(circle, rgba(74, 101, 155, 0.45) 0%, rgba(74, 101, 155, 0) 70%);
+  transition: left 0.35s ease-out, top 0.35s ease-out;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cid-prize::before { transition: none; }
+}
+.cid-prize__inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+.cid-prize__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0;
+  color: #fff;
+}
+.cid-prize__value {
+  font-size: clamp(3.2rem, 9vw, 5.75rem);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.cid-prize__label {
+  font-size: clamp(1rem, 2.4vw, 1.3rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+}
+.cid-prize__eq {
+  margin: 0.5rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.cid-prize__eq > span:not(.cid-prize__eq-sign) {
+  padding: 0.7rem 1.25rem;
+  border: 1px solid rgba(207, 177, 37, 0.55);
+  background: rgba(207, 177, 37, 0.12);
+  border-radius: 999px;
+  color: #fff;
+}
+.cid-prize__eq-sign {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--navy-900);
+  font-size: 1.35rem;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+.cid-prize__text {
+  max-width: 58ch;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+/* ---------- 3 passos ---------- */
+.cid-steps {
+  list-style: none;
+  margin: 2.75rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 1.25rem;
+  counter-reset: none;
+}
+@media (min-width: 860px) {
+  .cid-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
+}
+.cid-step {
+  position: relative;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--navy-800);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 2rem 1.75rem 1.75rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.cid-step:hover { transform: translateY(-4px); border-top-color: var(--gold); box-shadow: 0 20px 40px rgba(15, 18, 24, 0.12); }
+.cid-step__num {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.5rem;
+  font-size: 2.6rem;
+  font-weight: 800;
+  line-height: 1;
+  color: rgba(31, 42, 68, 0.1);
+}
+.cid-step__icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--navy-800);
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.1rem;
+}
+.cid-step h3 { font-size: 1.1rem; text-transform: uppercase; margin-bottom: 0.6rem; }
+.cid-step p { color: var(--ink-soft); }
+
+/* Link dos termos e condições */
+.cid-terms {
+  color: var(--gold-ink);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.cid-terms:hover { color: var(--navy-800); }
+
+@media (max-width: 560px) {
+  .cid-prize__eq { flex-direction: column; gap: 0.6rem; }
+}
+@media (max-width: 640px) {
+  .cid-prize { padding: 3.25rem 0; }
+  .cid-step { padding: 1.6rem 1.35rem 1.4rem; }
+}

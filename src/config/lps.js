@@ -79,6 +79,16 @@ export const LPS = {
       'pt-br': 'Modelos de indicação e parceria da D4U Immigration: indicação com Gift Card (até US$ 400 por contrato fechado), Programa de Parceiros (comissões de 3% a 5%) e Programa de Embaixadores (5% a 7%, conforme o número de contratos).',
     },
   },
+  'indique-cidadania': {
+    name: 'Indique e ganhe sua cidadania americana',
+    locales: ['pt-br'],
+    // Mesmo form do catálogo que a "Indique um amigo" (família Customer Indication, pt-br);
+    // link direto: https://share.hsforms.com/1e0e9Tui-RP6hycJ4oDkkEAqmuyb
+    forms: { 'pt-br': '7b47bd4e-e8be-44fe-a1c9-c278a0392410' },
+    llms: {
+      'pt-br': 'Campanha de indicação exclusiva para clientes da D4U Immigration: a cada amigo ou familiar indicado que fechar contrato com a D4U, o cliente ganha um processo de cidadania americana no valor de US$ 2 mil, sem limite de indicações. Como participar em 3 passos e link para os termos e condições.',
+    },
+  },
   o1: {
     name: 'Visto O-1',
     locales: ['pt-br', 'en', 'es'],
