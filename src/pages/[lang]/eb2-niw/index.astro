@@ -140,7 +140,18 @@ const ADV_ICONS = [
         </div>
       </div>
       <div class="section-grid__media">
-        <Photo class="section-photo" src={`${IMG}/o-que-e`} alt={t.whatIs.imageAlt} />
+        {t.whatIs.video
+          ? (
+            /* Vídeo: só a capa carrega; o YouTube abre no popup ao clicar (VideoModal + scripts/lp.js).
+               Capa em public/assets/lp/eb2-niw/{cover}.jpg/.webp — trocar o arquivo para mudar a capa. */
+            <div class="video-embed video-embed--feature" data-video={t.whatIs.video.id}>
+              <Photo src={`${IMG}/${t.whatIs.video.cover}`} alt="" width={1200} height={675} />
+              <button type="button" class="video-embed__play" aria-label={t.whatIs.video.label}>
+                <svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path d="M8 5.5v13l11-6.5-11-6.5z" fill="currentColor"/></svg>
+              </button>
+            </div>
+          )
+          : <Photo class="section-photo" src={`${IMG}/o-que-e`} alt={t.whatIs.imageAlt} />}
       </div>
     </div>
 

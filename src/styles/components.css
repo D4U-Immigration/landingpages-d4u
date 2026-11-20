@@ -400,6 +400,11 @@ section[id] { scroll-margin-top: 72px; }
   pointer-events: none;
 }
 
+/* Vídeo em destaque numa seção clara (ex.: "O que é" da EB-2 NIW): capa grande, sombra suave */
+.video-embed picture { display: block; height: 100%; }
+.video-embed--feature { box-shadow: var(--shadow-card); border-color: transparent; }
+.video-embed--feature .video-embed__play { width: 76px; height: 76px; }
+
 /* Popup do vídeo */
 .video-modal {
   position: fixed;

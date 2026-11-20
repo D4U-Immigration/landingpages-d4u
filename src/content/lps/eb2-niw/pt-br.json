@@ -40,7 +40,12 @@
       "O diferencial do <strong>National Interest Waiver</strong> está na possibilidade de solicitar a dispensa da oferta de emprego e da certificação trabalhista quando os requisitos específicos da categoria são atendidos.",
       "Isso significa que profissionais podem estruturar um processo baseado em sua formação, experiência, trajetória profissional e na relevância de seu trabalho para os interesses dos Estados Unidos."
     ],
-    "imageAlt": "Profissional sorrindo em um escritório com vista para prédios da cidade"
+    "imageAlt": "Profissional sorrindo em um escritório com vista para prédios da cidade",
+    "video": {
+      "id": "HZ9VYBRfNh4",
+      "label": "Assistir ao vídeo sobre o visto EB-2 NIW",
+      "cover": "video-capa"
+    }
   },
   "whoCan": {
     "title": "Quem pode considerar o <span class=\"nowrap\">EB-2 NIW</span>?",
