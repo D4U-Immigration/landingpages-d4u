@@ -146,6 +146,29 @@
 .cid-step h3 { font-size: 1.1rem; text-transform: uppercase; margin-bottom: 0.6rem; }
 .cid-step p { color: var(--ink-soft); }
 
+/* ---------- Fotos em fade (seção "Sua conquista") ---------- */
+.cid-fade {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  background: var(--bg-light);
+}
+.cid-fade__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+.cid-fade__slide.is-active { opacity: 1; }
+.cid-fade__slide picture,
+.cid-fade__slide img { display: block; width: 100%; height: 100%; }
+.cid-fade__slide img { object-fit: cover; }
+@media (prefers-reduced-motion: reduce) {
+  .cid-fade__slide { transition: none; }
+}
+
 /* Link dos termos e condições */
 .cid-terms {
   color: var(--gold-ink);

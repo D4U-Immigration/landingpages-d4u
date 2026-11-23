@@ -33,21 +33,50 @@
       "Você indica amigos, familiares ou conhecidos que desejam iniciar seu planejamento internacional. Se a pessoa indicada fechar contrato com a D4U, você ganha um processo de cidadania americana!",
       "É a sua oportunidade de retribuir a confiança, ajudar outras pessoas e avançar na sua própria jornada nos Estados Unidos."
     ],
-    "imageAlt": "Grupo de quatro amigos sorrindo juntos ao ar livre"
+    "photos": [
+      {
+        "src": "familia-noite",
+        "alt": "Família de três gerações rindo junta à noite, sob um varal de luzes"
+      },
+      {
+        "src": "familia-sofa-conversa",
+        "alt": "Pai, filho e mãe sentados lado a lado no sofá, conversando"
+      },
+      {
+        "src": "familia-sofa",
+        "alt": "Família de quatro pessoas sorrindo, sentada em um sofá na sala"
+      },
+      {
+        "src": "familia-cafe",
+        "alt": "Família de várias gerações sorrindo ao redor da mesa do café da manhã"
+      }
+    ]
   },
   "prize": {
     "value": "US$ 2.000",
     "label": "em um processo de cidadania americana",
-    "equation": ["1 indicação convertida", "1 processo de cidadania"],
+    "equation": [
+      "1 indicação convertida",
+      "1 processo de cidadania"
+    ],
     "text": "A cada amigo ou familiar indicado que fechar contrato com a D4U, você ganha um processo de cidadania americana, no valor de US$ 2 mil."
   },
   "steps": {
     "title": "Sua indicação pode valer muito!",
     "lede": "São apenas 3 passos para aproveitar essa oportunidade:",
     "items": [
-      { "title": "Escolha quem indicar", "text": "Pense em amigos, familiares ou conhecidos que sonham em morar, trabalhar, investir ou construir uma vida nos Estados Unidos." },
-      { "title": "Faça sua indicação", "text": "Preencha o formulário com seus dados e as informações da pessoa que deseja indicar." },
-      { "title": "Ganhe seu processo de cidadania", "text": "Se a pessoa indicada fechar contrato com a D4U, você ganha um processo de cidadania americana no valor de US$ 2 mil!" }
+      {
+        "title": "Escolha quem indicar",
+        "text": "Pense em amigos, familiares ou conhecidos que sonham em morar, trabalhar, investir ou construir uma vida nos Estados Unidos."
+      },
+      {
+        "title": "Faça sua indicação",
+        "text": "Preencha o formulário com seus dados e as informações da pessoa que deseja indicar."
+      },
+      {
+        "title": "Ganhe seu processo de cidadania",
+        "text": "Se a pessoa indicada fechar contrato com a D4U, você ganha um processo de cidadania americana no valor de US$ 2 mil!"
+      }
     ],
     "callout": "<strong>Não há limite de indicações!</strong> Quanto mais pessoas indicadas fecharem contrato, mais processos de cidadania você poderá conquistar.",
     "termsText": "Clique aqui para consultar os termos e condições da campanha.",

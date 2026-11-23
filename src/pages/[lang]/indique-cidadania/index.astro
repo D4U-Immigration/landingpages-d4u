@@ -126,7 +126,18 @@ const STEP_ICONS = [
         </div>
       </div>
       <div class="section-grid__media">
-        <Photo class="section-photo" src={`${IMG}/conquista`} alt={t.conquest.imageAlt} />
+        {/* Fotos em fade: só a 1ª carrega com a página; as demais são baixadas uma a uma, pouco antes
+            de aparecer, e só com a seção na tela (script no fim da página). */}
+        <div class="cid-fade" aria-roledescription="carrossel">
+          {t.conquest.photos.map((ph: { src: string; alt: string }, i: number) => {
+            const base = `${IMG}/${ph.src}`;
+            const srcset = `${base}-640.webp 640w, ${base}-960.webp 960w, ${base}.webp 1200w`;
+            const sizes = '(min-width: 900px) 540px, calc(100vw - 48px)';
+            return i === 0
+              ? <div class="cid-fade__slide is-active"><picture><source srcset={srcset} sizes={sizes} type="image/webp"><img src={`${base}.jpg`} alt={ph.alt} width="1200" height="900" loading="lazy" decoding="async"></picture></div>
+              : <div class="cid-fade__slide" aria-hidden="true"><picture><source data-srcset={srcset} sizes={sizes} type="image/webp"><img data-src={`${base}.jpg`} alt={ph.alt} width="1200" height="900" decoding="async"></picture></div>;
+          })}
+        </div>
       </div>
     </div>
   </div>
@@ -195,6 +206,45 @@ const STEP_ICONS = [
 <SiteFooter html={t.footer.html} lang={t.footer.lang} />
 
 <StickyCta formAnchor={a.form} cta={t.cta.sticky} />
+
+<script>
+  // Fotos em fade da seção "Sua conquista": troca a cada 4,5 s só com a seção visível; cada foto
+  // é baixada logo antes de aparecer (a seguinte fica pré-carregada). Movimento reduzido: só a 1ª.
+  const fade = document.querySelector<HTMLElement>('.cid-fade');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (fade && !reduce && 'IntersectionObserver' in window) {
+    const slides = Array.from(fade.querySelectorAll<HTMLElement>('.cid-fade__slide'));
+    const load = (slide?: HTMLElement) => {
+      if (!slide) return;
+      slide.querySelectorAll<HTMLSourceElement>('source[data-srcset]').forEach((el) => { el.srcset = el.dataset.srcset!; el.removeAttribute('data-srcset'); });
+      slide.querySelectorAll<HTMLImageElement>('img[data-src]').forEach((el) => { el.src = el.dataset.src!; el.removeAttribute('data-src'); });
+    };
+    let current = 0;
+    let timer = 0;
+    let visible = false;
+    const next = () => {
+      const to = (current + 1) % slides.length;
+      const img = slides[to].querySelector('img')!;
+      load(slides[to]);
+      const show = () => {
+        slides[current].classList.remove('is-active');
+        slides[current].setAttribute('aria-hidden', 'true');
+        slides[to].classList.add('is-active');
+        slides[to].removeAttribute('aria-hidden');
+        current = to;
+        load(slides[(to + 1) % slides.length]);
+      };
+      if (img.complete && img.naturalWidth) show(); else img.addEventListener('load', show, { once: true });
+    };
+    const start = () => { if (!timer && visible && !document.hidden) timer = window.setInterval(next, 4500); };
+    const stop = () => { window.clearInterval(timer); timer = 0; };
+    new IntersectionObserver((entries) => {
+      visible = entries[0].isIntersecting;
+      if (visible) { load(slides[1]); start(); } else stop();
+    }, { rootMargin: '200px 0px' }).observe(fade);
+    document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
+  }
+</script>
 
 <script>
   // Ponto de luz da faixa do prêmio segue o mouse (só com mouse de verdade e sem movimento reduzido)
