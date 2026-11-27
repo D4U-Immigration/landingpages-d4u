@@ -27,7 +27,7 @@ const checks = [
 
 // quiz: link do teste gratuito (null = "em breve"); more: LP deste projeto ou página atual do visto
 const services = [
-  { title: 'Visto EB-1', text: 'Para profissionais de destaque.', quiz: 'https://lp.d4uimmigration.com/pt-br/quiz-eb-1', more: 'https://d4uimmigration.com/pt-br/visto/eb-1' },
+  { title: 'Visto EB-1', text: 'Para profissionais de destaque.', quiz: 'https://lp.d4uimmigration.com/pt-br/quiz-eb-1', more: lpUrl('eb1') ?? 'https://d4uimmigration.com/pt-br/visto/eb-1' },
   { title: 'Visto EB-2 NIW', text: 'Para profissionais qualificados.', quiz: 'https://lp.d4uimmigration.com/pt-br/quiz-eb-2-niw', more: lpUrl('eb2-niw') ?? 'https://d4uimmigration.com/pt-br/visto/eb-2-niw' },
   // Link do quiz EB-5 pendente — solicitar ao Erick antes de publicar.
   { title: 'EB-5', text: 'Green Card para investidores.', quiz: null, more: lpUrl('eb5') ?? 'https://d4uimmigration.com/pt-br/visto/eb-5' },

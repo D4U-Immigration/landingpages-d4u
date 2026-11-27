@@ -79,6 +79,20 @@ export const LPS = {
       'pt-br': 'Modelos de indicação e parceria da D4U Immigration: indicação com Gift Card (até US$ 400 por contrato fechado), Programa de Parceiros (comissões de 3% a 5%) e Programa de Embaixadores (5% a 7%, conforme o número de contratos).',
     },
   },
+  eb1: {
+    name: 'Visto EB-1',
+    // Só pt-br por enquanto: as páginas EN/ES do site têm conteúdo antigo diferente (aguardando decisão)
+    locales: ['pt-br'],
+    // Catálogo oficial de forms: família EB-1
+    forms: {
+      'pt-br': '219ff39a-1b28-404f-856c-be88f464ddda',
+      en: '8ed37e8c-7a2e-487b-9361-c3ddff25bdea',
+      es: 'd57e252a-2589-4630-8751-948ff722f589',
+    },
+    llms: {
+      'pt-br': 'O que é o visto EB-1 (residência permanente para quem tem destaque em ciências, artes, educação, negócios ou esportes), as três categorias EB-1A, EB-1B e EB-1C, como funciona cada uma, quem pode aplicar e os critérios exigidos (3 de 10 no EB-1A, 2 de 6 no EB-1B).',
+    },
+  },
   'indique-cidadania': {
     name: 'Indique e ganhe sua cidadania americana',
     locales: ['pt-br'],

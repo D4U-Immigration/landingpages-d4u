@@ -1,0 +1,146 @@
+{
+  "meta": {
+    "title": "Visto EB-1: Green Card para talentos extraordinários | D4U",
+    "description": "O Visto EB-1 é a porta de entrada para o Green Card americano, destinado a indivíduos com habilidades extraordinárias reconhecidas nacional ou internacionalmente.",
+    "ogTitle": "Visto EB-1: seu talento pode ser a passagem para a residência permanente nos EUA",
+    "ogImageAlt": "Palestrante em um palco iluminado diante de uma grande plateia",
+    "pageName": "Visto EB-1: seu talento pode ser a passagem para a residência permanente nos EUA",
+    "pageDescription": "Você é um profissional que se destaca em sua área de atuação? O Visto EB-1 é a porta de entrada para o Green Card americano, destinado a indivíduos com habilidades extraordinárias reconhecidas nacional ou internacionalmente.",
+    "about": "Visto EB-1 (EB-1A, EB-1B e EB-1C)",
+    "breadcrumbName": "Visto EB-1"
+  },
+  "anchors": {
+    "form": "formulario",
+    "whatIs": "o-que-e",
+    "howItWorks": "como-funciona",
+    "proof": "nova-historia",
+    "ctaFinal": "cta-final"
+  },
+  "cta": {
+    "header": "Comece sua jornada agora",
+    "sticky": "Comece sua jornada agora"
+  },
+  "hero": {
+    "badge": "Visto <span class=\"nowrap\">EB-1</span>",
+    "title": "Seu talento pode ser a passagem para a residência permanente nos EUA.",
+    "lede": "Você é um profissional que se destaca em sua área de atuação? O Visto <span class=\"nowrap\">EB-1</span> é a porta de entrada para o Green Card americano, destinado a indivíduos com habilidades extraordinárias reconhecidas nacional ou internacionalmente.",
+    "cta": "Comece sua jornada agora"
+  },
+  "whatIs": {
+    "eyebrow": "Visto <span class=\"nowrap\">EB-1</span>",
+    "title": "O que é o visto <span class=\"nowrap\">EB-1</span>?",
+    "lede": "É um visto de residência permanente (o famoso Green Card) para quem tem destaque em áreas como ciências, artes, educação, negócios ou esportes. Esse visto faz parte da categoria de vistos EB (Employment-Based) e é destinado a três grupos principais:",
+    "groups": [
+      { "label": "1) <span class=\"nowrap\">EB-1A</span>:", "text": "Não precisa de oferta de emprego ou certificação trabalhista." },
+      { "label": "2) <span class=\"nowrap\">EB-1B</span>:", "text": "Não precisa de certificação trabalhista." },
+      { "label": "3) <span class=\"nowrap\">EB-1C</span>:", "text": "Para quem busca transferência para uma posição gerencial ou executiva." }
+    ],
+    "imageAlt": "Dois cientistas sorrindo enquanto fazem um experimento em laboratório"
+  },
+  "howItWorks": {
+    "title": "Como funciona e quem pode aplicar para o visto <span class=\"nowrap\">EB-1</span>?",
+    "tabsLabel": "Categorias do visto EB-1",
+    "needTitle": "O que precisa?",
+    "tabs": [
+      {
+        "id": "eb1a",
+        "tab": "<span class=\"nowrap\">EB-1A</span>",
+        "title": "<span class=\"nowrap\">EB-1A</span> - Não precisa de oferta de emprego ou certificação trabalhista.",
+        "forWhom": "Para quem tem habilidades extraordinárias — como prêmios, publicações ou reconhecimento internacional nas áreas de ciências, artes, educação, negócios ou esportes.",
+        "need": "Você deve atender a pelo menos 3 dos 10 critérios estabelecidos ou apresentar evidências de uma conquista única.",
+        "criteriaTitle": "Confira os 10 critérios necessários para aplicar ao visto <span class=\"nowrap\">EB-1A</span>.",
+        "min": 3,
+        "criteria": [
+          "Ter recebido prêmios ou distinções de excelência, reconhecidos nacional ou internacionalmente;",
+          "Participar de associações de sua área que exijam realizações excepcionais de seus membros;",
+          "Ter materiais sobre você em publicações profissionais ou comerciais importantes ou em outras mídias;",
+          "Apresentar provas de que foi convidado a julgar o trabalho de outros, seja individualmente ou em um comitê;",
+          "Mostrar evidências de suas contribuições originais científicas, acadêmicas, artísticas, esportivas ou comerciais de grande importância para a área;",
+          "Ser autor de artigos acadêmicos em publicações profissionais ou comerciais importantes ou em outras mídias importantes;",
+          "Mostrar provas de que seu trabalho foi exibido em exposições artísticas ou vitrines;",
+          "Provar seu desempenho em um papel de liderança ou crítico em organizações de destaque;",
+          "Demonstrar que você recebe um salário alto ou outra remuneração acima da média em relação a outros em sua área;",
+          "Validar seu sucesso comercial nas artes cênicas."
+        ],
+        "image": "eb1a",
+        "imageAlt": "Profissional de smoking sorrindo e segurando um troféu"
+      },
+      {
+        "id": "eb1b",
+        "tab": "<span class=\"nowrap\">EB-1B</span>",
+        "title": "<span class=\"nowrap\">EB-1B</span> - Não precisa de certificação trabalhista.",
+        "forWhom": "Para professores e pesquisadores de excelência.",
+        "need": "Você deve comprovar suas realizações acadêmicas, ter pelo menos 3 anos de experiência em ensino ou pesquisa, atender a, pelo menos, 2 dos 6 critérios disponíveis e ter uma oferta de emprego de uma instituição nos EUA.",
+        "criteriaTitle": "Confira os 6 critérios para aplicar ao visto <span class=\"nowrap\">EB-1B</span>.",
+        "min": 2,
+        "criteria": [
+          "Evidências de recebimento de prêmios importantes ou prêmios por conquistas notáveis;",
+          "Participação em associações que exigem que seus membros demonstrem realizações notáveis;",
+          "Material em publicações profissionais escritas por terceiros;",
+          "Participação, seja em painéis ou individualmente, como avaliador do trabalho de outros na mesma área acadêmica ou em área acadêmica afim;",
+          "Ter contribuições originais de pesquisa científica ou acadêmica na área de atuação;",
+          "Autoria de livros ou artigos acadêmicos (em periódicos acadêmicos de circulação internacional) na área de atuação."
+        ],
+        "image": "eb1b",
+        "imageAlt": "Professor dando aula para estudantes em um auditório universitário"
+      },
+      {
+        "id": "eb1c",
+        "tab": "<span class=\"nowrap\">EB-1C</span>",
+        "title": "<span class=\"nowrap\">EB-1C</span> - Para quem busca transferência para uma posição gerencial ou executiva.",
+        "forWhom": "Para quem já trabalha em uma multinacional fora dos EUA e busca uma transferência para uma posição gerencial ou executiva nos Estados Unidos.",
+        "need": "O candidato deve ter atuado fora do país por pelo menos 1 ano nos últimos 3 anos e a empresa deve estar em operação nos EUA há mais de 1 ano.",
+        "image": "eb1c",
+        "imageAlt": "Executivo ao telefone em um escritório com vista para os prédios da cidade"
+      }
+    ]
+  },
+  "proof": {
+    "title": "Escreva um novo capítulo da sua história nos EUA",
+    "lede": "Faça como a atriz Susana Vieira e escolha a D4U para te orientar em sua jornada rumo aos Estados Unidos",
+    "cta": "Comece sua jornada agora",
+    "creds": [
+      { "icon": "building", "parts": [
+        { "class": "cred__num cred__num--text", "attrs": {}, "html": "Ex-diretor" },
+        { "class": "cred__label", "attrs": {}, "html": "da USCIS" }
+      ] },
+      { "icon": "shield", "parts": [
+        { "class": "cred__num", "attrs": { "data-count": "91", "data-prefix": "+", "data-suffix": "%" }, "html": "+91%" },
+        { "class": "cred__label", "attrs": {}, "html": "de taxa de sucesso no mercado" }
+      ] },
+      { "icon": "users", "parts": [
+        { "class": "cred__label cred__label--lead", "attrs": {}, "html": "Mais de" },
+        { "class": "cred__num", "attrs": { "data-count": "18", "data-decimals": "3", "data-decimal-sep": "." }, "html": "18.000" },
+        { "class": "cred__label", "attrs": {}, "html": "beneficiados" }
+      ] }
+    ]
+  },
+  "awards": {
+    "title": "Nossos Prêmios",
+    "label": "Prêmios e certificações da D4U Immigration",
+    "alts": [
+      "Selo Great Place to Work Certified jan 2022 – jan 2023",
+      "Selo Great Place to Work Certified jan 2023 – jan 2024",
+      "Selo Great Place to Work Certified jan 2024 – jan 2025",
+      "Selo Great Place to Work Certified jan 2025 – jan 2026",
+      "Selo Great Place to Work Certified jan 2026 – jan 2027",
+      "Selo International Business Magazine Award Winner 2025",
+      "Selo AI Awards 2021",
+      "Selo AI Awards 2022",
+      "Selo AI Awards 2023",
+      "Selo AI Awards 2024",
+      "Selo AI Awards 2025",
+      "Selo Procon-SP Empresa Verificada",
+      "Certificado RSM de taxa de sucesso +91%"
+    ]
+  },
+  "ctaFinal": {
+    "title": "Preencha o formulário",
+    "lede": "Confira suas possibilidades gratuitamente.",
+    "cta": "Comece sua jornada agora"
+  },
+  "footer": {
+    "html": "*D4U Immigration provides immigration planning and administrative support services. The legal aspects of each case are handled by our partner U.S.-licensed immigration attorneys. D4U Immigration does not provide legal advice or represent clients before U.S. immigration authorities.",
+    "lang": "en"
+  }
+}

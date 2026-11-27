@@ -1,0 +1,266 @@
+---
+/**
+ * LP Visto EB-1 — gera /pt-br/eb1/ (EN/ES quando os textos forem aprovados).
+ * Textos: src/content/lps/eb1/{idioma}.json (literais à página do visto no site da D4U).
+ * Formulário HubSpot do catálogo por idioma: src/config/lps.js. CSS exclusivo: styles/eb1.css.
+ */
+import { SITE_URL } from 'astro:env/server';
+import LpLayout from '../../../layouts/LpLayout.astro';
+import SiteHeader from '../../../components/SiteHeader.astro';
+import HeroForm from '../../../components/HeroForm.astro';
+import CtaButton from '../../../components/CtaButton.astro';
+import Photo from '../../../components/Photo.astro';
+import CredGrid from '../../../components/CredGrid.astro';
+import Awards from '../../../components/Awards.astro';
+import SiteFooter from '../../../components/SiteFooter.astro';
+import StickyCta from '../../../components/StickyCta.astro';
+import { LPS } from '../../../config/lps.js';
+import { imageSet } from '../../../config/helpers.js';
+import '../../../styles/eb1.css';
+
+const SLUG = 'eb1';
+const LP = LPS[SLUG];
+const IMG = `/assets/lp/${SLUG}`;
+const content = import.meta.glob('../../../content/lps/eb1/*.json', { eager: true, import: 'default' });
+
+export function getStaticPaths() {
+  return LPS['eb1'].locales.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: 'pt-br' | 'en' | 'es' };
+const t: any = content[`../../../content/lps/eb1/${lang}.json`];
+const a = t.anchors;
+const formHref = `#${a.form}`;
+
+const site = SITE_URL.replace(/\/$/, '');
+const pageUrl = `${site}/${lang}/${SLUG}/`;
+const inLanguage = { 'pt-br': 'pt-BR', en: 'en', es: 'es' }[lang];
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': 'https://d4uimmigration.com/#organization',
+      name: 'D4U Immigration',
+      url: 'https://d4uimmigration.com',
+      logo: 'https://d4uimmigration.com/wp-content/themes/d4u/assets/images/2025/Logo_D4U_cb2.svg',
+      foundingDate: '2015',
+    },
+    {
+      '@type': 'WebPage',
+      '@id': `${pageUrl}#webpage`,
+      url: pageUrl,
+      name: t.meta.pageName,
+      description: t.meta.pageDescription,
+      inLanguage,
+      primaryImageOfPage: `${site}${IMG}/og-eb1.jpg`,
+      publisher: { '@id': 'https://d4uimmigration.com/#organization' },
+      breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
+      about: { '@type': 'Thing', name: t.meta.about },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${pageUrl}#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'D4U Immigration', item: 'https://d4uimmigration.com/' },
+        { '@type': 'ListItem', position: 2, name: t.meta.breadcrumbName, item: pageUrl },
+      ],
+    },
+  ],
+};
+
+const GROUP_ICONS = [
+  // EB-1A: estrela (habilidades extraordinárias)
+  '<path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.5L12 17.3 6.1 20.5l1.3-6.5L2.5 9.4l6.6-.8L12 2.5z"/>',
+  // EB-1B: capelo (professores e pesquisadores)
+  '<path d="M2 9l10-5 10 5-10 5L2 9z"/><path d="M6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/><path d="M22 9v6"/>',
+  // EB-1C: maleta (gerencial/executivo em multinacional)
+  '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/>',
+];
+---
+<LpLayout
+  locale={lang}
+  path={`${SLUG}/`}
+  locales={LP.locales}
+  title={t.meta.title}
+  description={t.meta.description}
+  ogTitle={t.meta.ogTitle}
+  ogImage={`${IMG}/og-eb1.jpg`}
+  ogImageAlt={t.meta.ogImageAlt}
+  preloadImages={[
+    { href: `${IMG}/hero-bg-800.webp`, media: '(max-width: 799px)' },
+    { href: `${IMG}/hero-bg.webp`, media: '(min-width: 800px)' },
+  ]}
+  dnsPrefetch={['https://js.hsforms.net']}
+  jsonLd={jsonLd}
+>
+<SiteHeader formAnchor={a.form} cta={t.cta.header} />
+
+<main>
+
+<section class="hero" aria-labelledby="hero-title" style={`--hero-bg: ${imageSet(`${IMG}/hero-bg`)}; --hero-bg-sm: url("${IMG}/hero-bg-800.webp")`}>
+  <div class="container hero__grid">
+    <div class="hero__content">
+      <h1 id="hero-title" class="eb1-hero-title">
+        <span class="free-badge"><span class="free-badge__dot" aria-hidden="true"></span><span set:html={t.hero.badge} /></span>
+        <span set:html={t.hero.title} />
+      </h1>
+      <p class="lede" set:html={t.hero.lede} />
+      <div class="hero__actions">
+        <CtaButton href={formHref} html={t.hero.cta} />
+      </div>
+    </div>
+    {/* Altura do form EB-1 medida em 2026-11-27 (card 299/393/473 px): 991/920/716 */}
+    <HeroForm anchor={a.form} formId={LP.forms[lang]} heights={[991, 920, 716]} />
+  </div>
+</section>
+
+<section class="section section--white" id={a.whatIs} aria-labelledby={`${a.whatIs}-title`}>
+  <div class="container">
+    <div class="reveal section-grid">
+      <div class="section-grid__text">
+        <span class="eyebrow" set:html={t.whatIs.eyebrow} />
+        <h2 id={`${a.whatIs}-title`} set:html={t.whatIs.title} />
+        <p class="lede" style="margin-top:1.1rem" set:html={t.whatIs.lede} />
+      </div>
+      <div class="section-grid__media">
+        <Photo class="section-photo" src={`${IMG}/o-que-e`} alt={t.whatIs.imageAlt} width={1200} height={900} />
+      </div>
+    </div>
+
+    <ul class="reveal eb1-groups">
+      {t.whatIs.groups.map((g: { label: string; text: string }, i: number) => (
+        <li class="eb1-group">
+          <span class="eb1-group__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" set:html={GROUP_ICONS[i]} />
+          </span>
+          <h3 set:html={g.label} />
+          <p set:html={g.text} />
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<section class="section section--light" id={a.howItWorks} aria-labelledby={`${a.howItWorks}-title`}>
+  <div class="container">
+    <div class="reveal eb1-how-head">
+      <h2 id={`${a.howItWorks}-title`} set:html={t.howItWorks.title} />
+    </div>
+
+    <div class="reveal eb1-tabs" data-eb1-tabs>
+      <div class="eb1-tabs__list" role="tablist" aria-label={t.howItWorks.tabsLabel}>
+        {t.howItWorks.tabs.map((tab: any, i: number) => (
+          <button type="button" role="tab" class="eb1-tabs__tab" id={`tab-${tab.id}`} aria-controls={`painel-${tab.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>
+            <span class="eb1-tabs__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" set:html={GROUP_ICONS[i]} /></span>
+            <span set:html={tab.tab} />
+          </button>
+        ))}
+      </div>
+
+      {t.howItWorks.tabs.map((tab: any, i: number) => (
+        <div class="eb1-panel" role="tabpanel" id={`painel-${tab.id}`} aria-labelledby={`tab-${tab.id}`} hidden={i !== 0}>
+          <div class="eb1-panel__grid">
+            <div class="eb1-panel__text">
+              <h3 class="eb1-panel__title" set:html={tab.title} />
+              <p class="lede" set:html={tab.forWhom} />
+              <div class="eb1-need">
+                <h4 set:html={t.howItWorks.needTitle} />
+                <p set:html={tab.need} />
+              </div>
+            </div>
+            <div class="eb1-panel__media">
+              <Photo class="section-photo" src={`${IMG}/${tab.image}`} alt={tab.imageAlt} width={1200} height={900} />
+            </div>
+          </div>
+
+          {tab.criteria && (
+            <div class="eb1-criteria" data-min={tab.min}>
+              <div class="eb1-criteria__head">
+                <h4 set:html={tab.criteriaTitle} />
+                <div class="eb1-meter" aria-hidden="true">
+                  {tab.criteria.map((_: string, k: number) => <span class:list={{ 'is-min': k === tab.min - 1 }}></span>)}
+                </div>
+              </div>
+              <ul class="eb1-criteria__list">
+                {tab.criteria.map((c: string) => (
+                  <li><button type="button" class="eb1-crit" aria-pressed="false"><span class="eb1-crit__box"><svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 7" fill="none" stroke="#162338" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span set:html={c} /></button></li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="section section--navy" id={a.proof} aria-labelledby={`${a.proof}-title`}>
+  <div class="container">
+    <div class="reveal stories-head">
+      <h2 id={`${a.proof}-title`} set:html={t.proof.title} />
+      <p class="lede" set:html={t.proof.lede} />
+    </div>
+    <CredGrid items={t.proof.creds} />
+    <div class="reveal eb1-proof-cta">
+      <CtaButton href={formHref} html={t.proof.cta} />
+    </div>
+  </div>
+</section>
+
+<div class="eb1-awards-title"><h2 class="reveal" set:html={t.awards.title} /></div>
+<Awards label={t.awards.label} alts={t.awards.alts} />
+
+<section class="cta-band" id={a.ctaFinal} aria-labelledby={`${a.ctaFinal}-title`} style={`--cta-bg: ${imageSet(`${IMG}/cta-final`)}`}>
+  <div class="container reveal">
+    <h2 id={`${a.ctaFinal}-title`} set:html={t.ctaFinal.title} />
+    <p class="lede lede--strong" set:html={t.ctaFinal.lede} />
+    <CtaButton href={formHref} html={t.ctaFinal.cta} />
+  </div>
+</section>
+
+</main>
+
+<SiteFooter html={t.footer.html} lang={t.footer.lang} />
+
+<StickyCta formAnchor={a.form} cta={t.cta.sticky} />
+
+<script>
+  // Abas EB-1A / EB-1B / EB-1C (padrão ARIA tabs: clique e setas do teclado)
+  document.querySelectorAll<HTMLElement>('[data-eb1-tabs]').forEach((root) => {
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+    const select = (tab: HTMLButtonElement, focus = false) => {
+      tabs.forEach((t) => {
+        const on = t === tab;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        document.getElementById(t.getAttribute('aria-controls')!)!.hidden = !on;
+      });
+      if (focus) tab.focus();
+    };
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => select(tab));
+      tab.addEventListener('keydown', (e) => {
+        const step = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+        if (step) { e.preventDefault(); select(tabs[(i + step + tabs.length) % tabs.length], true); }
+        if (e.key === 'Home') { e.preventDefault(); select(tabs[0], true); }
+        if (e.key === 'End') { e.preventDefault(); select(tabs[tabs.length - 1], true); }
+      });
+    });
+  });
+
+  // Critérios clicáveis: cada lista tem o próprio medidor, com a marca do mínimo exigido (data-min)
+  document.querySelectorAll<HTMLElement>('.eb1-criteria').forEach((box) => {
+    const min = Number(box.dataset.min || 0);
+    const bars = Array.from(box.querySelectorAll('.eb1-meter span'));
+    box.querySelectorAll<HTMLButtonElement>('.eb1-crit').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        btn.setAttribute('aria-pressed', btn.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+        const count = box.querySelectorAll('.eb1-crit[aria-pressed="true"]').length;
+        bars.forEach((bar, k) => bar.classList.toggle('is-on', k < count));
+        box.classList.toggle('is-qualified', min > 0 && count >= min);
+      });
+    });
+  });
+</script>
+</LpLayout>
